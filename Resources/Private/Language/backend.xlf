@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-11-09UTC10:44:160">
+		<body>
+			<trans-unit id="widgets.storagesize.title">
+				<source>Storage statistic</source>
+			</trans-unit>
+			<trans-unit id="widgets.storagesize.description">
+				<source>Show statistics for default storage</source>
+			</trans-unit>
+			<trans-unit id="widgets.storagesize.chart.title">
+				<source>Storage statistics (in GB)</source>
+			</trans-unit>
+			<trans-unit id="widgets.storagesize.chart.used">
+				<source>Used</source>
+			</trans-unit>
+			<trans-unit id="widgets.storagesize.chart.free">
+				<source>Free</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

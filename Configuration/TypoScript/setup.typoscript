@@ -1,0 +1,7 @@
+module.tx_dashboard {
+    view {
+        templateRootPaths {
+            110 = EXT:widget_mirror/Resources/Private/Templates
+        }
+    }
+}
