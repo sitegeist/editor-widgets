@@ -35,3 +35,18 @@ services:
         iconIdentifier: 'content-widget-list'
         height: 'medium'
         width: 'medium'
+
+  dashboard.widget.sitegeist.widget_mirror.duplicatefiles:
+    class: 'Sitegeist\WidgetMirror\Widgets\DuplicateFilesWidget'
+    arguments:
+      $view: '@dashboard.views.widget'
+      $connectionPool: '@TYPO3\CMS\Core\Database\ConnectionPool'
+    tags:
+      - name: dashboard.widget
+        identifier: sitegeist.widget_mirror.duplicatefiles
+        groupNames: systemInfo
+        title: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicatefiles.title'
+        description: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicatefiles.description'
+        iconIdentifier: 'content-widget-list'
+        height: 'medium'
+        width: 'medium'

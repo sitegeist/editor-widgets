@@ -1,0 +1,28 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Widget/Widget" />
+<f:section name="main">
+
+    <div class="widget-table-wrapper">
+        <table class="widget-table">
+            <f:for each="{duplicates}" as="duplicate">
+                <tr>
+                    <td>
+                        <f:format.raw>
+                            <f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicatefiles.text" arguments="{0: duplicate.sha1, 1: duplicate.counting}" /><br />
+                        </f:format.raw>
+                        <small>
+                            <f:for each="{duplicate.files}" as="file">
+                                {file.identifier}<br>
+                            </f:for>
+                        </small>
+                    </td>
+                </tr>
+            </f:for>
+        </table>
+    </div>
+
+</f:section>
+<f:section name="footer">
+
+</f:section>
+</html>

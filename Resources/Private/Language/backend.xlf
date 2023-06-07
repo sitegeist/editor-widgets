@@ -10,10 +10,20 @@
 			</trans-unit>
 
 			<trans-unit id="widgets.unusedfiles.title">
-				<source>Show biggest unused files</source>
+				<source>Biggest unused files</source>
 			</trans-unit>
 			<trans-unit id="widgets.unusedfiles.description">
 				<source>Displays the 10 biggest files that are not referenced</source>
+			</trans-unit>
+
+			<trans-unit id="widgets.duplicatefiles.title">
+				<source>Duplicate files</source>
+			</trans-unit>
+			<trans-unit id="widgets.duplicatefiles.description">
+				<source>Displays all files that are duplicates</source>
+			</trans-unit>
+			<trans-unit id="widgets.duplicatefiles.text">
+				<source><![CDATA[<strong>%s</strong> has been found <strong>%s</strong> times]]></source>
 			</trans-unit>
 		</body>
 	</file>
