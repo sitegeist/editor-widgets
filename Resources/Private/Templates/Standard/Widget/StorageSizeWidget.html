@@ -1,3 +1,41 @@
-<div class="widget-chart">
-    <canvas></canvas>
-</div>
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Widget/Widget" />
+<f:section name="main">
+
+    <div class="widget-number">
+        <div class="widget-number-icon">
+            <f:if condition="{storageData.usage}">
+                <f:then>
+                    <f:if condition="{storageData.usage} > 80">
+                        <f:then>
+                            <core:icon identifier="overlay-missing" size="large" alternativeMarkupIdentifier="inline" />
+                        </f:then>
+                        <f:else if="{storageData.usage} > 50">
+                            <core:icon identifier="overlay-warning" size="large" alternativeMarkupIdentifier="inline" />
+                        </f:else>
+                        <f:else>
+                            <core:icon identifier="overlay-approved" size="large" alternativeMarkupIdentifier="inline" />
+                        </f:else>
+                    </f:if>
+                </f:then>
+                <f:else>
+                    <core:icon identifier="actions-question" size="large" alternativeMarkupIdentifier="inline" />
+                </f:else>
+            </f:if>
+        </div>
+        <div class="widget-number-content">
+            <div class="widget-number-title">{storageData.name}</div>
+            <div class="widget-number-number">
+                <f:if condition="{storageData.usage}">
+                    <f:then>{storageData.usage -> f:format.number()} %</f:then>
+                    <f:else>-- %</f:else>
+                </f:if>
+            </div>
+        </div>
+    </div>
+
+</f:section>
+<f:section name="footer">
+
+</f:section>
+</html>

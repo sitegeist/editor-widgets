@@ -3,19 +3,17 @@
 	<file source-language="en" datatype="plaintext" original="messages" date="2018-11-09UTC10:44:160">
 		<body>
 			<trans-unit id="widgets.storagesize.title">
-				<source>Storage statistic</source>
+				<source>Storage usage</source>
 			</trans-unit>
 			<trans-unit id="widgets.storagesize.description">
-				<source>Show statistics for default storage</source>
+				<source>Show usage in percent of default storage</source>
 			</trans-unit>
-			<trans-unit id="widgets.storagesize.chart.title">
-				<source>Storage statistics (in GB)</source>
+
+			<trans-unit id="widgets.unusedfiles.title">
+				<source>Show biggest unused files</source>
 			</trans-unit>
-			<trans-unit id="widgets.storagesize.chart.used">
-				<source>Used</source>
-			</trans-unit>
-			<trans-unit id="widgets.storagesize.chart.free">
-				<source>Free</source>
+			<trans-unit id="widgets.unusedfiles.description">
+				<source>Displays the 10 biggest files that are not referenced</source>
 			</trans-unit>
 		</body>
 	</file>
