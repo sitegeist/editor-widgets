@@ -2,14 +2,7 @@
 
 namespace Sitegeist\WidgetMirror\Widgets;
 
-use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
-use TYPO3\CMS\Core\Page\JavaScriptModuleInstruction;
-use TYPO3\CMS\Core\Resource\File;
-use TYPO3\CMS\Core\Resource\ResourceFactory;
-use TYPO3\CMS\Core\Resource\StorageRepository;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 use TYPO3\CMS\Fluid\View\StandaloneView;
@@ -27,11 +20,6 @@ class UnusedFilesWidget implements WidgetInterface
     private $view;
 
     /**
-     * @var LanguageServiceFactory
-     */
-    private $languageServiceFactory;
-
-    /**
      * @var ConnectionPool
      */
     private $connectionPool;
@@ -39,20 +27,16 @@ class UnusedFilesWidget implements WidgetInterface
     public function __construct(
         WidgetConfigurationInterface $configuration,
         StandaloneView               $view,
-        LanguageServiceFactory       $languageServiceFactory,
         ConnectionPool               $connectionPool
     )
     {
         $this->configuration = $configuration;
         $this->view = $view;
-        $this->languageServiceFactory = $languageServiceFactory;
         $this->connectionPool = $connectionPool;
     }
 
     public function renderWidgetContent(): string
     {
-        $resourceFactory = GeneralUtility::makeInstance(ResourceFactory::class);
-
         $queryBuilder = $this->connectionPool->getConnectionForTable('sys_file')->createQueryBuilder();
         $queryBuilder->getRestrictions()->removeAll();
 

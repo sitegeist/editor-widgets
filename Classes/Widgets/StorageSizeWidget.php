@@ -3,7 +3,6 @@
 namespace Sitegeist\WidgetMirror\Widgets;
 
 use TYPO3\CMS\Core\Core\Environment;
-use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
@@ -22,20 +21,13 @@ class StorageSizeWidget implements WidgetInterface
      */
     private $view;
 
-    /**
-     * @var LanguageServiceFactory
-     */
-    private $languageServiceFactory;
-
     public function __construct(
         WidgetConfigurationInterface $configuration,
         StandaloneView               $view,
-        LanguageServiceFactory       $languageServiceFactory
     )
     {
         $this->configuration = $configuration;
         $this->view = $view;
-        $this->languageServiceFactory = $languageServiceFactory;
     }
 
     public function renderWidgetContent(): string

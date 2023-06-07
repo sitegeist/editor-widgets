@@ -11,7 +11,6 @@ services:
     class: 'Sitegeist\WidgetMirror\Widgets\StorageSizeWidget'
     arguments:
       $view: '@dashboard.views.widget'
-      $languageServiceFactory: '@TYPO3\CMS\Core\Localization\LanguageServiceFactory'
     tags:
       - name: dashboard.widget
         identifier: sitegeist.widget_mirror.storagesize
@@ -26,7 +25,6 @@ services:
     class: 'Sitegeist\WidgetMirror\Widgets\UnusedFilesWidget'
     arguments:
       $view: '@dashboard.views.widget'
-      $languageServiceFactory: '@TYPO3\CMS\Core\Localization\LanguageServiceFactory'
       $connectionPool: '@TYPO3\CMS\Core\Database\ConnectionPool'
     tags:
       - name: dashboard.widget
