@@ -54,10 +54,19 @@ class StorageSizeWidget implements WidgetInterface
         if ($storage->getDriverType() == 'Local' && !empty($maxSize)) {
             $path = Environment::getPublicPath() . $storage->getRootLevelFolder()->getPublicUrl();
             if (is_readable($path)) {
-                $data['usage'] = (disk_total_space($path) - disk_free_space($path)) / ($maxSize / 100);
+                $data['usage'] = $this->getDirSize($path) / ($maxSize / 100);
             }
         }
 
         return $data;
     }
+
+    protected function getDirSize($path)
+    {
+        $fio = popen('/usr/bin/du -sb '.$path, 'r');
+        $size = intval(fgets($fio,80));
+        pclose($fio);
+        return $size;
+    }
+
 }
