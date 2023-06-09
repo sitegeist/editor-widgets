@@ -54,7 +54,7 @@ class LastChangedPagesWidget implements WidgetInterface
         foreach ($pages as &$page) {
             $rootlineUtility = GeneralUtility::makeInstance(RootlineUtility::class, $page['uid']);
             $page['rootline'] = implode(
-                ' -> ',
+                '/',
                 array_slice(
                     array_map(function ($page) {
                             return $page['title'];

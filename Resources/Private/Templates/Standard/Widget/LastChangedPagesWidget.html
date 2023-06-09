@@ -7,7 +7,7 @@
             <f:for each="{pages}" as="page">
                 <tr>
                     <td>
-                        <f:be.link route="web_layout" parameters="{id: page.uid}">{page.rootline}</f:be.link>
+                        <strong><f:be.link route="web_layout" parameters="{id: page.uid}">{page.rootline}</f:be.link></strong>
                         <small>
                             {page.tstamp -> f:format.date()} ({page.uid})
                         </small>
