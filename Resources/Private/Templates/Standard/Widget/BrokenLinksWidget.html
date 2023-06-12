@@ -1,0 +1,42 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Widget/Widget" />
+<f:section name="main">
+
+    <div class="widget-table-wrapper">
+        <table class="widget-table">
+            <f:for each="{brokenLinks}" as="brokenLink">
+                <tr>
+                    <td>
+                        <strong>
+                            <f:link.typolink absolute="1" parameter="{brokenLink.url}">
+                                <f:if condition="{f:uri.typolink(parameter: brokenLink.url)}">
+                                    <f:then>{f:uri.typolink(absolute: 1, parameter: brokenLink.url)}</f:then>
+                                    <f:else>
+                                        <f:if condition="{brokenLink.link_title}">
+                                            <f:then>{brokenLink.link_title}</f:then>
+                                            <f:else>{brokenLink.url}</f:else>
+                                        </f:if>
+                                    </f:else>
+                                </f:if>
+                            </f:link.typolink>
+                        </strong>
+                        <small>
+                            {brokenLink.errorMessage} ({brokenLink.last_check -> f:format.date()})
+                            <br>
+                            <be:link.editRecord uid="{brokenLink.record_uid}" table="{brokenLink.table_name}">
+                                Broken link is used in record <strong>{brokenLink.headline}</strong>
+                                (UID: <strong>{brokenLink.record_uid}</strong>) on page ID <strong>{brokenLink.record_pid}</strong>
+                                in field <strong>{brokenLink.field}</strong>.
+                            </be:link.editRecord>
+                        </small>
+                    </td>
+                </tr>
+            </f:for>
+        </table>
+    </div>
+
+</f:section>
+<f:section name="footer">
+
+</f:section>
+</html>

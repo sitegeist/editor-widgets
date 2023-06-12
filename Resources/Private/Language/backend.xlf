@@ -39,6 +39,13 @@
 			<trans-unit id="widgets.newestredirects.description">
 				<source>Shows a list of newest redirects</source>
 			</trans-unit>
+
+			<trans-unit id="widgets.brokenlinks.title">
+				<source>Broken links</source>
+			</trans-unit>
+			<trans-unit id="widgets.brokenlinks.description">
+				<source>Shows a list of broken links (based on tx_linkvalidator)</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
