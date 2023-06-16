@@ -46,6 +46,13 @@
 			<trans-unit id="widgets.brokenlinks.description">
 				<source>Shows a list of broken links (based on tx_linkvalidator)</source>
 			</trans-unit>
+
+			<trans-unit id="sys_file_storage.widget_mirror.max_storage_size">
+				<source>Maximum size desired in bytes (only used for display, no validation is done!)</source>
+			</trans-unit>
+			<trans-unit id="sys_file_storage.widget_mirror">
+				<source>Widget mirror</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

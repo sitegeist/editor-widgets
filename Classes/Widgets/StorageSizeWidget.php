@@ -11,6 +11,8 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 
 class StorageSizeWidget implements WidgetInterface
 {
+    private const DEFAULT_MAX_SIZE = 214748364800;
+
     /**
      * @var WidgetConfigurationInterface
      */
@@ -49,7 +51,12 @@ class StorageSizeWidget implements WidgetInterface
             'name' => $storage->getName(),
             'usage' => ''
         ];
-        $maxSize = getenv('FILEADMIN_MAX_SIZE');
+
+        if (!empty($storage->getStorageRecord()['tx_widget_mirror_max_size'])) {
+            $maxSize = $storage->getStorageRecord()['tx_widget_mirror_max_size'];
+        } else {
+            $maxSize = self::DEFAULT_MAX_SIZE;
+        }
 
         if ($storage->getDriverType() == 'Local' && !empty($maxSize)) {
             $path = Environment::getPublicPath() . $storage->getRootLevelFolder()->getPublicUrl();
