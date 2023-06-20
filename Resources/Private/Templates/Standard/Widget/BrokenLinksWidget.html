@@ -10,11 +10,11 @@
                         <strong>
                             <f:link.typolink absolute="1" parameter="{brokenLink.url}">
                                 <f:if condition="{f:uri.typolink(parameter: brokenLink.url)}">
-                                    <f:then>{f:uri.typolink(absolute: 1, parameter: brokenLink.url)}</f:then>
+                                    <f:then>{f:uri.typolink(absolute: 1, parameter: brokenLink.url) -> f:format.crop(maxCharacters: 80)}</f:then>
                                     <f:else>
                                         <f:if condition="{brokenLink.link_title}">
-                                            <f:then>{brokenLink.link_title}</f:then>
-                                            <f:else>{brokenLink.url}</f:else>
+                                            <f:then>{brokenLink.link_title -> f:format.crop(maxCharacters: 80)}</f:then>
+                                            <f:else>{brokenLink.url -> f:format.crop(maxCharacters: 80)}</f:else>
                                         </f:if>
                                     </f:else>
                                 </f:if>
@@ -28,7 +28,7 @@
                                     <f:translate
                                         key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenlinks.text"
                                         arguments="{
-                                            0: brokenLink.headline,
+                                            0: '{brokenLink.headline -> f:format.crop(maxCharacters: 80)}',
                                             1: brokenLink.record_uid,
                                             2: brokenLink.record_pid,
                                             3: brokenLink.field
