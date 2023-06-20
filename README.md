@@ -41,7 +41,7 @@ The last 10 updated redirects.
 ### Broken links
 Shows a list of all broken links with page, element, target and error message.
 
-**Please note:** For this widget the linkvalidator must be installed and active as the list is taken directly from the linkvalidator table.
+**Please note:** For this widget the core extension typo3/cms-linkvalidator must be installed and active as the list is taken directly from the LinkValidator table.
 
 
 ## Special thanks
