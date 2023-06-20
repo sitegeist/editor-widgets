@@ -13,24 +13,11 @@ class StorageSizeWidget implements WidgetInterface
 {
     private const DEFAULT_MAX_SIZE = 214748364800;
 
-    /**
-     * @var WidgetConfigurationInterface
-     */
-    private $configuration;
-
-    /**
-     * @var StandaloneView
-     */
-    private $view;
-
     public function __construct(
-        WidgetConfigurationInterface $configuration,
-        StandaloneView               $view,
+        private ?WidgetConfigurationInterface $configuration = null,
+        private ?StandaloneView $view = null
     )
-    {
-        $this->configuration = $configuration;
-        $this->view = $view;
-    }
+    {}
 
     public function renderWidgetContent(): string
     {

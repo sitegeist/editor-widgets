@@ -12,31 +12,12 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 
 class LastChangedPagesWidget implements WidgetInterface
 {
-    /**
-     * @var WidgetConfigurationInterface
-     */
-    private $configuration;
-
-    /**
-     * @var StandaloneView
-     */
-    private $view;
-
-    /**
-     * @var ConnectionPool
-     */
-    private $connectionPool;
-
     public function __construct(
-        WidgetConfigurationInterface $configuration,
-        StandaloneView               $view,
-        ConnectionPool               $connectionPool
+        private ?WidgetConfigurationInterface $configuration = null,
+        private ?StandaloneView $view = null,
+        private ?ConnectionPool $connectionPool = null
     )
-    {
-        $this->configuration = $configuration;
-        $this->view = $view;
-        $this->connectionPool = $connectionPool;
-    }
+    {}
 
     public function renderWidgetContent(): string
     {
