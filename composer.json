@@ -39,5 +39,8 @@
         "prepare-release": [
             "rm -r .github .ecrc .editorconfig .gitattributes Build Tests"
         ]
+    },
+    "suggest": {
+        "typo3/cms-linkvalidator": "Broken links widget shows links found by LinkValidator"
     }
 }

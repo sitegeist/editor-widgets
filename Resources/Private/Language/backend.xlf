@@ -52,6 +52,12 @@ s			<trans-unit id="widgets.storagesize.chart.used">
 			<trans-unit id="widgets.brokenlinks.description">
 				<source>Shows a list of broken links (based on tx_linkvalidator)</source>
 			</trans-unit>
+			<trans-unit id="widgets.brokenlinks.text">
+				<source><![CDATA[Broken link is used in record <strong>%s</strong>
+					(UID: <strong>%s</strong>) on page ID <strong>%s</strong>
+					in field <strong>%s</strong>.]]>
+				</source>
+			</trans-unit>
 
 			<trans-unit id="sys_file_storage.widget_mirror.max_storage_size">
 				<source>Maximum size desired in bytes (only used for display, no validation is done!)</source>
