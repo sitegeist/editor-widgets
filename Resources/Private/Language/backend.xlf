@@ -8,6 +8,12 @@
 			<trans-unit id="widgets.storagesize.description">
 				<source>Show usage in percent of default storage</source>
 			</trans-unit>
+s			<trans-unit id="widgets.storagesize.chart.used">
+				<source>Used</source>
+			</trans-unit>
+			<trans-unit id="widgets.storagesize.chart.free">
+				<source>Free</source>
+			</trans-unit>
 
 			<trans-unit id="widgets.unusedfiles.title">
 				<source>Biggest unused files</source>

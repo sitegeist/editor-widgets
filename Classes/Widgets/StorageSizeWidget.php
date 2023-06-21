@@ -3,13 +3,19 @@
 namespace Sitegeist\WidgetMirror\Widgets;
 
 use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
+use TYPO3\CMS\Core\Page\JavaScriptModuleInstruction;
 use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Dashboard\WidgetApi;
+use TYPO3\CMS\Dashboard\Widgets\AdditionalCssInterface;
+use TYPO3\CMS\Dashboard\Widgets\EventDataInterface;
+use TYPO3\CMS\Dashboard\Widgets\JavaScriptInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
-class StorageSizeWidget implements WidgetInterface
+class StorageSizeWidget implements WidgetInterface, EventDataInterface, AdditionalCssInterface, JavaScriptInterface
 {
     private const DEFAULT_MAX_SIZE = 214748364800;
 
@@ -36,11 +42,58 @@ class StorageSizeWidget implements WidgetInterface
     {
         $this->view->setTemplate('Widget/StorageSizeWidget');
         $this->view->assignMultiple([
-            'storageData' => $this->getDefaultStorageData(),
             'configuration' => $this->configuration,
         ]);
 
         return $this->view->render();
+    }
+
+    public function getEventData(): array
+    {
+        $languageServiceFactory = GeneralUtility::makeInstance(LanguageServiceFactory::class);
+        $languageService = $languageServiceFactory->createFromUserPreferences($GLOBALS['BE_USER']);
+        $storageData = $this->getDefaultStorageData();
+        return [
+            'graphConfig' => [
+                'type' => 'pie',
+                'options' => [
+                    'maintainAspectRatio' => false,
+                    'legend' => [
+                        'display' => true,
+                        'position' => 'bottom',
+                    ],
+                    'title' => [
+                        'display' => true,
+                        'text' => $storageData['name']
+                    ],
+                ],
+                'data' => [
+                    'labels' => [
+                        $languageService->sL('LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storagesize.chart.used'),
+                        $languageService->sL('LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storagesize.chart.free'),
+                    ],
+                    'datasets' => [
+                        [
+                            'backgroundColor' => WidgetApi::getDefaultChartColors(),
+                            'data' => [number_format($storageData['usage'], 2, '.', ''), number_format(100 - $storageData['usage'], 2, '.', '')],
+                        ],
+                    ],
+                ]
+            ],
+        ];
+    }
+
+    public function getCssFiles(): array
+    {
+        return ['EXT:dashboard/Resources/Public/Css/Contrib/chart.css'];
+    }
+
+    public function getJavaScriptModuleInstructions(): array
+    {
+        return [
+            JavaScriptModuleInstruction::forRequireJS('TYPO3/CMS/Dashboard/Contrib/chartjs'),
+            JavaScriptModuleInstruction::forRequireJS('TYPO3/CMS/Dashboard/ChartInitializer'),
+        ];
     }
 
     protected function getDefaultStorageData()
