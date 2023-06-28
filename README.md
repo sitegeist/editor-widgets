@@ -50,4 +50,5 @@ by SPIEGEL-Verlag Rudolf Augstein GmbH & Co. KG*
 ## Authors & Sponsors
 * SPIEGEL-Verlag Rudolf Augstein GmbH & Co. KG
 * [Benjamin Tammling](https://github.com/Atomschinken)
-* [All contributors](https://github.com/sitegeist/image-jack/graphs/contributors)
+* [Ulrich Mathes](https://github.com/ulrichmathes)
+* [All contributors](https://github.com/sitegeist/widget-mirror/graphs/contributors)
