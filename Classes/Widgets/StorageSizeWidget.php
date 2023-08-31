@@ -21,7 +21,8 @@ class StorageSizeWidget implements WidgetInterface, EventDataInterface, Addition
 
     public function __construct(
         private ?WidgetConfigurationInterface $configuration = null,
-        private ?StandaloneView $view = null
+        private ?StandaloneView $view = null,
+        private readonly array $options = []
     )
     {}
 
@@ -116,4 +117,8 @@ class StorageSizeWidget implements WidgetInterface, EventDataInterface, Addition
         return $size;
     }
 
+    public function getOptions(): array
+    {
+        return $this->options;
+    }
 }
