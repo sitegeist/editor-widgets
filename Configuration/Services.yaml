@@ -7,91 +7,91 @@ services:
   Sitegeist\WidgetMirror\:
     resource: '../Classes/*'
 
-  dashboard.widget.sitegeist.widget_mirror.storagesize:
+  dashboard.widget.sitegeist.widget_mirror.storageSize:
     class: 'Sitegeist\WidgetMirror\Widgets\StorageSizeWidget'
     arguments:
       $view: '@dashboard.views.widget'
     tags:
       - name: dashboard.widget
-        identifier: sitegeist.widget_mirror.storagesize
+        identifier: sitegeist.widget_mirror.storageSize
         groupNames: systemInfo
-        title: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storagesize.title'
-        description: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storagesize.description'
+        title: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storageSize.title'
+        description: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storageSize.description'
         iconIdentifier: 'content-widget-number'
         height: 'medium'
         width: 'small'
 
-  dashboard.widget.sitegeist.widget_mirror.unusedfiles:
+  dashboard.widget.sitegeist.widget_mirror.unusedFiles:
     class: 'Sitegeist\WidgetMirror\Widgets\UnusedFilesWidget'
     arguments:
       $view: '@dashboard.views.widget'
       $connectionPool: '@TYPO3\CMS\Core\Database\ConnectionPool'
     tags:
       - name: dashboard.widget
-        identifier: sitegeist.widget_mirror.unusedfiles
+        identifier: sitegeist.widget_mirror.unusedFiles
         groupNames: systemInfo
-        title: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.unusedfiles.title'
-        description: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.unusedfiles.description'
+        title: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.unusedFiles.title'
+        description: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.unusedFiles.description'
         iconIdentifier: 'content-widget-list'
         height: 'medium'
         width: 'medium'
 
-  dashboard.widget.sitegeist.widget_mirror.duplicatefiles:
+  dashboard.widget.sitegeist.widget_mirror.duplicateFiles:
     class: 'Sitegeist\WidgetMirror\Widgets\DuplicateFilesWidget'
     arguments:
       $view: '@dashboard.views.widget'
       $connectionPool: '@TYPO3\CMS\Core\Database\ConnectionPool'
     tags:
       - name: dashboard.widget
-        identifier: sitegeist.widget_mirror.duplicatefiles
+        identifier: sitegeist.widget_mirror.duplicateFiles
         groupNames: systemInfo
-        title: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicatefiles.title'
-        description: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicatefiles.description'
+        title: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicateFiles.title'
+        description: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicateFiles.description'
         iconIdentifier: 'content-widget-list'
         height: 'medium'
         width: 'medium'
 
-  dashboard.widget.sitegeist.widget_mirror.lastchangedpages:
+  dashboard.widget.sitegeist.widget_mirror.lastChangedPages:
     class: 'Sitegeist\WidgetMirror\Widgets\LastChangedPagesWidget'
     arguments:
       $view: '@dashboard.views.widget'
       $connectionPool: '@TYPO3\CMS\Core\Database\ConnectionPool'
     tags:
       - name: dashboard.widget
-        identifier: sitegeist.widget_mirror.lastchangedpages
+        identifier: sitegeist.widget_mirror.lastChangedPages
         groupNames: systemInfo
-        title: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.lastchangedpages.title'
-        description: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.lastchangedpages.description'
+        title: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.lastChangedPages.title'
+        description: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.lastChangedPages.description'
         iconIdentifier: 'content-widget-list'
         height: 'medium'
         width: 'medium'
 
-  dashboard.widget.sitegeist.widget_mirror.newestredirects:
+  dashboard.widget.sitegeist.widget_mirror.newestRedirects:
     class: 'Sitegeist\WidgetMirror\Widgets\NewestRedirectsWidget'
     arguments:
       $view: '@dashboard.views.widget'
       $connectionPool: '@TYPO3\CMS\Core\Database\ConnectionPool'
     tags:
       - name: dashboard.widget
-        identifier: sitegeist.widget_mirror.newestredirects
+        identifier: sitegeist.widget_mirror.newestRedirects
         groupNames: systemInfo
-        title: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.newestredirects.title'
-        description: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.newestredirects.description'
+        title: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.newestRedirects.title'
+        description: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.newestRedirects.description'
         iconIdentifier: 'content-widget-list'
         height: 'medium'
         width: 'medium'
 
-  dashboard.widget.sitegeist.widget_mirror.brokenlinks:
+  dashboard.widget.sitegeist.widget_mirror.brokenLinks:
     class: 'Sitegeist\WidgetMirror\Widgets\BrokenLinksWidget'
     arguments:
       $view: '@dashboard.views.widget'
       $connectionPool: '@TYPO3\CMS\Core\Database\ConnectionPool'
     tags:
       - name: dashboard.widget
-        identifier: sitegeist.widget_mirror.brokenlinks
+        identifier: sitegeist.widget_mirror.brokenLinks
         groupNames: systemInfo
-        title: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenlinks.title'
-        description: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenlinks.description'
+        title: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.title'
+        description: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.description'
         iconIdentifier: 'content-widget-list'
         height: 'large'
         width: 'medium'

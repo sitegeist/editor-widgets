@@ -56,8 +56,8 @@ class StorageSizeWidget implements WidgetInterface, EventDataInterface, Addition
                 ],
                 'data' => [
                     'labels' => [
-                        $languageService->sL('LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storagesize.chart.used'),
-                        $languageService->sL('LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storagesize.chart.free'),
+                        $languageService->sL('LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storageSize.chart.used'),
+                        $languageService->sL('LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storageSize.chart.free'),
                     ],
                     'datasets' => [
                         [
