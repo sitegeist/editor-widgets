@@ -93,7 +93,7 @@ class StorageSizeWidget implements WidgetInterface, EventDataInterface, Addition
         ];
 
         if (!empty($storage->getStorageRecord()['tx_widget_mirror_max_size'])) {
-            $maxSize = $storage->getStorageRecord()['tx_widget_mirror_max_size'];
+            $maxSize = $this->humanFileSizeToBytes($storage->getStorageRecord()['tx_widget_mirror_max_size']);
         } else {
             $maxSize = self::DEFAULT_MAX_SIZE;
         }
@@ -114,6 +114,24 @@ class StorageSizeWidget implements WidgetInterface, EventDataInterface, Addition
         $size = intval(fgets($fio,80));
         pclose($fio);
         return $size;
+    }
+
+    protected function humanFileSizeToBytes($size)
+    {
+        $size = trim($size);
+        $units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+        preg_match('/^(\d+(\.\d+)?)\s*([A-Za-z]+)?$/', $size, $matches);
+        if (empty($matches)) {
+            throw new \InvalidArgumentException('Invalid file size format');
+        }
+        $value = (float) $matches[1];
+        $unit = strtoupper($matches[3] ?? 'B');
+
+        if (!in_array($unit, $units)) {
+            throw new \InvalidArgumentException('Invalid file size unit');
+        }
+        $exponent = array_search($unit, $units);
+        return round($value * (1024 ** $exponent));
     }
 
 }
