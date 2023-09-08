@@ -26,7 +26,7 @@ class UnusedFilesWidget implements WidgetInterface
             ->from('sys_file')
             ->leftJoin('sys_file', 'sys_refindex', 'sr', 'sr.ref_uid = sys_file.uid AND sr.tablename != "sys_file_metadata" AND sr.ref_table = "sys_file"')
             ->addOrderBy('sys_file.size', 'desc')
-            ->where('sr.hash IS NULL')
+            ->where('sys_file.missing = 0 AND sys_file.storage > 0 AND sr.hash IS NULL')
             ->setMaxResults(10)
             ->execute()
             ->fetchAllAssociative();
