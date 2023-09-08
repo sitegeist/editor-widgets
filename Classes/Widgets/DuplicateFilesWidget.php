@@ -28,7 +28,7 @@ class DuplicateFilesWidget implements WidgetInterface
             ->selectLiteral('GROUP_CONCAT(uid) as uids', 'sha1', 'count(*) as counting')
             ->from('sys_file')
             ->addOrderBy('counting', 'desc')
-            ->where('missing = 0 AND storage > 0 AND name != "index.html"')
+            ->where('missing = 0 AND storage > 0 AND name != "index.html" AND identifier NOT LIKE "%_recycler_%"')
             ->groupBy('sha1')
             ->having('counting > 1')
             ->execute()
