@@ -120,7 +120,7 @@ class StorageSizeWidget implements WidgetInterface, EventDataInterface, Addition
 
     protected function getDirSize($path): int
     {
-        $fio = popen('/usr/bin/du -sh '.$path, 'r');
+        $fio = popen('du -sh '.$path, 'r');
         $size = fgets($fio, 80);
         pclose($fio);
         return GeneralUtility::getBytesFromSizeMeasurement($size);
