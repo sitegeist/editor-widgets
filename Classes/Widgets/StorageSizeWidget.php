@@ -56,13 +56,18 @@ class StorageSizeWidget implements WidgetInterface, EventDataInterface, Addition
                 ],
                 'data' => [
                     'labels' => [
-                        $languageService->sL('LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storagesize.chart.used'),
-                        $languageService->sL('LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storagesize.chart.free'),
+                        $languageService->sL('LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storagesize.chart.used')
+                            . ' ' . GeneralUtility::formatSize($storageData['bytesUsed'], 'si'),
+                        $languageService->sL('LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storagesize.chart.free')
+                            . ' ' . GeneralUtility::formatSize($storageData['bytesFree'], 'si'),
                     ],
                     'datasets' => [
                         [
                             'backgroundColor' => WidgetApi::getDefaultChartColors(),
-                            'data' => [number_format($storageData['usage'], 2, '.', ''), number_format(100 - $storageData['usage'], 2, '.', '')],
+                            'data' => [
+                                number_format($storageData['usage'], 2, '.', ''),
+                                number_format(100 - $storageData['usage'], 2, '.', ''),
+                            ],
                         ],
                     ],
                 ]
@@ -103,7 +108,10 @@ class StorageSizeWidget implements WidgetInterface, EventDataInterface, Addition
         if ($storage->getDriverType() == 'Local' && !empty($maxSize)) {
             $path = Environment::getPublicPath() . $storage->getRootLevelFolder()->getPublicUrl();
             if (is_readable($path)) {
-                $data['usage'] = $this->getDirSize($path) / ($maxSize / 100);
+                $dirSize = $this->getDirSize($path);
+                $data['bytesUsed'] = $dirSize;
+                $data['bytesFree'] = max(0, $maxSize - $dirSize);
+                $data['usage'] = min(100, $dirSize / $maxSize * 100);
             }
         }
 
