@@ -1,16 +1,58 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+    xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
 <f:layout name="Widget/Widget" />
 <f:section name="main">
-
     <div class="widget-table-wrapper">
         <table class="widget-table">
             <f:for each="{pages}" as="page">
                 <tr>
                     <td>
-                        <strong><f:be.link route="web_layout" parameters="{id: page.uid}">{page.rootline}</f:be.link></strong>
-                        <small>
-                            {page.tstamp -> f:format.date()} ({page.uid})
-                        </small>
+                        <core:iconForRecord table="pages" row="{page}" />
+                    </td>
+                    <td>
+                        <f:if condition="{page.rootline}">
+                            <small style="color: dimgray;"
+                                title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.lastchangedpages.pagetree')}"
+                            >
+                                {page.rootline}</small><br />
+                        </f:if>
+                        {page.title}
+                    </td>
+                    <td>
+                        <div class="btn-group">
+
+                            <a href="{page.viewLink}"
+                                class="btn btn-default btn-sm"
+                                title="{f:translate(key: 'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.showPage')}"
+                                target="_blank"
+                            >
+                                <core:icon identifier="actions-view-page" />
+                            </a>
+
+                            <f:be.link
+                                route="web_layout"
+                                parameters="{id: page.uid}"
+                                class="btn btn-default btn-sm"
+                                title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.lastchangedpages.editPageContent')}"
+                            >
+                                <core:icon identifier="actions-document-edit" />
+                            </f:be.link>
+
+                            <be:link.editRecord
+                                uid="{page.uid}"
+                                table="pages"
+                                class="btn btn-default btn-sm"
+                                title="{f:translate(key: 'LLL:EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf:editPage')}"
+                            >
+                                <core:icon identifier="actions-page-open" />
+                            </be:link.editRecord>
+                        </div>
+                    </td>
+                    <td>
+                        {page.tstamp -> f:format.date(format: dateFormat)}
                     </td>
                 </tr>
             </f:for>
