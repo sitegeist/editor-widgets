@@ -34,6 +34,9 @@ s			<trans-unit id="widgets.storagesize.chart.used">
 			<trans-unit id="widgets.duplicatefiles.openOriginalFile">
 				<source>Open original file in new window</source>
 			</trans-unit>
+			<trans-unit id="widgets.duplicatefiles.referenceCount">
+				<source>(%u References)</source>
+			</trans-unit>
 
 			<trans-unit id="widgets.lastchangedpages.title">
 				<source>Last changed pages</source>

@@ -15,25 +15,25 @@
                             <f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicatefiles.text" arguments="{0: duplicate.sha1, 1: duplicate.counting}" /><br />
                         </f:format.raw>
                         <small>
-                            <f:for each="{duplicate.files}" as="file">
+                            <f:for each="{duplicate.files}" as="duplicate">
                                 <div style="margin-bottom: 5px;">
                                     <f:link.file
-                                        file="{file}"
+                                        file="{duplicate.file}"
                                         target="_blank"
                                         title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicatefiles.openOriginalFile')}"
-                                    ><f:media file="{file}" width="100c" height="50c"/></f:link.file>
+                                    ><f:media file="{duplicate.file}" width="100c" height="50c"/></f:link.file>
 
                                     <f:be.link
                                         title="{f:translate(key: 'LLL:EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf:showInfo')}"
                                         route="show_item"
-                                        parameters="{table: '_FILE', uid: '{file.storage.storageRecord.uid}:{file.identifier}'}"
+                                        parameters="{table: '_FILE', uid: '{duplicate.file.storage.storageRecord.uid}:{duplicate.file.identifier}'}"
                                         target="_blank"
                                         class="btn btn-default btn-sm"
                                         >
                                         <core:icon identifier="actions-document-info" />
                                     </f:be.link>
-
-                                    {file.identifier}
+                                    <f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicatefiles.referenceCount" arguments="{0: duplicate.referenceCount}" />
+                                    {duplicate.file.identifier}
                                 </div>
                             </f:for>
                         </small>
