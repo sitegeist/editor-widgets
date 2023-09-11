@@ -42,6 +42,7 @@ class DuplicateFilesWidget implements WidgetInterface
                     return [
                         'file' => $file,
                         'referenceCount' => BackendUtility::referenceCount('sys_file', $file->getUid()),
+                        'parentFolder' => $file->getParentFolder()->getCombinedIdentifier(),
                     ];
                 },
                 GeneralUtility::trimExplode(',', $duplicate['uids'])
