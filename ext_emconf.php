@@ -12,8 +12,8 @@ $EM_CONF['widget_mirror'] = [
     'version' => '0.1.0',
     'constraints' => [
         'depends' => [
-            'typo3' => '11.5.0-11.9.99',
-            'php' => '8.1.0-8.1.99'
+            'typo3' => '11.5.0-12.4.99',
+            'php' => '8.1.0-8.2.99'
         ],
         'conflicts' => [
         ],

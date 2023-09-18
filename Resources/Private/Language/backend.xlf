@@ -2,33 +2,33 @@
 <xliff version="1.0">
 	<file source-language="en" datatype="plaintext" original="messages" date="2018-11-09UTC10:44:160">
 		<body>
-			<trans-unit id="widgets.storagesize.title">
+			<trans-unit id="widgets.storageSize.title">
 				<source>Storage usage</source>
 			</trans-unit>
-			<trans-unit id="widgets.storagesize.description">
+			<trans-unit id="widgets.storageSize.description">
 				<source>Show usage in percent of default storage</source>
 			</trans-unit>
-s			<trans-unit id="widgets.storagesize.chart.used">
+			<trans-unit id="widgets.storageSize.chart.used">
 				<source>Used</source>
 			</trans-unit>
-			<trans-unit id="widgets.storagesize.chart.free">
+			<trans-unit id="widgets.storageSize.chart.free">
 				<source>Free</source>
 			</trans-unit>
 
-			<trans-unit id="widgets.unusedfiles.title">
+			<trans-unit id="widgets.unusedFiles.title">
 				<source>Biggest unused files</source>
 			</trans-unit>
-			<trans-unit id="widgets.unusedfiles.description">
+			<trans-unit id="widgets.unusedFiles.description">
 				<source>Displays the 10 biggest files that are not referenced</source>
 			</trans-unit>
 
-			<trans-unit id="widgets.duplicatefiles.title">
+			<trans-unit id="widgets.duplicateFiles.title">
 				<source>Duplicate files</source>
 			</trans-unit>
-			<trans-unit id="widgets.duplicatefiles.description">
+			<trans-unit id="widgets.duplicateFiles.description">
 				<source>Displays all files that are duplicates</source>
 			</trans-unit>
-			<trans-unit id="widgets.duplicatefiles.text">
+			<trans-unit id="widgets.duplicateFiles.text">
 				<source><![CDATA[<strong>%s</strong> has been found <strong>%s</strong> times]]></source>
 			</trans-unit>
 			<trans-unit id="widgets.duplicatefiles.openOriginalFile">
@@ -44,38 +44,47 @@ s			<trans-unit id="widgets.storagesize.chart.used">
 				<source>Open folder</source>
 			</trans-unit>
 
-			<trans-unit id="widgets.lastchangedpages.title">
+			<trans-unit id="widgets.lastChangedPages.title">
 				<source>Last changed pages</source>
 			</trans-unit>
-			<trans-unit id="widgets.lastchangedpages.description">
+			<trans-unit id="widgets.lastChangedPages.description">
 				<source>Displays last changed pages the active backend user has access to</source>
 			</trans-unit>
+			<trans-unit id="widgets.lastchangedpages.editPageContent">
+				<source>Edit page content</source>
+			</trans-unit>
+			<trans-unit id="widgets.lastchangedpages.pagetree">
+				<source>Position in pagetree</source>
+			</trans-unit>
 
-			<trans-unit id="widgets.newestredirects.title">
+			<trans-unit id="widgets.newestRedirects.title">
 				<source>Newest redirects</source>
 			</trans-unit>
-			<trans-unit id="widgets.newestredirects.description">
+			<trans-unit id="widgets.newestRedirects.description">
 				<source>Shows a list of newest redirects</source>
 			</trans-unit>
 
-			<trans-unit id="widgets.brokenlinks.title">
+			<trans-unit id="widgets.brokenLinks.title">
 				<source>Broken links</source>
 			</trans-unit>
-			<trans-unit id="widgets.brokenlinks.description">
+			<trans-unit id="widgets.brokenLinks.description">
 				<source>Shows a list of broken links (based on tx_linkvalidator)</source>
 			</trans-unit>
-			<trans-unit id="widgets.brokenlinks.text">
+			<trans-unit id="widgets.brokenLinks.text">
 				<source><![CDATA[Broken link is used in record <strong>%s</strong>
 					(UID: <strong>%s</strong>) on page ID <strong>%s</strong>
 					in field <strong>%s</strong>.]]>
 				</source>
 			</trans-unit>
 
-			<trans-unit id="sys_file_storage.widget_mirror.max_storage_size">
-				<source>Maximum size desired in bytes (only used for display, no validation is done!)</source>
-			</trans-unit>
 			<trans-unit id="sys_file_storage.widget_mirror">
 				<source>Widget mirror</source>
+			</trans-unit>
+			<trans-unit id="sys_file_storage.widget_mirror.max_storage_size">
+				<source>Maximum size (only used for display, no validation is done!)</source>
+			</trans-unit>
+			<trans-unit id="sys_file_storage.widget_mirror.max_storage_size.description">
+				<source>In bytes or simply KB, MB, GB</source>
 			</trans-unit>
 		</body>
 	</file>
