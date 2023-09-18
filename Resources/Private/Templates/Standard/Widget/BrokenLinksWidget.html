@@ -4,42 +4,53 @@
 
     <div class="widget-table-wrapper">
         <table class="widget-table">
-            <f:for each="{brokenLinks}" as="brokenLink">
-                <tr>
-                    <td>
-                        <strong>
-                            <f:link.typolink absolute="1" parameter="{brokenLink.url}">
-                                <f:if condition="{f:uri.typolink(parameter: brokenLink.url)}">
-                                    <f:then>{f:uri.typolink(absolute: 1, parameter: brokenLink.url) -> f:format.crop(maxCharacters: 80)}</f:then>
-                                    <f:else>
-                                        <f:if condition="{brokenLink.link_title}">
-                                            <f:then>{brokenLink.link_title -> f:format.crop(maxCharacters: 80)}</f:then>
-                                            <f:else>{brokenLink.url -> f:format.crop(maxCharacters: 80)}</f:else>
-                                        </f:if>
-                                    </f:else>
-                                </f:if>
-                            </f:link.typolink>
-                        </strong>
-                        <small>
-                            {brokenLink.errorMessage} ({brokenLink.last_check -> f:format.date()})
-                            <br>
-                            <be:link.editRecord uid="{brokenLink.record_uid}" table="{brokenLink.table_name}">
-                                <f:format.raw>
-                                    <f:translate
-                                        key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.text"
-                                        arguments="{
-                                            0: '{brokenLink.headline -> f:format.crop(maxCharacters: 80)}',
-                                            1: brokenLink.record_uid,
-                                            2: brokenLink.record_pid,
-                                            3: brokenLink.field
-                                        }"
-                                    />
-                                </f:format.raw>
-                            </be:link.editRecord>
-                        </small>
-                    </td>
-                </tr>
-            </f:for>
+					<f:if condition="{brokenLinks}">
+						<f:then>
+							<f:for each="{brokenLinks}" as="brokenLink">
+								<tr>
+									<td>
+										<strong>
+											<f:link.typolink absolute="1" parameter="{brokenLink.url}">
+												<f:if condition="{f:uri.typolink(parameter: brokenLink.url)}">
+													<f:then>{f:uri.typolink(absolute: 1, parameter: brokenLink.url) -> f:format.crop(maxCharacters: 80)}</f:then>
+													<f:else>
+														<f:if condition="{brokenLink.link_title}">
+															<f:then>{brokenLink.link_title -> f:format.crop(maxCharacters: 80)}</f:then>
+															<f:else>{brokenLink.url -> f:format.crop(maxCharacters: 80)}</f:else>
+														</f:if>
+													</f:else>
+												</f:if>
+											</f:link.typolink>
+										</strong>
+										<small>
+											{brokenLink.errorMessage} ({brokenLink.last_check -> f:format.date()})
+											<br>
+											<be:link.editRecord uid="{brokenLink.record_uid}" table="{brokenLink.table_name}">
+												<f:format.raw>
+													<f:translate
+														key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.text"
+														arguments="{
+															0: '{brokenLink.headline -> f:format.crop(maxCharacters: 80)}',
+															1: brokenLink.record_uid,
+															2: brokenLink.record_pid,
+															3: brokenLink.field
+														}"
+													/>
+												</f:format.raw>
+											</be:link.editRecord>
+										</small>
+									</td>
+								</tr>
+							</f:for>
+						</f:then>
+						<f:else>
+							<tr>
+								<td>
+									<p><f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.noLinks" /></p>
+								</td>
+							</tr>
+						</f:else>
+					</f:if>
         </table>
     </div>
 
