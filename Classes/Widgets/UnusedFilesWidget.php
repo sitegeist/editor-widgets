@@ -12,7 +12,8 @@ class UnusedFilesWidget implements WidgetInterface
     public function __construct(
         private ?WidgetConfigurationInterface $configuration = null,
         private ?StandaloneView $view = null,
-        private ?ConnectionPool $connectionPool = null
+        private ?ConnectionPool $connectionPool = null,
+        private readonly array $options = []
     )
     {}
 
@@ -38,5 +39,10 @@ class UnusedFilesWidget implements WidgetInterface
         ]);
 
         return $this->view->render();
+    }
+
+    public function getOptions(): array
+    {
+        return $this->options;
     }
 }
