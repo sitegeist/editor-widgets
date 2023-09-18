@@ -17,7 +17,7 @@ services:
         groupNames: systemInfo
         title: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storageSize.title'
         description: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storageSize.description'
-        iconIdentifier: 'content-widget-number'
+        iconIdentifier: 'widget-mirror'
         height: 'medium'
         width: 'small'
 
@@ -32,7 +32,7 @@ services:
         groupNames: systemInfo
         title: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.unusedFiles.title'
         description: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.unusedFiles.description'
-        iconIdentifier: 'content-widget-list'
+        iconIdentifier: 'widget-mirror'
         height: 'medium'
         width: 'medium'
 
@@ -47,7 +47,7 @@ services:
         groupNames: systemInfo
         title: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicateFiles.title'
         description: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicateFiles.description'
-        iconIdentifier: 'content-widget-list'
+        iconIdentifier: 'widget-mirror'
         height: 'medium'
         width: 'medium'
 
@@ -62,7 +62,7 @@ services:
         groupNames: systemInfo
         title: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.lastChangedPages.title'
         description: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.lastChangedPages.description'
-        iconIdentifier: 'content-widget-list'
+        iconIdentifier: 'widget-mirror'
         height: 'medium'
         width: 'medium'
 
@@ -77,7 +77,7 @@ services:
         groupNames: systemInfo
         title: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.newestRedirects.title'
         description: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.newestRedirects.description'
-        iconIdentifier: 'content-widget-list'
+        iconIdentifier: 'widget-mirror'
         height: 'medium'
         width: 'medium'
 
@@ -92,6 +92,6 @@ services:
         groupNames: systemInfo
         title: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.title'
         description: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.description'
-        iconIdentifier: 'content-widget-list'
+        iconIdentifier: 'widget-mirror'
         height: 'large'
         width: 'medium'
