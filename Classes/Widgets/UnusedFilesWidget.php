@@ -12,7 +12,8 @@ class UnusedFilesWidget implements WidgetInterface
     public function __construct(
         private ?WidgetConfigurationInterface $configuration = null,
         private ?StandaloneView $view = null,
-        private ?ConnectionPool $connectionPool = null
+        private ?ConnectionPool $connectionPool = null,
+        private readonly array $options = []
     )
     {}
 
@@ -26,7 +27,7 @@ class UnusedFilesWidget implements WidgetInterface
             ->from('sys_file')
             ->leftJoin('sys_file', 'sys_refindex', 'sr', 'sr.ref_uid = sys_file.uid AND sr.tablename != "sys_file_metadata" AND sr.ref_table = "sys_file"')
             ->addOrderBy('sys_file.size', 'desc')
-            ->where('sr.hash IS NULL')
+            ->where('sys_file.missing = 0 AND sys_file.storage > 0 AND sys_file.identifier NOT LIKE "%_recycler_%" AND sr.hash IS NULL')
             ->setMaxResults(10)
             ->execute()
             ->fetchAllAssociative();
@@ -38,5 +39,10 @@ class UnusedFilesWidget implements WidgetInterface
         ]);
 
         return $this->view->render();
+    }
+
+    public function getOptions(): array
+    {
+        return $this->options;
     }
 }

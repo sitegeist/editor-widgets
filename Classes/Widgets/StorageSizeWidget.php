@@ -21,7 +21,8 @@ class StorageSizeWidget implements WidgetInterface, EventDataInterface, Addition
 
     public function __construct(
         private ?WidgetConfigurationInterface $configuration = null,
-        private ?StandaloneView $view = null
+        private ?StandaloneView $view = null,
+        private readonly array $options = []
     )
     {}
 
@@ -56,9 +57,9 @@ class StorageSizeWidget implements WidgetInterface, EventDataInterface, Addition
                 ],
                 'data' => [
                     'labels' => [
-                        $languageService->sL('LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storagesize.chart.used')
+                        $languageService->sL('LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storageSize.chart.used')
                             . ' ' . GeneralUtility::formatSize($storageData['bytesUsed'], 'si'),
-                        $languageService->sL('LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storagesize.chart.free')
+                        $languageService->sL('LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storageSize.chart.free')
                             . ' ' . GeneralUtility::formatSize($storageData['bytesFree'], 'si'),
                     ],
                     'datasets' => [
@@ -124,5 +125,10 @@ class StorageSizeWidget implements WidgetInterface, EventDataInterface, Addition
         $size = fgets($fio, 80);
         pclose($fio);
         return GeneralUtility::getBytesFromSizeMeasurement($size);
+    }
+
+    public function getOptions(): array
+    {
+        return $this->options;
     }
 }
