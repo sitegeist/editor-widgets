@@ -2,6 +2,7 @@
 
 namespace Sitegeist\WidgetMirror\Widgets;
 
+use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Resource\ResourceFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -12,9 +13,9 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 class DuplicateFilesWidget implements WidgetInterface
 {
     public function __construct(
-        private ?WidgetConfigurationInterface $configuration = null,
-        private ?StandaloneView $view = null,
         private ?ConnectionPool $connectionPool = null,
+        private ?StandaloneView $view = null,
+        private ?WidgetConfigurationInterface $configuration = null
         private readonly array $options = []
     )
     {}
@@ -38,7 +39,12 @@ class DuplicateFilesWidget implements WidgetInterface
         foreach ($duplicates as &$duplicate) {
             $duplicate['files'] = array_map(
                 function ($uid) use ($resourceFactory) {
-                    return $resourceFactory->getFileObject($uid);
+                    $file = $resourceFactory->getFileObject($uid);
+                    return [
+                        'file' => $file,
+                        'referenceCount' => BackendUtility::referenceCount('sys_file', $file->getUid()),
+                        'parentFolder' => $file->getParentFolder()->getCombinedIdentifier(),
+                    ];
                 },
                 GeneralUtility::trimExplode(',', $duplicate['uids'])
             );
