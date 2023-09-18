@@ -14,7 +14,8 @@ class DuplicateFilesWidget implements WidgetInterface
     public function __construct(
         private ?WidgetConfigurationInterface $configuration = null,
         private ?StandaloneView $view = null,
-        private ?ConnectionPool $connectionPool = null
+        private ?ConnectionPool $connectionPool = null,
+        private readonly array $options = []
     )
     {}
 
@@ -28,7 +29,7 @@ class DuplicateFilesWidget implements WidgetInterface
             ->selectLiteral('GROUP_CONCAT(uid) as uids', 'sha1', 'count(*) as counting')
             ->from('sys_file')
             ->addOrderBy('counting', 'desc')
-            ->where('name != "index.html"')
+            ->where('missing = 0 AND storage > 0 AND name != "index.html" AND identifier NOT LIKE "%_recycler_%"')
             ->groupBy('sha1')
             ->having('counting > 1')
             ->execute()
@@ -51,5 +52,10 @@ class DuplicateFilesWidget implements WidgetInterface
         ]);
 
         return $this->view->render();
+    }
+
+    public function getOptions(): array
+    {
+        return $this->options;
     }
 }
