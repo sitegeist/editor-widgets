@@ -3,5 +3,5 @@
 #
 CREATE TABLE sys_file_storage
 (
-	tx_widget_mirror_max_size bigint DEFAULT 214748364800 NOT NULL
+	tx_widget_mirror_max_size VARCHAR(255) NOT NULL DEFAULT '1GB'
 );

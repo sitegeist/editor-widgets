@@ -57,13 +57,18 @@ class StorageSizeWidget implements WidgetInterface, EventDataInterface, Addition
                 ],
                 'data' => [
                     'labels' => [
-                        $languageService->sL('LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storageSize.chart.used'),
-                        $languageService->sL('LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storageSize.chart.free'),
+                        $languageService->sL('LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storageSize.chart.used')
+                            . ' ' . GeneralUtility::formatSize($storageData['bytesUsed'], 'si'),
+                        $languageService->sL('LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storageSize.chart.free')
+                            . ' ' . GeneralUtility::formatSize($storageData['bytesFree'], 'si'),
                     ],
                     'datasets' => [
                         [
                             'backgroundColor' => WidgetApi::getDefaultChartColors(),
-                            'data' => [number_format($storageData['usage'], 2, '.', ''), number_format(100 - $storageData['usage'], 2, '.', '')],
+                            'data' => [
+                                number_format($storageData['usage'], 2, '.', ''),
+                                number_format(100 - $storageData['usage'], 2, '.', ''),
+                            ],
                         ],
                     ],
                 ]
@@ -94,7 +99,9 @@ class StorageSizeWidget implements WidgetInterface, EventDataInterface, Addition
         ];
 
         if (!empty($storage->getStorageRecord()['tx_widget_mirror_max_size'])) {
-            $maxSize = $storage->getStorageRecord()['tx_widget_mirror_max_size'];
+            $maxSize = GeneralUtility::getBytesFromSizeMeasurement(
+                $storage->getStorageRecord()['tx_widget_mirror_max_size']
+            );
         } else {
             $maxSize = self::DEFAULT_MAX_SIZE;
         }
@@ -102,19 +109,22 @@ class StorageSizeWidget implements WidgetInterface, EventDataInterface, Addition
         if ($storage->getDriverType() == 'Local' && !empty($maxSize)) {
             $path = Environment::getPublicPath() . $storage->getRootLevelFolder()->getPublicUrl();
             if (is_readable($path)) {
-                $data['usage'] = $this->getDirSize($path) / ($maxSize / 100);
+                $dirSize = $this->getDirSize($path);
+                $data['bytesUsed'] = $dirSize;
+                $data['bytesFree'] = max(0, $maxSize - $dirSize);
+                $data['usage'] = min(100, $dirSize / $maxSize * 100);
             }
         }
 
         return $data;
     }
 
-    protected function getDirSize($path)
+    protected function getDirSize($path): int
     {
-        $fio = popen('/usr/bin/du -sb '.$path, 'r');
-        $size = intval(fgets($fio,80));
+        $fio = popen('du -sh '.$path, 'r');
+        $size = fgets($fio, 80);
         pclose($fio);
-        return $size;
+        return GeneralUtility::getBytesFromSizeMeasurement($size);
     }
 
     public function getOptions(): array
