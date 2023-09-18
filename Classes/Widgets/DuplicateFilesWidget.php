@@ -15,7 +15,7 @@ class DuplicateFilesWidget implements WidgetInterface
     public function __construct(
         private ?ConnectionPool $connectionPool = null,
         private ?StandaloneView $view = null,
-        private ?WidgetConfigurationInterface $configuration = null
+        private ?WidgetConfigurationInterface $configuration = null,
         private readonly array $options = []
     )
     {}
