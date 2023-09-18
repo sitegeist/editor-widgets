@@ -4,6 +4,7 @@ namespace Sitegeist\WidgetMirror\Widgets;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Resource\Exception\FolderDoesNotExistException;
 use TYPO3\CMS\Core\Resource\ResourceFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
@@ -40,10 +41,15 @@ class DuplicateFilesWidget implements WidgetInterface
             $duplicate['files'] = array_map(
                 function ($uid) use ($resourceFactory) {
                     $file = $resourceFactory->getFileObject($uid);
+                    try {
+                        $parentFolder = $file->getParentFolder()->getCombinedIdentifier();
+                    } catch (FolderDoesNotExistException $e) {
+                        $parentFolder = '???';
+                    }
                     return [
                         'file' => $file,
                         'referenceCount' => BackendUtility::referenceCount('sys_file', $file->getUid()),
-                        'parentFolder' => $file->getParentFolder()->getCombinedIdentifier(),
+                        'parentFolder' => $parentFolder
                     ];
                 },
                 GeneralUtility::trimExplode(',', $duplicate['uids'])
