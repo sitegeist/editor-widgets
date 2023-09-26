@@ -49,11 +49,11 @@
 
                                             <f:be.link
                                                 route="file_FilelistList"
-                                                parameters="{id: duplicate.parentFolder}"
-                                                title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicatefiles.openFolder')}"
+                                                parameters="{id: duplicate.parentFolder, searchTerm: duplicate.file.name}"
+                                                title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicatefiles.openFileList')}"
                                                 class="btn btn-default btn-sm"
                                             >
-                                                <core:icon identifier="apps-pagetree-folder-contains" />
+                                                <core:icon identifier="actions-search" />
                                             </f:be.link>
                                         </div>
                                     </td>

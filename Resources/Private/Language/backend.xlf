@@ -37,8 +37,8 @@
 			<trans-unit id="widgets.duplicatefiles.referenceCount">
 				<source>References</source>
 			</trans-unit>
-			<trans-unit id="widgets.duplicatefiles.openFolder">
-				<source>Open folder</source>
+			<trans-unit id="widgets.duplicatefiles.openFileList">
+				<source>Search in folder</source>
 			</trans-unit>
 
 			<trans-unit id="widgets.lastChangedPages.title">
