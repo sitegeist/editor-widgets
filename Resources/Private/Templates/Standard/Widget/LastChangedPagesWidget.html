@@ -10,7 +10,9 @@
             <f:for each="{pages}" as="page">
                 <tr>
                     <td>
-                        <core:iconForRecord table="pages" row="{page}" />
+                        <span title="id={page.uid}">
+                            <core:iconForRecord table="pages" row="{page}" />
+                        </span>
                     </td>
                     <td>
                         <f:if condition="{page.rootline}">
