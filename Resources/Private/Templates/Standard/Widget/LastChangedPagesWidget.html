@@ -26,6 +26,15 @@
                     <td>
                         <div class="btn-group">
 
+                            <f:be.link
+                                route="record_history"
+                                parameters="{element: 'pages:{page.uid}'}"
+                                class="btn btn-default btn-sm"
+                                title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.lastchangedpages.recordHistory')}"
+                            >
+                                <core:icon identifier="actions-history" />
+                            </f:be.link>
+
                             <a href="{page.viewLink}"
                                 class="btn btn-default btn-sm"
                                 title="{f:translate(key: 'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.showPage')}"
