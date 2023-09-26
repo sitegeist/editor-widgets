@@ -18,54 +18,49 @@
             <f:for each="{duplicates}" as="duplicate">
                 <tr>
                     <td colspan="3">
-                        <f:format.raw>
-                            <f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicateFiles.text" arguments="{0: duplicate.sha1, 1: duplicate.counting}" /><br />
-                        </f:format.raw>
-                        <small>
-                            <table style="width: 100%; margin:0; padding:0;">
-                                <f:for each="{duplicate.files}" as="duplicate">
-                                    <tr style="background-color: initial;">
-                                        <td width="70%" style="word-break: break-word;">
-                                            {duplicate.file.identifier}<br />
-                                            <f:media file="{duplicate.file}" width="100c" height="50c"/>
-                                        </td>
-                                        <td width="20%">
-                                            <div class="btn-group position-static">
-                                                <f:link.file
-                                                    file="{duplicate.file}"
-                                                    target="_blank"
-                                                    title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicatefiles.openOriginalFile')}"
-                                                    class="btn btn-default btn-sm"
-                                                >
-                                                    <core:icon identifier="actions-eye" />
-                                                </f:link.file>
-                                                <f:be.link
-                                                    route="show_item"
-                                                    parameters="{table: '_FILE', uid: '{duplicate.file.storage.storageRecord.uid}:{duplicate.file.identifier}'}"
-                                                    target="_blank"
-                                                    title="{f:translate(key: 'LLL:EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf:showInfo')}"
-                                                    class="btn btn-default btn-sm"
-                                                >
-                                                    <core:icon identifier="actions-document-info" />
-                                                </f:be.link>
+                        <table style="width: 100%; margin:0; padding:0;">
+                            <f:for each="{duplicate.files}" as="duplicate">
+                                <tr style="background-color: initial;">
+                                    <td width="70%" style="word-break: break-word;">
+                                        {duplicate.file.identifier}<br />
+                                        <f:media file="{duplicate.file}" width="100c" height="50c" />
+                                    </td>
+                                    <td width="20%">
+                                        <div class="btn-group position-static">
+                                            <f:link.file
+                                                file="{duplicate.file}"
+                                                target="_blank"
+                                                title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicatefiles.openOriginalFile')}"
+                                                class="btn btn-default btn-sm"
+                                            >
+                                                <core:icon identifier="actions-eye" />
+                                            </f:link.file>
+                                            <f:be.link
+                                                route="show_item"
+                                                parameters="{table: '_FILE', uid: '{duplicate.file.storage.storageRecord.uid}:{duplicate.file.identifier}'}"
+                                                target="_blank"
+                                                title="{f:translate(key: 'LLL:EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf:showInfo')}"
+                                                class="btn btn-default btn-sm"
+                                            >
+                                                <core:icon identifier="actions-document-info" />
+                                            </f:be.link>
 
-                                                <f:be.link
-                                                    route="file_FilelistList"
-                                                    parameters="{id: duplicate.parentFolder}"
-                                                    title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicatefiles.openFolder')}"
-                                                    class="btn btn-default btn-sm"
-                                                >
-                                                    <core:icon identifier="apps-pagetree-folder-contains" />
-                                                </f:be.link>
-                                            </div>
-                                        </td>
-                                        <td width="10%">
-                                            {duplicate.referenceCount}
-                                        </td>
-                                    </tr>
-                                </f:for>
-                            </table>
-                        </small>
+                                            <f:be.link
+                                                route="file_FilelistList"
+                                                parameters="{id: duplicate.parentFolder}"
+                                                title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicatefiles.openFolder')}"
+                                                class="btn btn-default btn-sm"
+                                            >
+                                                <core:icon identifier="apps-pagetree-folder-contains" />
+                                            </f:be.link>
+                                        </div>
+                                    </td>
+                                    <td width="10%">
+                                        {duplicate.referenceCount}
+                                    </td>
+                                </tr>
+                            </f:for>
+                        </table>
                     </td>
                 </tr>
             </f:for>
