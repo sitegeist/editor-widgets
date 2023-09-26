@@ -23,7 +23,9 @@
                                 <tr style="background-color: initial;">
                                     <td width="70%" style="word-break: break-word;">
                                         {duplicate.file.identifier}<br />
-                                        <f:media file="{duplicate.file}" width="100c" height="50c" />
+                                        <f:if condition="{duplicate.isImage}">
+                                            <f:media file="{duplicate.file}" width="100c" height="50c" />
+                                        </f:if>
                                     </td>
                                     <td width="20%">
                                         <div class="btn-group position-static">
