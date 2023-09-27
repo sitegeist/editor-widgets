@@ -2,6 +2,7 @@
 
 namespace Sitegeist\WidgetMirror\Widgets;
 
+use TYPO3\CMS\Backend\History\RecordHistory;
 use TYPO3\CMS\Backend\Routing\PreviewUriBuilder;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -15,12 +16,15 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 class LastChangedPagesWidget implements WidgetInterface
 {
     public function __construct(
-        private ?WidgetConfigurationInterface $configuration = null,
-        private ?StandaloneView $view = null,
         private ?ConnectionPool $connectionPool = null,
+        private ?StandaloneView $view = null,
+        private ?WidgetConfigurationInterface $configuration = null,
+        private array $userNames = [],
         private readonly array $options = []
     )
-    {}
+    {
+        $this->userNames = BackendUtility::getUserNames();
+    }
 
     public function renderWidgetContent(): string
     {
@@ -52,6 +56,8 @@ class LastChangedPagesWidget implements WidgetInterface
             $page['viewLink'] = (string)PreviewUriBuilder::create($page['uid'])
                 ->withRootLine(BackendUtility::BEgetRootLine($page['uid']))
                 ->buildUri();
+
+            $page['userName'] = $this->getUserNameOfLatestChange($page['uid']);
         }
         $this->view->setTemplate('Widget/LastChangedPagesWidget');
         $this->view->assignMultiple([
@@ -66,5 +72,13 @@ class LastChangedPagesWidget implements WidgetInterface
     public function getOptions(): array
     {
         return $this->options;
+    }
+
+    private function getUserNameOfLatestChange(int $pageUid): string
+    {
+        $history = GeneralUtility::makeInstance(RecordHistory::class, 'pages:' . $pageUid, []);
+        $history->setMaxSteps(1);
+        $latestChange = array_shift($history->getChangeLog());
+        return $this->userNames[$latestChange['userid']]['username'] ?? '';
     }
 }
