@@ -58,9 +58,9 @@ class StorageSizeWidget implements WidgetInterface, EventDataInterface, Addition
                 'data' => [
                     'labels' => [
                         $languageService->sL('LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storageSize.chart.used')
-                            . ' ' . GeneralUtility::formatSize($storageData['bytesUsed'], 'si'),
+                            . ' ' . GeneralUtility::formatSize($storageData['bytesUsed'], '| kB| MB| GB| TB| PB| EB| ZB| YB'),
                         $languageService->sL('LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storageSize.chart.free')
-                            . ' ' . GeneralUtility::formatSize($storageData['bytesFree'], 'si'),
+                            . ' ' . GeneralUtility::formatSize($storageData['bytesFree'], '| kB| MB| GB| TB| PB| EB| ZB| YB'),
                     ],
                     'datasets' => [
                         [
