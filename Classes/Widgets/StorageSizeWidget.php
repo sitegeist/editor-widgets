@@ -2,6 +2,7 @@
 
 namespace Sitegeist\WidgetMirror\Widgets;
 
+use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface as Cache;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\Page\JavaScriptModuleInstruction;
@@ -18,10 +19,12 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 class StorageSizeWidget implements WidgetInterface, EventDataInterface, AdditionalCssInterface, JavaScriptInterface
 {
     private const DEFAULT_MAX_SIZE = 214748364800;
+    private const CACHE_IDENTIFIER = 'default_storage_data';
 
     public function __construct(
-        private ?WidgetConfigurationInterface $configuration = null,
-        private ?StandaloneView $view = null,
+        private Cache $cache,
+        private WidgetConfigurationInterface $configuration,
+        private StandaloneView $view,
         private readonly array $options = []
     )
     {}
@@ -91,6 +94,10 @@ class StorageSizeWidget implements WidgetInterface, EventDataInterface, Addition
 
     protected function getDefaultStorageData()
     {
+        if($data = $this->cache->get(self::CACHE_IDENTIFIER)) {
+            return $data;
+        }
+
         $storageRepository = GeneralUtility::makeInstance(StorageRepository::class);
         $storage = $storageRepository->getDefaultStorage();
         $data = [
@@ -116,6 +123,7 @@ class StorageSizeWidget implements WidgetInterface, EventDataInterface, Addition
             }
         }
 
+        $this->cache->set(self::CACHE_IDENTIFIER, $data);
         return $data;
     }
 
