@@ -10,7 +10,9 @@
             <f:for each="{pages}" as="page">
                 <tr>
                     <td>
-                        <core:iconForRecord table="pages" row="{page}" />
+                        <span title="id={page.uid}">
+                            <core:iconForRecord table="pages" row="{page}" />
+                        </span>
                     </td>
                     <td>
                         <f:if condition="{page.rootline}">
@@ -23,6 +25,14 @@
                     </td>
                     <td>
                         <div class="btn-group">
+                            <f:be.link
+                                route="record_history"
+                                parameters="{element: 'pages:{page.uid}'}"
+                                class="btn btn-default btn-sm"
+                                title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.lastchangedpages.recordHistory')}"
+                            >
+                                <core:icon identifier="actions-history" />
+                            </f:be.link>
 
                             <a href="{page.viewLink}"
                                 class="btn btn-default btn-sm"
@@ -53,7 +63,8 @@
                         </div>
                     </td>
                     <td>
-                        {page.tstamp -> f:format.date(format: dateFormat)}
+                        <span style="white-space: nowrap;">{page.tstamp -> f:format.date(format: dateFormat)}</span><br />
+                        {page.userName}
                     </td>
                 </tr>
             </f:for>
