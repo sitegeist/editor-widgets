@@ -29,11 +29,15 @@ class DuplicateFilesWidget implements WidgetInterface
         $duplicates = $queryBuilder
             ->selectLiteral('GROUP_CONCAT(uid) as uids', 'sha1', 'count(*) as counting')
             ->from('sys_file')
+            ->where('missing = 0')
+            ->andWhere('storage > 0')
+            ->andWhere('name != "index.html"')
+            ->andWhere('identifier NOT LIKE "%_recycler_%"')
             ->orderBy('counting', 'desc')
             ->addOrderBy('size', 'desc')
-            ->where('missing = 0 AND storage > 0 AND name != "index.html" AND identifier NOT LIKE "%_recycler_%"')
             ->groupBy('sha1')
             ->having('counting > 1')
+            ->setMaxResults(200)
             ->execute()
             ->fetchAllAssociative();
 
