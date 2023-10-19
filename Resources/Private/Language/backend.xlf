@@ -28,9 +28,6 @@
 			<trans-unit id="widgets.duplicateFiles.description">
 				<source>Displays all files that are duplicates</source>
 			</trans-unit>
-			<trans-unit id="widgets.duplicateFiles.text">
-				<source><![CDATA[<strong>%s</strong> has been found <strong>%s</strong> times]]></source>
-			</trans-unit>
 			<trans-unit id="widgets.duplicatefiles.openOriginalFile">
 				<source>Open original file in new window</source>
 			</trans-unit>
@@ -40,8 +37,8 @@
 			<trans-unit id="widgets.duplicatefiles.referenceCount">
 				<source>References</source>
 			</trans-unit>
-			<trans-unit id="widgets.duplicatefiles.openFolder">
-				<source>Open folder</source>
+			<trans-unit id="widgets.duplicatefiles.openFileList">
+				<source>Search in folder</source>
 			</trans-unit>
 
 			<trans-unit id="widgets.lastChangedPages.title">
