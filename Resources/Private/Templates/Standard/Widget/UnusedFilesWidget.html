@@ -7,9 +7,47 @@
             <f:for each="{files}" as="file">
                 <tr>
                     <td>
-                        <strong>{file.identifier}</strong>
-                        <small>{file.size -> f:format.bytes()}</small>
-
+                        <core:iconForResource resource="{file}" />
+                    </td>
+                    <td style="word-break: break-word;">
+                        {file.identifier}
+                        <f:if condition="{file.type} == 2">
+                            <br /><f:image image="{file}" width="150c" height="75c" />
+                        </f:if>
+                    </td>
+                    <td>
+                        {file.size -> f:format.bytes()}
+                    </td>
+                    <td>
+                        <div class="btn-group position-static">
+                            <f:link.file
+                                file="{file}"
+                                target="_blank"
+                                title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:openOriginalFile')}"
+                                class="btn btn-default btn-sm"
+                            >
+                                <core:icon identifier="actions-eye" />
+                            </f:link.file>
+                            <f:be.link
+                                route="show_item"
+                                parameters="{table: '_FILE', uid: '{file.storage.storageRecord.uid}:{file.identifier}'}"
+                                target="_blank"
+                                title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:showInfo')}"
+                                class="btn btn-default btn-sm"
+                            >
+                                <core:icon identifier="actions-document-info" />
+                            </f:be.link>
+                            <f:if condition="{file.parentFolder}">
+                                <f:be.link
+                                    route="file_FilelistList"
+                                    parameters="{id: file.parentFolder.combinedIdentifier, searchTerm: file.name}"
+                                    title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:openFileList')}"
+                                    class="btn btn-default btn-sm"
+                                >
+                                    <core:icon identifier="actions-search" />
+                                </f:be.link>
+                            </f:if>
+                        </div>
                     </td>
                 </tr>
             </f:for>
