@@ -11,6 +11,7 @@ services:
     class: 'Sitegeist\WidgetMirror\Widgets\StorageSizeWidget'
     arguments:
       $view: '@dashboard.views.widget'
+      $cache: '@cache.widget_mirror.storageSize'
     tags:
       - name: dashboard.widget
         identifier: sitegeist.widget_mirror.storageSize
@@ -20,6 +21,12 @@ services:
         iconIdentifier: 'widget-mirror'
         height: 'medium'
         width: 'small'
+
+  cache.widget_mirror.storageSize:
+    class: 'TYPO3\CMS\Core\Cache\Frontend\FrontendInterface'
+    factory: ['@TYPO3\CMS\Core\Cache\CacheManager', 'getCache']
+    arguments:
+      $identifier: 'widget_mirror_storage_size'
 
   dashboard.widget.sitegeist.widget_mirror.unusedFiles:
     class: 'Sitegeist\WidgetMirror\Widgets\UnusedFilesWidget'
