@@ -2,6 +2,7 @@
 
 namespace Sitegeist\WidgetMirror\Widgets;
 
+use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface as Cache;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\Page\JavaScriptModuleInstruction;
@@ -18,10 +19,12 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 class StorageSizeWidget implements WidgetInterface, EventDataInterface, AdditionalCssInterface, JavaScriptInterface
 {
     private const DEFAULT_MAX_SIZE = 214748364800;
+    private const CACHE_IDENTIFIER = 'default_storage_data';
 
     public function __construct(
-        private ?WidgetConfigurationInterface $configuration = null,
-        private ?StandaloneView $view = null,
+        private Cache $cache,
+        private WidgetConfigurationInterface $configuration,
+        private StandaloneView $view,
         private readonly array $options = []
     )
     {}
@@ -58,9 +61,9 @@ class StorageSizeWidget implements WidgetInterface, EventDataInterface, Addition
                 'data' => [
                     'labels' => [
                         $languageService->sL('LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storageSize.chart.used')
-                            . ' ' . GeneralUtility::formatSize($storageData['bytesUsed'], 'si'),
+                            . ' ' . GeneralUtility::formatSize($storageData['bytesUsed'], '| kB| MB| GB| TB| PB| EB| ZB| YB'),
                         $languageService->sL('LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storageSize.chart.free')
-                            . ' ' . GeneralUtility::formatSize($storageData['bytesFree'], 'si'),
+                            . ' ' . GeneralUtility::formatSize($storageData['bytesFree'], '| kB| MB| GB| TB| PB| EB| ZB| YB'),
                     ],
                     'datasets' => [
                         [
@@ -91,6 +94,10 @@ class StorageSizeWidget implements WidgetInterface, EventDataInterface, Addition
 
     protected function getDefaultStorageData()
     {
+        if($data = $this->cache->get(self::CACHE_IDENTIFIER)) {
+            return $data;
+        }
+
         $storageRepository = GeneralUtility::makeInstance(StorageRepository::class);
         $storage = $storageRepository->getDefaultStorage();
         $data = [
@@ -116,14 +123,16 @@ class StorageSizeWidget implements WidgetInterface, EventDataInterface, Addition
             }
         }
 
+        $this->cache->set(self::CACHE_IDENTIFIER, $data);
         return $data;
     }
 
     protected function getDirSize($path): int
     {
         $fio = popen('du -sh '.$path, 'r');
-        $size = fgets($fio, 80);
+        $output = fgets($fio);
         pclose($fio);
+        $size = preg_split('/\s/', $output)[0] ?? 0;
         return GeneralUtility::getBytesFromSizeMeasurement($size);
     }
 
