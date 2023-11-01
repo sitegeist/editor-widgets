@@ -5,53 +5,65 @@
 
 <f:layout name="Widget/Widget" />
 <f:section name="main">
-    <div class="widget-table-wrapper">
-        <table class="widget-table">
-            <tr>
-                <th>{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.newestRedirects.sourceDomain')}</th>
-                <th>{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.newestRedirects.sourcePath')}</th>
-                <th>{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.newestRedirects.sourceTarget')}</th>
-                <th>{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.newestRedirects.statusCode')}</th>
-                <th>{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.newestRedirects.hitCount')}</th>
-                <th>{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.newestRedirects.lastHit')}</th>
-                <th>{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.newestRedirects.updated')}</th>
-                <th></th>
-            </tr>
-            <f:for each="{redirects}" as="redirect">
-                <tr>
-                    <td>{redirect.source_host}</td>
-                    <td>
-                        <core:iconForRecord table="sys_redirect" row="{redirect}" />
-                        {redirect.source_path -> f:format.crop(maxCharacters:100)}
-                    </td>
-                    <td>
-                        <f:link.typolink parameter="{redirect.target}">
-                            <f:uri.typolink parameter="{redirect.target}" /> [{rd:targetPageId(target:redirect.target)}]
-                        </f:link.typolink>
-                    </td>
-                    <td>{redirect.target_statuscode}</td>
-                    <td>{redirect.hitcount}</td>
-                    <td>
-                        <f:if condition="{redirect.lasthiton}">{redirect.lasthiton -> f:format.date()}</f:if>
-                    </td>
-                    <td>{redirect.updatedon -> f:format.date()}</td>
-                    <td>
-                        <div class="btn-group">
-                            <be:link.editRecord
-                                returnUrl="{f:be.uri(route: 'dashboard')}"
-                                class="btn btn-default btn-sm"
-                                table="sys_redirect"
-                                uid="{redirect.uid}"
-                                title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.newestRedirects.edit')}"
-                            >
-                                <core:icon identifier="actions-open" />
-                            </be:link.editRecord>
-                        </div>
-                    </td>
-                </tr>
-            </f:for>
-        </table>
-    </div>
+    <f:if condition="{redirects}">
+        <f:then>
+            <div class="widget-table-wrapper">
+                <table class="widget-table">
+                    <tr>
+                        <th>{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.newestRedirects.sourceDomain')}</th>
+                        <th>{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.newestRedirects.sourcePath')}</th>
+                        <th>{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.newestRedirects.sourceTarget')}</th>
+                        <th>{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.newestRedirects.statusCode')}</th>
+                        <th>{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.newestRedirects.hitCount')}</th>
+                        <th>{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.newestRedirects.lastHit')}</th>
+                        <th>{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.newestRedirects.updated')}</th>
+                        <th></th>
+                    </tr>
+                    <f:for each="{redirects}" as="redirect">
+                        <tr>
+                            <td>{redirect.source_host}</td>
+                            <td>
+                                <core:iconForRecord table="sys_redirect" row="{redirect}" />
+                                {redirect.source_path -> f:format.crop(maxCharacters:100)}
+                            </td>
+                            <td>
+                                <f:link.typolink parameter="{redirect.target}">
+                                    <f:uri.typolink parameter="{redirect.target}" /> [{rd:targetPageId(target:redirect.target)}]
+                                </f:link.typolink>
+                            </td>
+                            <td>{redirect.target_statuscode}</td>
+                            <td>{redirect.hitcount}</td>
+                            <td>
+                                <f:if condition="{redirect.lasthiton}">{redirect.lasthiton -> f:format.date()}</f:if>
+                            </td>
+                            <td>{redirect.updatedon -> f:format.date()}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <be:link.editRecord
+                                        returnUrl="{f:be.uri(route: 'dashboard')}"
+                                        class="btn btn-default btn-sm"
+                                        table="sys_redirect"
+                                        uid="{redirect.uid}"
+                                        title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.newestRedirects.edit')}"
+                                    >
+                                        <core:icon identifier="actions-open" />
+                                    </be:link.editRecord>
+                                </div>
+                            </td>
+                        </tr>
+                    </f:for>
+                </table>
+            </div>
+        </f:then>
+        <f:else>
+            <span class="sitegeist-widget-mirror">
+                <p class="empty-widget">
+                    <core:icon identifier="modulegroup-tools" size="large" /><br />
+                    <f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.newestRedirects.empty" />
+                </p>
+            </span>
+        </f:else>
+    </f:if>
 
 </f:section>
 <f:section name="footer">

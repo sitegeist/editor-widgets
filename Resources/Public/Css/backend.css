@@ -1,0 +1,18 @@
+.sitegeist-widget-mirror {
+    display: grid;
+    height: 100%;
+
+    .empty-widget {
+        place-items: center;
+        text-align: center;
+
+        font-size: large;
+
+        .icon {
+            height: 100px;
+            width: 100px;
+            line-height: 100px;
+            color: #FF8700;
+        }
+    }
+}
