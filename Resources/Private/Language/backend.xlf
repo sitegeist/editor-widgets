@@ -57,37 +57,37 @@
 				<source>Position in pagetree</source>
 			</trans-unit>
 
-			<trans-unit id="widgets.newestRedirects.title">
-				<source>Newest redirects</source>
+			<trans-unit id="widgets.latestRedirects.title">
+				<source>Latest redirects</source>
 			</trans-unit>
-			<trans-unit id="widgets.newestRedirects.description">
-				<source>Shows a list of newest redirects</source>
+			<trans-unit id="widgets.latestRedirects.description">
+				<source>Shows a list of latest redirects</source>
 			</trans-unit>
-			<trans-unit id="widgets.newestRedirects.empty">
+			<trans-unit id="widgets.latestRedirects.empty">
 				<source>No redirects</source>
 			</trans-unit>
-			<trans-unit id="widgets.newestRedirects.sourceDomain">
+			<trans-unit id="widgets.latestRedirects.sourceDomain">
 				<source>Source Domain</source>
 			</trans-unit>
-			<trans-unit id="widgets.newestRedirects.sourcePath">
+			<trans-unit id="widgets.latestRedirects.sourcePath">
 				<source>Source Path</source>
 			</trans-unit>
-			<trans-unit id="widgets.newestRedirects.sourceTarget">
+			<trans-unit id="widgets.latestRedirects.sourceTarget">
 				<source>Source Target</source>
 			</trans-unit>
-			<trans-unit id="widgets.newestRedirects.statusCode">
+			<trans-unit id="widgets.latestRedirects.statusCode">
 				<source>Status Code</source>
 			</trans-unit>
-			<trans-unit id="widgets.newestRedirects.hitCount">
+			<trans-unit id="widgets.latestRedirects.hitCount">
 				<source>Hit Count</source>
 			</trans-unit>
-			<trans-unit id="widgets.newestRedirects.lastHit">
+			<trans-unit id="widgets.latestRedirects.lastHit">
 				<source>Last Hit</source>
 			</trans-unit>
-			<trans-unit id="widgets.newestRedirects.updated">
+			<trans-unit id="widgets.latestRedirects.updated">
 				<source>Updated ▼</source>
 			</trans-unit>
-			<trans-unit id="widgets.newestRedirects.edit">
+			<trans-unit id="widgets.latestRedirects.edit">
 				<source>Edit Redirect</source>
 			</trans-unit>
 

@@ -7,7 +7,7 @@ use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
-class NewestRedirectsWidget implements WidgetInterface
+class LatestRedirectsWidget implements WidgetInterface
 {
     public function __construct(
         private ?WidgetConfigurationInterface $configuration = null,
@@ -30,7 +30,7 @@ class NewestRedirectsWidget implements WidgetInterface
             ->fetchAllAssociative();
 
 
-        $this->view->setTemplate('Widget/NewestRedirectsWidget');
+        $this->view->setTemplate('Widget/LatestRedirectsWidget');
         $this->view->assignMultiple([
             'redirects' => $redirects,
             'configuration' => $this->configuration

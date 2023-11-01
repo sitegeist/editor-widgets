@@ -35,7 +35,7 @@ Shows a list of suspected, duplicated files based on the sha1-hash from sys_file
 ### Last changed pages
 Simply a list of the last 10 edited pages that are accessible by the current backend user.
 
-### Newest redirects
+### Latest redirects
 The last 10 updated redirects.
 
 ### Broken links
