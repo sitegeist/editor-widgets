@@ -63,6 +63,33 @@
 			<trans-unit id="widgets.newestRedirects.description">
 				<source>Shows a list of newest redirects</source>
 			</trans-unit>
+			<trans-unit id="widgets.newestRedirects.empty">
+				<source>No redirects</source>
+			</trans-unit>
+			<trans-unit id="widgets.newestRedirects.sourceDomain">
+				<source>Source Domain</source>
+			</trans-unit>
+			<trans-unit id="widgets.newestRedirects.sourcePath">
+				<source>Source Path</source>
+			</trans-unit>
+			<trans-unit id="widgets.newestRedirects.sourceTarget">
+				<source>Source Target</source>
+			</trans-unit>
+			<trans-unit id="widgets.newestRedirects.statusCode">
+				<source>Status Code</source>
+			</trans-unit>
+			<trans-unit id="widgets.newestRedirects.hitCount">
+				<source>Hit Count</source>
+			</trans-unit>
+			<trans-unit id="widgets.newestRedirects.lastHit">
+				<source>Last Hit</source>
+			</trans-unit>
+			<trans-unit id="widgets.newestRedirects.updated">
+				<source>Updated ▼</source>
+			</trans-unit>
+			<trans-unit id="widgets.newestRedirects.edit">
+				<source>Edit Redirect</source>
+			</trans-unit>
 
 			<trans-unit id="widgets.brokenLinks.title">
 				<source>Broken links</source>

@@ -19,7 +19,7 @@ class NewestRedirectsWidget implements WidgetInterface
 
     public function renderWidgetContent(): string
     {
-        $queryBuilder = $this->connectionPool->getConnectionForTable('sys_file')->createQueryBuilder();
+        $queryBuilder = $this->connectionPool->getConnectionForTable('sys_redirect')->createQueryBuilder();
 
         $redirects = $queryBuilder
             ->select('uid', 'updatedon', 'source_host', 'source_path', 'target', 'target_statuscode', 'hitcount', 'lasthiton')
