@@ -26,6 +26,7 @@ return function (ContainerConfigurator $configurator, ContainerBuilder $containe
                 'iconIdentifier' => 'widget-mirror',
                 'height' => 'large',
                 'width' => 'medium',
+                'additionalCssClasses' => 'sitegeist-widget-mirror',
             ]);
     }
 };

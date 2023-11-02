@@ -104,7 +104,7 @@
 				</source>
 			</trans-unit>
 			<trans-unit id="widgets.brokenLinks.noLinks">
-				<source>No broken links found or linkvalidator is not loaded.</source>
+				<source>No broken links found</source>
 			</trans-unit>
 
 			<trans-unit id="sys_file_storage.widget_mirror">
