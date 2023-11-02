@@ -18,6 +18,7 @@ $EM_CONF['widget_mirror'] = [
         'conflicts' => [
         ],
         'suggests' => [
+            'typo3/cms-linkvalidator' => '*',
         ],
     ],
     'autoload' => [

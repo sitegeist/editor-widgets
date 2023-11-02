@@ -27,24 +27,21 @@ class BrokenLinksWidget implements WidgetInterface
         $GLOBALS['LANG'] = $languageServiceFactory->createFromUserPreferences($GLOBALS['BE_USER']);
         $GLOBALS['LANG']->includeLLFile('EXT:linkvalidator/Resources/Private/Language/Module/locallang.xlf');
 
-        if (ExtensionManagementUtility::isLoaded('linkvalidator')) {
-            $queryBuilder = $this->connectionPool->getConnectionForTable('tx_linkvalidator_link')->createQueryBuilder();
+        $queryBuilder = $this->connectionPool->getConnectionForTable('tx_linkvalidator_link')->createQueryBuilder();
+        $brokenLinks = $queryBuilder
+            ->select('*')
+            ->from('tx_linkvalidator_link')
+            ->addOrderBy('last_check', 'desc')
+            ->execute()
+            ->fetchAllAssociative();
 
-            $brokenLinks = $queryBuilder
-                ->select('*')
-                ->from('tx_linkvalidator_link')
-                ->addOrderBy('last_check', 'desc')
-                ->execute()
-                ->fetchAllAssociative();
-
-            foreach ($brokenLinks as &$brokenLink) {
-                /** @var AbstractLinktype $linkType */
-                $linkType = GeneralUtility::makeInstance($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['linkvalidator']['checkLinks'][$brokenLink['link_type']]);
-                $brokenLink['errorMessage'] = $linkType->getErrorMessage(json_decode($brokenLink['url_response'], true)['errorParams']);
-            }
-
-            $this->view->assign('brokenLinks', $brokenLinks);
+        foreach ($brokenLinks as &$brokenLink) {
+            /** @var AbstractLinktype $linkType */
+            $linkType = GeneralUtility::makeInstance($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['linkvalidator']['checkLinks'][$brokenLink['link_type']]);
+            $brokenLink['errorMessage'] = $linkType->getErrorMessage(json_decode($brokenLink['url_response'], true)['errorParams']);
         }
+
+        $this->view->assign('brokenLinks', $brokenLinks);
         $this->view->assign('configuration', $this->configuration);
         $this->view->setTemplate('Widget/BrokenLinksWidget');
 
