@@ -10,9 +10,9 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 class LatestRedirectsWidget implements WidgetInterface
 {
     public function __construct(
-        private ?WidgetConfigurationInterface $configuration = null,
-        private ?StandaloneView $view = null,
-        private ?ConnectionPool $connectionPool = null,
+        private WidgetConfigurationInterface $configuration,
+        private StandaloneView $view,
+        private ConnectionPool $connectionPool,
         private readonly array $options = []
     )
     {}

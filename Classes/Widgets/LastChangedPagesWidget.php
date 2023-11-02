@@ -16,9 +16,9 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 class LastChangedPagesWidget implements WidgetInterface
 {
     public function __construct(
-        private ?ConnectionPool $connectionPool = null,
-        private ?StandaloneView $view = null,
-        private ?WidgetConfigurationInterface $configuration = null,
+        private ConnectionPool $connectionPool,
+        private StandaloneView $view,
+        private WidgetConfigurationInterface $configuration,
         private array $userNames = [],
         private readonly array $options = []
     )
