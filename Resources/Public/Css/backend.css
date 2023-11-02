@@ -1,8 +1,10 @@
 .sitegeist-widget-mirror {
-    display: grid;
-    height: 100%;
+    .sitegeist-widget-mirror_info-wrapper {
+        display: grid;
+        height: 100%;
+    }
 
-    .empty-widget {
+    .sitegeist-widget-mirror_empty-widget {
         place-items: center;
         text-align: center;
 

@@ -53,7 +53,7 @@
                                     <br /><span class="error"> ({f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.needsRecheck')})</span>
                                 </f:if>
                             </td>
-                            <td nowrap>
+                            <td>
                                 <be:link.editRecord
                                     class="btn btn-default btn-sm"
                                     uid="{brokenLink.record_uid}"
@@ -63,16 +63,19 @@
                                 >
                                     <core:icon identifier="actions-open" />
                                 </be:link.editRecord>
+                            </td>
                         </tr>
                     </f:for>
                 </table>
             </div>
         </f:then>
         <f:else>
-            <p class="empty-widget">
-                <core:icon identifier="modulegroup-tools" size="large" /><br />
-                <f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.noLinks" />
-            </p>
+            <div class="sitegeist-widget-mirror_info-wrapper">
+                <p class="sitegeist-widget-mirror_empty-widget">
+                    <core:icon identifier="modulegroup-tools" size="large" /><br />
+                    <f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.noLinks" />
+                </p>
+            </div>
         </f:else>
     </f:if>
 </f:section>
