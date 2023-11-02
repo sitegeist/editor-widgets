@@ -42,6 +42,7 @@ services:
         iconIdentifier: 'widget-mirror'
         height: 'medium'
         width: 'medium'
+        additionalCssClasses: 'sitegeist-widget-mirror'
 
   dashboard.widget.sitegeist.widget_mirror.duplicateFiles:
     class: 'Sitegeist\WidgetMirror\Widgets\DuplicateFilesWidget'
@@ -57,6 +58,7 @@ services:
         iconIdentifier: 'widget-mirror'
         height: 'medium'
         width: 'medium'
+        additionalCssClasses: 'sitegeist-widget-mirror'
 
   dashboard.widget.sitegeist.widget_mirror.lastChangedPages:
     class: 'Sitegeist\WidgetMirror\Widgets\LastChangedPagesWidget'
@@ -72,6 +74,7 @@ services:
         iconIdentifier: 'widget-mirror'
         height: 'medium'
         width: 'medium'
+        additionalCssClasses: 'sitegeist-widget-mirror'
 
   dashboard.widget.sitegeist.widget_mirror.latestRedirects:
     class: 'Sitegeist\WidgetMirror\Widgets\LatestRedirectsWidget'

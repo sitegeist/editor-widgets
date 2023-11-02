@@ -7,14 +7,15 @@
     .sitegeist-widget-mirror_empty-widget {
         align-self: center;
         justify-self: center;
+        text-align: center;
         font-size: large;
 
         .icon {
-            height: 100px;
-            width: 100px;
+            height: 80px;
+            width: 80px;
             line-height: 100px;
             color: #FF8700;
-            margin-top: -50px;
+            margin-bottom: 20px;
         }
     }
 }

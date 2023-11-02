@@ -5,72 +5,82 @@
 >
 <f:layout name="Widget/Widget" />
 <f:section name="main">
+    <f:if condition="{duplicates}">
+        <f:then>
+            <div class="widget-table-wrapper">
+                <table class="widget-table">
+                    <thead>
+                        <tr>
+                            <th width="70%"></th>
+                            <th width="20%"><f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicateFiles.control" /></th>
+                            <th width="10%"><f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicateFiles.referenceCount" /></th>
+                        </tr>
+                    </thead>
+                    <f:for each="{duplicates}" as="duplicate">
+                        <tr>
+                            <td colspan="3">
+                                <table style="width: 100%; margin:0; padding:0;">
+                                    <f:for each="{duplicate.files}" as="duplicate">
+                                        <tr style="background-color: initial;">
+                                            <td width="70%" style="word-break: break-word;">
+                                                {duplicate.file.identifier}<br />
+                                                <f:if condition="{duplicate.isImage}">
+                                                    <f:media file="{duplicate.file}" width="150c" height="75c" />
+                                                </f:if>
+                                            </td>
+                                            <td width="20%">
+                                                <div class="btn-group position-static">
+                                                    <f:link.file
+                                                        file="{duplicate.file}"
+                                                        target="_blank"
+                                                        title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicateFiles.openOriginalFile')}"
+                                                        class="btn btn-default btn-sm"
+                                                    >
+                                                        <core:icon identifier="actions-eye" />
+                                                    </f:link.file>
+                                                    <f:be.link
+                                                        route="show_item"
+                                                        parameters="{table: '_FILE', uid: '{duplicate.file.storage.storageRecord.uid}:{duplicate.file.identifier}'}"
+                                                        target="_blank"
+                                                        title="{f:translate(key: 'LLL:EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf:showInfo')}"
+                                                        class="btn btn-default btn-sm"
+                                                    >
+                                                        <core:icon identifier="actions-document-info" />
+                                                    </f:be.link>
 
-    <div class="widget-table-wrapper">
-        <table class="widget-table">
-            <thead>
-                <tr>
-                    <th width="70%"></th>
-                    <th width="20%"><f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicatefiles.control" /></th>
-                    <th width="10%"><f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicatefiles.referenceCount" /></th>
-                </tr>
-            </thead>
-            <f:for each="{duplicates}" as="duplicate">
-                <tr>
-                    <td colspan="3">
-                        <table style="width: 100%; margin:0; padding:0;">
-                            <f:for each="{duplicate.files}" as="duplicate">
-                                <tr style="background-color: initial;">
-                                    <td width="70%" style="word-break: break-word;">
-                                        {duplicate.file.identifier}<br />
-                                        <f:if condition="{duplicate.isImage}">
-                                            <f:media file="{duplicate.file}" width="150c" height="75c" />
-                                        </f:if>
-                                    </td>
-                                    <td width="20%">
-                                        <div class="btn-group position-static">
-                                            <f:link.file
-                                                file="{duplicate.file}"
-                                                target="_blank"
-                                                title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicatefiles.openOriginalFile')}"
-                                                class="btn btn-default btn-sm"
-                                            >
-                                                <core:icon identifier="actions-eye" />
-                                            </f:link.file>
-                                            <f:be.link
-                                                route="show_item"
-                                                parameters="{table: '_FILE', uid: '{duplicate.file.storage.storageRecord.uid}:{duplicate.file.identifier}'}"
-                                                target="_blank"
-                                                title="{f:translate(key: 'LLL:EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf:showInfo')}"
-                                                class="btn btn-default btn-sm"
-                                            >
-                                                <core:icon identifier="actions-document-info" />
-                                            </f:be.link>
-
-                                            <f:if condition="{duplicate.file.parentFolder}">
-                                                <f:be.link
-                                                    route="file_FilelistList"
-                                                    parameters="{id: duplicate.file.parentFolder.combinedIdentifier, searchTerm: duplicate.file.name}"
-                                                    title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicatefiles.openFileList')}"
-                                                    class="btn btn-default btn-sm"
-                                                >
-                                                    <core:icon identifier="actions-search" />
-                                                </f:be.link>
-                                            </f:if>
-                                        </div>
-                                    </td>
-                                    <td width="10%">
-                                        {duplicate.referenceCount}
-                                    </td>
-                                </tr>
-                            </f:for>
-                        </table>
-                    </td>
-                </tr>
-            </f:for>
-        </table>
-    </div>
-
+                                                    <f:if condition="{duplicate.file.parentFolder}">
+                                                        <f:be.link
+                                                            route="file_FilelistList"
+                                                            parameters="{id: duplicate.file.parentFolder.combinedIdentifier, searchTerm: duplicate.file.name}"
+                                                            title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicateFiles.openFileList')}"
+                                                            class="btn btn-default btn-sm"
+                                                        >
+                                                            <core:icon identifier="actions-search" />
+                                                        </f:be.link>
+                                                    </f:if>
+                                                </div>
+                                            </td>
+                                            <td width="10%">
+                                                {duplicate.referenceCount}
+                                            </td>
+                                        </tr>
+                                    </f:for>
+                                </table>
+                            </td>
+                        </tr>
+                    </f:for>
+                </table>
+            </div>
+        </f:then>
+        <f:else>
+            <div class="sitegeist-widget-mirror_info-wrapper">
+                <p class="sitegeist-widget-mirror_empty-widget">
+                    <core:icon identifier="actions-rocket" size="large" /><br />
+                    <f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicateFiles.empty" />
+                </p>
+            </div>
+        </f:else>
+    </f:if>
 </f:section>
 <f:section name="footer">
 
