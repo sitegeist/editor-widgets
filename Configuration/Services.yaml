@@ -87,6 +87,7 @@ services:
         iconIdentifier: 'widget-mirror'
         height: 'medium'
         width: 'medium'
+        additionalCssClasses: 'sitegeist-widget-mirror'
 
   dashboard.widget.sitegeist.widget_mirror.brokenLinks:
     class: 'Sitegeist\WidgetMirror\Widgets\BrokenLinksWidget'
