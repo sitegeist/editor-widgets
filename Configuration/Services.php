@@ -29,7 +29,7 @@ return function (ContainerConfigurator $configurator, ContainerBuilder $containe
                 'description' => 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.description',
                 'iconIdentifier' => 'widget-mirror',
                 'height' => 'large',
-                'width' => 'medium',
+                'width' => 'large',
                 'additionalCssClasses' => 'sitegeist-widget-mirror',
             ]);
     }
