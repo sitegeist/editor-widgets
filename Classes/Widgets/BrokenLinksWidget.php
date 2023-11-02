@@ -3,6 +3,7 @@
 namespace Sitegeist\WidgetMirror\Widgets;
 
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
@@ -21,6 +22,10 @@ class BrokenLinksWidget implements WidgetInterface
 
     public function renderWidgetContent(): string
     {
+        $languageServiceFactory = GeneralUtility::makeInstance(LanguageServiceFactory::class);
+        $GLOBALS['LANG'] = $languageServiceFactory->createFromUserPreferences($GLOBALS['BE_USER']);
+        $GLOBALS['LANG']->includeLLFile('EXT:linkvalidator/Resources/Private/Language/Module/locallang.xlf');
+
         $queryBuilder = $this->connectionPool->getConnectionForTable('tx_linkvalidator_link')->createQueryBuilder();
         $brokenLinks = $queryBuilder
             ->select('*')
