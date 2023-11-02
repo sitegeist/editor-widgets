@@ -104,7 +104,34 @@
 				</source>
 			</trans-unit>
 			<trans-unit id="widgets.brokenLinks.noLinks">
-				<source>No broken links found or linkvalidator is not loaded.</source>
+				<source>No broken links found</source>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.needsRecheck">
+				<source>Needs recheck</source>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.open">
+				<source>Open in new tab</source>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.edit">
+				<source>Edit element containing this broken link</source>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.tableHead.path">
+				<source>Path</source>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.tableHead.element">
+				<source>Element</source>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.tableHead.headlink">
+				<source>Link</source>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.tableHead.linktarget">
+				<source>URL / Link Target</source>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.tableHead.linkmessage">
+				<source>Error message</source>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.tableHead.lastCheck">
+				<source>Last check</source>
 			</trans-unit>
 
 			<trans-unit id="sys_file_storage.widget_mirror">

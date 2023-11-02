@@ -1,63 +1,80 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:layout name="Widget/Widget" />
 <f:section name="main">
-
-    <div class="widget-table-wrapper">
-        <table class="widget-table">
-                    <f:if condition="{brokenLinks}">
-                        <f:then>
-                            <f:for each="{brokenLinks}" as="brokenLink">
-                                <tr>
-                                    <td>
-                                        <strong>
-                                            <f:link.typolink absolute="1" parameter="{brokenLink.url}">
-                                                <f:if condition="{f:uri.typolink(parameter: brokenLink.url)}">
-                                                    <f:then>{f:uri.typolink(absolute: 1, parameter: brokenLink.url) -> f:format.crop(maxCharacters: 80)}</f:then>
-                                                    <f:else>
-                                                        <f:if condition="{brokenLink.link_title}">
-                                                            <f:then>{brokenLink.link_title -> f:format.crop(maxCharacters: 80)}</f:then>
-                                                            <f:else>{brokenLink.url -> f:format.crop(maxCharacters: 80)}</f:else>
-                                                        </f:if>
-                                                    </f:else>
-                                                </f:if>
-                                            </f:link.typolink>
-                                        </strong>
-                                        <small>
-                                            {brokenLink.errorMessage} ({brokenLink.last_check -> f:format.date()})
-                                            <br>
-                                            <be:link.editRecord
-                                                uid="{brokenLink.record_uid}"
-                                                table="{brokenLink.table_name}"
-                                                returnUrl="{f:be.uri(route: 'dashboard')}"
-                                            >
-                                                <f:format.raw>
-                                                    <f:translate
-                                                        key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.text"
-                                                        arguments="{
-                                                            0: '{brokenLink.headline -> f:format.crop(maxCharacters: 80)}',
-                                                            1: brokenLink.record_uid,
-                                                            2: brokenLink.record_pid,
-                                                            3: brokenLink.field
-                                                        }"
-                                                    />
-                                                </f:format.raw>
-                                            </be:link.editRecord>
-                                        </small>
-                                    </td>
-                                </tr>
-                            </f:for>
-                        </f:then>
-                        <f:else>
-                            <tr>
-                                <td>
-                                    <p><f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.noLinks" /></p>
-                                </td>
-                            </tr>
-                        </f:else>
-                    </f:if>
-        </table>
-    </div>
-
+    <f:if condition="{brokenLinks}">
+        <f:then>
+            <div class="widget-table-wrapper">
+                <table class="widget-table">
+                    <tr>
+                        <th><f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.tableHead.element" /></th>
+                        <th><f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.tableHead.path" /></th>
+                        <th><f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.tableHead.headlink" /></th>
+                        <th><f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.tableHead.linktarget" /></th>
+                        <th><f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.tableHead.linkmessage" /></th>
+                        <th><f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.tableHead.lastCheck" /></th>
+                    </tr>
+                    <f:for each="{brokenLinks}" as="brokenLink">
+                        <tr class="text-break">
+                            <td>
+                                <be:link.editRecord
+                                    uid="{brokenLink.record_uid}"
+                                    table="{brokenLink.table_name}"
+                                    title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.edit')}"
+                                    returnUrl="{f:be.uri(route: 'dashboard')}"
+                                >
+                                    <core:iconForRecord table="{brokenLink.table_name}" row="{brokenLink}" />
+                                    {brokenLink.headline -> f:format.crop(maxCharacters: 80)}
+                                </be:link.editRecord>
+                            </td>
+                            <td>{brokenLink.path -> f:format.raw()}</td>
+                            <td>{brokenLink.link_title -> f:format.raw()}</td>
+                            <td>
+                                <a href="{brokenLink.linkTarget}"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.open')}"
+                                >
+                                    {brokenLink.linkTarget}
+                                </a>
+                            </td>
+                            <td>
+                                <f:if condition="{brokenLink.linkMessage}">
+                                    <f:then>
+                                        <span class="text-danger">{brokenLink.linkMessage -> f:format.htmlspecialchars() -> f:format.nl2br()}</span>
+                                    </f:then>
+                                    <f:else>
+                                        <span class="text-success">###OK###</span>
+                                    </f:else>
+                                </f:if>
+                            </td>
+                            <td>
+                                {brokenLink.last_check -> f:format.date(format: dateFormat)}
+                                <f:if condition="{brokenLink.needs_recheck}">
+                                    <br /><span class="error"> ({f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.needsRecheck')})</span>
+                                </f:if>
+                            </td>
+                            <td nowrap>
+                                <be:link.editRecord
+                                    class="btn btn-default btn-sm"
+                                    uid="{brokenLink.record_uid}"
+                                    table="{brokenLink.table_name}"
+                                    title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.edit')}"
+                                    returnUrl="{f:be.uri(route: 'dashboard')}"
+                                >
+                                    <core:icon identifier="actions-open" />
+                                </be:link.editRecord>
+                        </tr>
+                    </f:for>
+                </table>
+            </div>
+        </f:then>
+        <f:else>
+            <p class="empty-widget">
+                <core:icon identifier="modulegroup-tools" size="large" /><br />
+                <f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.noLinks" />
+            </p>
+        </f:else>
+    </f:if>
 </f:section>
 <f:section name="footer">
 
