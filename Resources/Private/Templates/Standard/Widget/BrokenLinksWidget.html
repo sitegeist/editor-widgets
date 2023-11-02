@@ -48,7 +48,7 @@
                                 </f:if>
                             </td>
                             <td>
-                                {brokenLink.last_check -> f:format.date(format: dateFormat)}
+                                <span class="nowrap">{brokenLink.last_check -> f:format.date(format: dateFormat)}</span>
                                 <f:if condition="{brokenLink.needs_recheck}">
                                     <br /><span class="error"> ({f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.needsRecheck')})</span>
                                 </f:if>
