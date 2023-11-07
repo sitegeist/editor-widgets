@@ -79,6 +79,11 @@ class LastChangedPagesWidget implements WidgetInterface
         $history = GeneralUtility::makeInstance(RecordHistory::class, 'pages:' . $pageUid);
         $history->setMaxSteps(1);
         $latestChange = array_shift($history->getChangeLog());
+
+        if (!isset($latestChange['userid'])) {
+            return '';
+        }
+
         return $this->userNames[$latestChange['userid']]['username'] ?? '';
     }
 }
