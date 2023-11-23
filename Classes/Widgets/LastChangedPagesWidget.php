@@ -1,6 +1,6 @@
 <?php
 
-namespace Sitegeist\WidgetMirror\Widgets;
+namespace Sitegeist\EditorWidgets\Widgets;
 
 use TYPO3\CMS\Backend\History\RecordHistory;
 use TYPO3\CMS\Backend\Routing\PreviewUriBuilder;

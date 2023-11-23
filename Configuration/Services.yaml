@@ -4,90 +4,90 @@ services:
     autoconfigure: true
     public: false
 
-  Sitegeist\WidgetMirror\:
+  Sitegeist\EditorWidgets\:
     resource: '../Classes/*'
 
-  dashboard.widget.sitegeist.widget_mirror.storageSize:
-    class: 'Sitegeist\WidgetMirror\Widgets\StorageSizeWidget'
+  dashboard.widget.sitegeist.editor_widgets.storageSize:
+    class: 'Sitegeist\EditorWidgets\Widgets\StorageSizeWidget'
     arguments:
       $view: '@dashboard.views.widget'
-      $cache: '@cache.widget_mirror.storageSize'
+      $cache: '@cache.editor_widgets.storageSize'
     tags:
       - name: dashboard.widget
-        identifier: sitegeist.widget_mirror.storageSize
+        identifier: sitegeist.editor_widgets.storageSize
         groupNames: systemInfo
-        title: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storageSize.title'
-        description: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storageSize.description'
-        iconIdentifier: 'widget-mirror'
+        title: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.storageSize.title'
+        description: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.storageSize.description'
+        iconIdentifier: 'editor-widgets'
         height: 'medium'
         width: 'small'
 
-  cache.widget_mirror.storageSize:
+  cache.editor_widgets.storageSize:
     class: 'TYPO3\CMS\Core\Cache\Frontend\FrontendInterface'
     factory: ['@TYPO3\CMS\Core\Cache\CacheManager', 'getCache']
     arguments:
-      $identifier: 'widget_mirror_storage_size'
+      $identifier: 'editor_widgets_storage_size'
 
-  dashboard.widget.sitegeist.widget_mirror.unusedFiles:
-    class: 'Sitegeist\WidgetMirror\Widgets\UnusedFilesWidget'
+  dashboard.widget.sitegeist.editor_widgets.unusedFiles:
+    class: 'Sitegeist\EditorWidgets\Widgets\UnusedFilesWidget'
     arguments:
       $view: '@dashboard.views.widget'
       $connectionPool: '@TYPO3\CMS\Core\Database\ConnectionPool'
     tags:
       - name: dashboard.widget
-        identifier: sitegeist.widget_mirror.unusedFiles
+        identifier: sitegeist.editor_widgets.unusedFiles
         groupNames: systemInfo
-        title: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.unusedFiles.title'
-        description: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.unusedFiles.description'
-        iconIdentifier: 'widget-mirror'
+        title: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.unusedFiles.title'
+        description: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.unusedFiles.description'
+        iconIdentifier: 'editor-widgets'
         height: 'medium'
         width: 'medium'
-        additionalCssClasses: 'sitegeist-widget-mirror'
+        additionalCssClasses: 'sitegeist-editor-widgets'
 
-  dashboard.widget.sitegeist.widget_mirror.duplicateFiles:
-    class: 'Sitegeist\WidgetMirror\Widgets\DuplicateFilesWidget'
+  dashboard.widget.sitegeist.editor_widgets.duplicateFiles:
+    class: 'Sitegeist\EditorWidgets\Widgets\DuplicateFilesWidget'
     arguments:
       $view: '@dashboard.views.widget'
       $connectionPool: '@TYPO3\CMS\Core\Database\ConnectionPool'
     tags:
       - name: dashboard.widget
-        identifier: sitegeist.widget_mirror.duplicateFiles
+        identifier: sitegeist.editor_widgets.duplicateFiles
         groupNames: systemInfo
-        title: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicateFiles.title'
-        description: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicateFiles.description'
-        iconIdentifier: 'widget-mirror'
+        title: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.duplicateFiles.title'
+        description: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.duplicateFiles.description'
+        iconIdentifier: 'editor-widgets'
         height: 'medium'
         width: 'medium'
-        additionalCssClasses: 'sitegeist-widget-mirror'
+        additionalCssClasses: 'sitegeist-editor-widgets'
 
-  dashboard.widget.sitegeist.widget_mirror.lastChangedPages:
-    class: 'Sitegeist\WidgetMirror\Widgets\LastChangedPagesWidget'
+  dashboard.widget.sitegeist.editor_widgets.lastChangedPages:
+    class: 'Sitegeist\EditorWidgets\Widgets\LastChangedPagesWidget'
     arguments:
       $view: '@dashboard.views.widget'
       $connectionPool: '@TYPO3\CMS\Core\Database\ConnectionPool'
     tags:
       - name: dashboard.widget
-        identifier: sitegeist.widget_mirror.lastChangedPages
+        identifier: sitegeist.editor_widgets.lastChangedPages
         groupNames: systemInfo
-        title: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.lastChangedPages.title'
-        description: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.lastChangedPages.description'
-        iconIdentifier: 'widget-mirror'
+        title: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.lastChangedPages.title'
+        description: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.lastChangedPages.description'
+        iconIdentifier: 'editor-widgets'
         height: 'medium'
         width: 'medium'
-        additionalCssClasses: 'sitegeist-widget-mirror'
+        additionalCssClasses: 'sitegeist-editor-widgets'
 
-  dashboard.widget.sitegeist.widget_mirror.latestRedirects:
-    class: 'Sitegeist\WidgetMirror\Widgets\LatestRedirectsWidget'
+  dashboard.widget.sitegeist.editor_widgets.latestRedirects:
+    class: 'Sitegeist\EditorWidgets\Widgets\LatestRedirectsWidget'
     arguments:
       $view: '@dashboard.views.widget'
       $connectionPool: '@TYPO3\CMS\Core\Database\ConnectionPool'
     tags:
       - name: dashboard.widget
-        identifier: sitegeist.widget_mirror.latestRedirects
+        identifier: sitegeist.editor_widgets.latestRedirects
         groupNames: systemInfo
-        title: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.latestRedirects.title'
-        description: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.latestRedirects.description'
-        iconIdentifier: 'widget-mirror'
+        title: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.latestRedirects.title'
+        description: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.latestRedirects.description'
+        iconIdentifier: 'editor-widgets'
         height: 'medium'
         width: 'medium'
-        additionalCssClasses: 'sitegeist-widget-mirror'
+        additionalCssClasses: 'sitegeist-editor-widgets'

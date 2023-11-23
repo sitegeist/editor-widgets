@@ -5,8 +5,8 @@ declare(strict_types=1);
 use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
 
 return [
-    'widget-mirror' => [
+    'editor-widgets' => [
         'provider' => SvgIconProvider::class,
-        'source' => 'EXT:widget_mirror/Resources/Public/Icons/Extension.svg',
+        'source' => 'EXT:editor_widgets/Resources/Public/Icons/Extension.svg',
     ],
 ];

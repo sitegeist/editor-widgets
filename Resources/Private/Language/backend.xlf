@@ -143,13 +143,13 @@
 				<source>Last check</source>
 			</trans-unit>
 
-			<trans-unit id="sys_file_storage.widget_mirror">
-				<source>Widget mirror</source>
+			<trans-unit id="sys_file_storage.editor_widgets">
+				<source>Editor widgets</source>
 			</trans-unit>
-			<trans-unit id="sys_file_storage.widget_mirror.max_storage_size">
+			<trans-unit id="sys_file_storage.editor_widgets.max_storage_size">
 				<source>Maximum size (only used for display, no validation is done!)</source>
 			</trans-unit>
-			<trans-unit id="sys_file_storage.widget_mirror.max_storage_size.description">
+			<trans-unit id="sys_file_storage.editor_widgets.max_storage_size.description">
 				<source>In bytes or simply KB, MB, GB</source>
 			</trans-unit>
 

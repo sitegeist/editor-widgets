@@ -1,9 +1,9 @@
 <?php
 
 declare(strict_types=1);
-namespace Sitegeist\WidgetMirror;
+namespace Sitegeist\EditorWidgets;
 
-use Sitegeist\WidgetMirror\Widgets\BrokenLinksWidget;
+use Sitegeist\EditorWidgets\Widgets\BrokenLinksWidget;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\Reference;
@@ -15,21 +15,21 @@ return function (ContainerConfigurator $configurator, ContainerBuilder $containe
     $services = $configurator->services();
 
     if ($containerBuilder->hasDefinition(BrokenLinkRepository::class)) {
-        $services->set('dashboard.widget.sitegeist.widget_mirror.brokenLinks:')
+        $services->set('dashboard.widget.sitegeist.editor_widgets.brokenLinks:')
             ->class(BrokenLinksWidget::class)
             ->arg('$view', new Reference('dashboard.views.widget'))
             ->arg('$connectionPool', new Reference(ConnectionPool::class))
             ->arg('$brokenLinkRepository', new Reference(BrokenLinkRepository::class))
             ->arg('$pagesRepository', new Reference(PagesRepository::class))
             ->tag('dashboard.widget', [
-                'identifier' => 'sitegeist.widget_mirror.brokenLinks',
+                'identifier' => 'sitegeist.editor_widgets.brokenLinks',
                 'groupNames' => 'systemInfo',
-                'title' => 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.title',
-                'description' => 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.brokenLinks.description',
-                'iconIdentifier' => 'widget-mirror',
+                'title' => 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.title',
+                'description' => 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.description',
+                'iconIdentifier' => 'editor-widgets',
                 'height' => 'large',
                 'width' => 'large',
-                'additionalCssClasses' => 'sitegeist-widget-mirror',
+                'additionalCssClasses' => 'sitegeist-editor-widgets',
             ]);
     }
 };

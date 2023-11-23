@@ -1,7 +1,7 @@
 {
-    "name": "sitegeist/widget-mirror",
+    "name": "sitegeist/editor-widgets",
     "type": "typo3-cms-extension",
-    "homepage": "https://github.com/sitegeist/widget-mirror",
+    "homepage": "https://github.com/sitegeist/editor-widgets",
     "license": [
         "GPL-2.0-or-later"
     ],
@@ -27,12 +27,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Sitegeist\\WidgetMirror\\": "Classes"
+            "Sitegeist\\EditorWidgets\\": "Classes"
         }
     },
     "extra": {
         "typo3/cms": {
-            "extension-key": "widget_mirror"
+            "extension-key": "editor_widgets"
         }
     },
     "scripts": {

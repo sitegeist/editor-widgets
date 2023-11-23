@@ -1,6 +1,6 @@
 <?php
 
-namespace Sitegeist\WidgetMirror\Widgets;
+namespace Sitegeist\EditorWidgets\Widgets;
 
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface as Cache;
 use TYPO3\CMS\Core\Core\Environment;
@@ -60,9 +60,9 @@ class StorageSizeWidget implements WidgetInterface, EventDataInterface, Addition
                 ],
                 'data' => [
                     'labels' => [
-                        $languageService->sL('LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storageSize.chart.used')
+                        $languageService->sL('LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.storageSize.chart.used')
                             . ' ' . GeneralUtility::formatSize($storageData['bytesUsed'], '| kB| MB| GB| TB| PB| EB| ZB| YB'),
-                        $languageService->sL('LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.storageSize.chart.free')
+                        $languageService->sL('LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.storageSize.chart.free')
                             . ' ' . GeneralUtility::formatSize($storageData['bytesFree'], '| kB| MB| GB| TB| PB| EB| ZB| YB'),
                     ],
                     'datasets' => [
@@ -105,9 +105,9 @@ class StorageSizeWidget implements WidgetInterface, EventDataInterface, Addition
             'usage' => ''
         ];
 
-        if (!empty($storage->getStorageRecord()['tx_widget_mirror_max_size'])) {
+        if (!empty($storage->getStorageRecord()['tx_editor_widgets_max_size'])) {
             $maxSize = GeneralUtility::getBytesFromSizeMeasurement(
-                $storage->getStorageRecord()['tx_widget_mirror_max_size']
+                $storage->getStorageRecord()['tx_editor_widgets_max_size']
             );
         } else {
             $maxSize = self::DEFAULT_MAX_SIZE;

@@ -19,7 +19,7 @@
                             <td>
                                 <f:if condition="{page.rootline}">
                                     <small style="color: dimgray;"
-                                        title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.lastChangedPages.pagetree')}"
+                                        title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.lastChangedPages.pagetree')}"
                                     >
                                         {page.rootline}</small><br />
                                 </f:if>
@@ -31,7 +31,7 @@
                                         route="record_history"
                                         parameters="{element: 'pages:{page.uid}'}"
                                         class="btn btn-default btn-sm"
-                                        title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.lastChangedPages.recordHistory')}"
+                                        title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.lastChangedPages.recordHistory')}"
                                     >
                                         <core:icon identifier="actions-history" />
                                     </f:be.link>
@@ -48,7 +48,7 @@
                                         route="web_layout"
                                         parameters="{id: page.uid}"
                                         class="btn btn-default btn-sm"
-                                        title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.lastChangedPages.editPageContent')}"
+                                        title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.lastChangedPages.editPageContent')}"
                                     >
                                         <core:icon identifier="actions-document-edit" />
                                     </f:be.link>
@@ -74,10 +74,10 @@
             </div>
         </f:then>
         <f:else>
-            <div class="sitegeist-widget-mirror_info-wrapper">
-                <p class="sitegeist-widget-mirror_empty-widget">
+            <div class="sitegeist-editor-widgets_info-wrapper">
+                <p class="sitegeist-editor-widgets_empty-widget">
                     <core:icon identifier="actions-history" size="large" /><br />
-                    <f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.lastChangedPages.empty" />
+                    <f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.lastChangedPages.empty" />
                 </p>
             </div>
         </f:else>

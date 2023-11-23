@@ -1,7 +1,7 @@
 <?php
-$EM_CONF['widget_mirror'] = [
-    'title' => 'Widget mirror',
-    'description' => 'Collection of useful dashboard widgets for TYPO3',
+$EM_CONF['editor_widgets'] = [
+    'title' => 'Editor Widgets',
+    'description' => 'Collection of useful dashboard widgets focused on editors',
     'category' => 'backend',
     'author' => 'Benjamin Tammling',
     'author_email' => 'extensions@sitegeist.de',
@@ -23,7 +23,7 @@ $EM_CONF['widget_mirror'] = [
     ],
     'autoload' => [
         'psr-4' => [
-            'Sitegeist\\WidgetMirror\\' => 'Classes'
+            'Sitegeist\\EditorWidgets\\' => 'Classes'
         ]
     ],
 ];

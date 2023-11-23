@@ -1,6 +1,6 @@
 <?php
 
-namespace Sitegeist\WidgetMirror\Widgets;
+namespace Sitegeist\EditorWidgets\Widgets;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
