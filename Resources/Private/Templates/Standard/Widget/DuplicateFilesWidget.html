@@ -11,24 +11,28 @@
                 <table class="widget-table">
                     <thead>
                         <tr>
+                            <th width="2%"></th>
                             <th width="70%"></th>
-                            <th width="20%"><f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicateFiles.control" /></th>
+                            <th width="15%"><f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicateFiles.control" /></th>
                             <th width="10%"><f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:widgets.duplicateFiles.referenceCount" /></th>
                         </tr>
                     </thead>
                     <f:for each="{duplicates}" as="duplicate">
                         <tr>
-                            <td colspan="3">
+                            <td colspan="4">
                                 <table style="width: 100%; margin:0; padding:0;">
                                     <f:for each="{duplicate.files}" as="duplicate">
                                         <tr style="background-color: initial;">
+                                            <td width="2%" style="padding:0;">
+                                                <core:iconForResource resource="{duplicate.file}" />
+                                            </td>
                                             <td width="70%" style="word-break: break-word;">
                                                 {duplicate.file.identifier}<br />
                                                 <f:if condition="{duplicate.isImage}">
                                                     <f:media file="{duplicate.file}" width="150c" height="75c" />
                                                 </f:if>
                                             </td>
-                                            <td width="20%">
+                                            <td width="15%">
                                                 <f:if condition="!{duplicate.file.missing}">
                                                     <f:then>
                                                         <div class="btn-group position-static">
@@ -68,7 +72,7 @@
                                                     </f:else>
                                                 </f:if>
                                             </td>
-                                            <td width="10%">
+                                            <td width="10%" style="">
                                                 {duplicate.referenceCount}
                                             </td>
                                         </tr>
