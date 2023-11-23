@@ -35,7 +35,14 @@ class UnusedFilesWidget implements WidgetInterface
             ->execute()
             ->fetchAllAssociative();
 
-        $files = array_map([$this->resourceFactory, 'getFileObject'], array_column($files, 'uid'));
+        foreach ($files as &$file) {
+            $file = $this->resourceFactory->getFileObject($file['uid']);
+            try {
+                $file->getParentFolder();
+            } catch (\Throwable $th) {
+                $file->setMissing(1);
+            }
+        }
 
         $this->view->setTemplate('Widget/UnusedFilesWidget');
         $this->view->assignMultiple([

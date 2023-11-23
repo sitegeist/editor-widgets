@@ -162,6 +162,12 @@
 			<trans-unit id="openFileList">
 				<source>Search in folder</source>
 			</trans-unit>
+			<trans-unit id="fileMissing">
+				<source>File missing</source>
+			</trans-unit>
+			<trans-unit id="fileMissing.description">
+				<source>please inform your administrator to run FAL: update storage index</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

@@ -45,6 +45,13 @@ class DuplicateFilesWidget implements WidgetInterface
             $duplicate['files'] = array_map(
                 function ($uid) {
                     $file = $this->resourceFactory->getFileObject($uid);
+
+                    try {
+                        $file->getParentFolder();
+                    } catch (\Throwable $th) {
+                        $file->setMissing(1);
+                    }
+
                     return [
                         'file' => $file,
                         'referenceCount' => BackendUtility::referenceCount('sys_file', $file->getUid()),

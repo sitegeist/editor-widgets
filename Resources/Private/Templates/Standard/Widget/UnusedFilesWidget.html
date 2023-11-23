@@ -20,35 +20,44 @@
                                 {file.size -> f:format.bytes()}
                             </td>
                             <td>
-                                <div class="btn-group position-static">
-                                    <f:link.file
-                                        file="{file}"
-                                        target="_blank"
-                                        title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:openOriginalFile')}"
-                                        class="btn btn-default btn-sm"
-                                    >
-                                        <core:icon identifier="actions-eye" />
-                                    </f:link.file>
-                                    <f:be.link
-                                        route="show_item"
-                                        parameters="{table: '_FILE', uid: '{file.storage.storageRecord.uid}:{file.identifier}'}"
-                                        target="_blank"
-                                        title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:showInfo')}"
-                                        class="btn btn-default btn-sm"
-                                    >
-                                        <core:icon identifier="actions-document-info" />
-                                    </f:be.link>
-                                    <f:if condition="{file.parentFolder}">
-                                        <f:be.link
-                                            route="file_FilelistList"
-                                            parameters="{id: file.parentFolder.combinedIdentifier, searchTerm: file.name}"
-                                            title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:openFileList')}"
-                                            class="btn btn-default btn-sm"
-                                        >
-                                            <core:icon identifier="actions-search" />
-                                        </f:be.link>
-                                    </f:if>
-                                </div>
+                                <f:if condition="!{file.missing}">
+                                    <f:then>
+                                        <div class="btn-group position-static">
+                                            <f:link.file
+                                                file="{file}"
+                                                target="_blank"
+                                                title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:openOriginalFile')}"
+                                                class="btn btn-default btn-sm"
+                                            >
+                                                <core:icon identifier="actions-eye" />
+                                            </f:link.file>
+
+                                            <f:be.link
+                                                route="show_item"
+                                                parameters="{table: '_FILE', uid: '{file.storage.storageRecord.uid}:{file.identifier}'}"
+                                                target="_blank"
+                                                title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:showInfo')}"
+                                                class="btn btn-default btn-sm"
+                                            >
+                                                <core:icon identifier="actions-document-info" />
+                                            </f:be.link>
+
+                                            <f:be.link
+                                                route="file_FilelistList"
+                                                parameters="{id: file.parentFolder.combinedIdentifier, searchTerm: file.name}"
+                                                title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:openFileList')}"
+                                                class="btn btn-default btn-sm"
+                                            >
+                                                <core:icon identifier="actions-search" />
+                                            </f:be.link>
+                                        </div>
+                                    </f:then>
+                                    <f:else>
+                                        <span class="text-danger" title="{f:translate(key: 'LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:fileMissing.description')}">
+                                            <f:translate key="LLL:EXT:widget_mirror/Resources/Private/Language/backend.xlf:fileMissing" />
+                                        </span>
+                                    </f:else>
+                                </f:if>
                             </td>
                         </tr>
                     </f:for>
