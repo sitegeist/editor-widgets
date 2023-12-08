@@ -11,11 +11,17 @@
         "dashboard",
         "widget"
     ],
-    "description": "Collection of useful dashboard widgets for TYPO3",
+    "description": "Collection of dashboard widgets designed for TYPO3 editors",
     "authors": [
         {
             "name": "Benjamin Tammling",
             "email": "extensions@sitegeist.de",
+            "role": "Developer",
+            "homepage": "https://www.sitegeist.de"
+        },
+        {
+            "name": "Ulrich Mathes",
+            "email": "mathes@sitegeist.de",
             "role": "Developer",
             "homepage": "https://www.sitegeist.de"
         }

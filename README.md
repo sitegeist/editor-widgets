@@ -1,5 +1,5 @@
 # Editor widgets
-Collection of useful dashboard widgets
+Collection of dashboard widgets designed for TYPO3 editors
 
 ## What does it do?
 Adds some, hopefully useful, dashboard widgets. For a detailed explanation see below.
