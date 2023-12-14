@@ -1,7 +1,7 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:layout name="Widget/Widget" />
 <f:section name="main">
-    <f:if condition="{brokenLinks}">
+    <f:if condition="{brokenLinks || hiddenBrokenLinks}">
         <f:then>
             <div class="widget-table-wrapper">
                 <table class="widget-table">
@@ -13,58 +13,14 @@
                         <th><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.tableHead.linkmessage" /></th>
                         <th><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.tableHead.lastCheck" /></th>
                     </tr>
+
                     <f:for each="{brokenLinks}" as="brokenLink">
-                        <tr class="text-break">
-                            <td>
-                                <be:link.editRecord
-                                    uid="{brokenLink.record_uid}"
-                                    table="{brokenLink.table_name}"
-                                    title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.edit')}"
-                                    returnUrl="{f:be.uri(route: 'dashboard')}"
-                                >
-                                    <core:iconForRecord table="{brokenLink.table_name}" row="{brokenLink}" />
-                                    {brokenLink.headline -> f:format.crop(maxCharacters: 80)}
-                                </be:link.editRecord>
-                            </td>
-                            <td>{brokenLink.path -> f:format.raw()}</td>
-                            <td>{brokenLink.link_title -> f:format.raw()}</td>
-                            <td>
-                                <a href="{brokenLink.linkTarget}"
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.open')}"
-                                >
-                                    {brokenLink.linkTarget}
-                                </a>
-                            </td>
-                            <td>
-                                <f:if condition="{brokenLink.linkMessage}">
-                                    <f:then>
-                                        <span class="text-danger">{brokenLink.linkMessage -> f:format.htmlspecialchars() -> f:format.nl2br()}</span>
-                                    </f:then>
-                                    <f:else>
-                                        <span class="text-success">###OK###</span>
-                                    </f:else>
-                                </f:if>
-                            </td>
-                            <td>
-                                <span class="nowrap">{brokenLink.last_check -> f:format.date(format: dateFormat)}</span>
-                                <f:if condition="{brokenLink.needs_recheck}">
-                                    <br /><span class="error"> ({f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.needsRecheck')})</span>
-                                </f:if>
-                            </td>
-                            <td>
-                                <be:link.editRecord
-                                    class="btn btn-default btn-sm"
-                                    uid="{brokenLink.record_uid}"
-                                    table="{brokenLink.table_name}"
-                                    title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.edit')}"
-                                    returnUrl="{f:be.uri(route: 'dashboard')}"
-                                >
-                                    <core:icon identifier="actions-open" />
-                                </be:link.editRecord>
-                            </td>
-                        </tr>
+                        <f:render section="brokenLinkRecord" arguments="{brokenLink: brokenLink}"></f:render>
+                    </f:for>
+
+                    <tr><td colspan="7">Hidden Records</td></tr>
+                    <f:for each="{hiddenBrokenLinks}" as="brokenLink">
+                        <f:render section="brokenLinkRecord" arguments="{brokenLink: brokenLink}"></f:render>
                     </f:for>
                 </table>
             </div>
@@ -83,3 +39,69 @@
 
 </f:section>
 </html>
+
+<f:section name="brokenLinkRecord">
+    <tr class="text-break {f:if(condition: brokenLink.tx_editor_widgets_hidden, then: 'opacity-50')}" data-uid="{brokenLink.uid}">
+        <td>
+            <be:link.editRecord
+                uid="{brokenLink.record_uid}"
+                table="{brokenLink.table_name}"
+                title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.edit')}"
+                returnUrl="{f:be.uri(route: 'dashboard')}"
+            >
+                <core:iconForRecord table="{brokenLink.table_name}" row="{brokenLink}" />
+                {brokenLink.headline -> f:format.crop(maxCharacters: 80)}
+            </be:link.editRecord>
+        </td>
+        <td>{brokenLink.path -> f:format.raw()}</td>
+        <td>{brokenLink.link_title -> f:format.raw()}</td>
+        <td>
+            <a href="{brokenLink.linkTarget}"
+                target="_blank"
+                rel="noreferrer"
+                title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.open')}"
+            >
+                {brokenLink.linkTarget}
+            </a>
+        </td>
+        <td>
+            <f:if condition="{brokenLink.linkMessage}">
+                <f:then>
+                    <span class="text-danger">{brokenLink.linkMessage -> f:format.htmlspecialchars() -> f:format.nl2br()}</span>
+                </f:then>
+                <f:else>
+                    <span class="text-success">###OK###</span>
+                </f:else>
+            </f:if>
+        </td>
+        <td>
+            <span class="nowrap">{brokenLink.last_check -> f:format.date(format: dateFormat)}</span>
+            <f:if condition="{brokenLink.needs_recheck}">
+                <br /><span class="error"> ({f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.needsRecheck')})</span>
+            </f:if>
+        </td>
+        <td>
+            <div class="btn-group position-static">
+                <be:link.editRecord
+                    class="btn btn-default btn-sm"
+                    uid="{brokenLink.record_uid}"
+                    table="{brokenLink.table_name}"
+                    title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.edit')}"
+                    returnUrl="{f:be.uri(route: 'dashboard')}"
+                >
+                    <core:icon identifier="actions-open" />
+                </be:link.editRecord>
+                <button
+                    type="button"
+                    class="btn btn-default btn-sm t3js-record-hide"
+                    data-state="{f:if(condition: brokenLink.tx_editor_widgets_hidden, then: 'hidden', else: 'visible')}"
+                    data-params="data[tx_linkvalidator_link][{brokenLink.uid}][tx_editor_widgets_hidden]={f:if(condition: brokenLink.tx_editor_widgets_hidden, then: 0, else: 1)}"
+                    data-toggle-title="{f:if(condition: brokenLink.tx_editor_widgets_hidden, then: 'hide', else: 'un-hide')}"
+                    title="{f:if(condition: brokenLink.tx_editor_widgets_hidden, then: 'un-hide', else: 'hide')}"
+                >
+                    <core:icon identifier="{f:if(condition: brokenLink.tx_editor_widgets_hidden, then: 'actions-edit-unhide', else: 'actions-edit-hide')}" />
+                </button>
+            </div>
+        </td>
+    </tr>
+</f:section>
