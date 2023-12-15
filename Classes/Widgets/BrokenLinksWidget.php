@@ -8,6 +8,7 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\Type\Bitmask\Permission;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Dashboard\Widgets\AdditionalCssInterface;
 use TYPO3\CMS\Dashboard\Widgets\RequireJsModuleInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
@@ -16,7 +17,7 @@ use TYPO3\CMS\Linkvalidator\Linktype\AbstractLinktype;
 use TYPO3\CMS\Linkvalidator\Repository\BrokenLinkRepository;
 use TYPO3\CMS\Linkvalidator\Repository\PagesRepository;
 
-class BrokenLinksWidget implements WidgetInterface, RequireJsModuleInterface
+class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, RequireJsModuleInterface
 {
     const PAGE_ID = 0;
 
@@ -70,6 +71,13 @@ class BrokenLinksWidget implements WidgetInterface, RequireJsModuleInterface
     public function getOptions(): array
     {
         return $this->options;
+    }
+
+    public function getCssFiles(): array
+    {
+       return [
+           'EXT:editor_widgets/Resources/Public/Css/backend.css',
+       ];
     }
 
     public function getRequireJsModules(): array

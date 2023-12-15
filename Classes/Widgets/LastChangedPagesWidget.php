@@ -9,11 +9,12 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\HiddenRestriction;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
+use TYPO3\CMS\Dashboard\Widgets\AdditionalCssInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
-class LastChangedPagesWidget implements WidgetInterface
+class LastChangedPagesWidget implements WidgetInterface, AdditionalCssInterface
 {
     public function __construct(
         private ConnectionPool $connectionPool,
@@ -72,6 +73,13 @@ class LastChangedPagesWidget implements WidgetInterface
     public function getOptions(): array
     {
         return $this->options;
+    }
+
+    public function getCssFiles(): array
+    {
+       return [
+           'EXT:editor_widgets/Resources/Public/Css/backend.css',
+       ];
     }
 
     private function getUserNameOfLatestChange(int $pageUid): string

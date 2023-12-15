@@ -3,11 +3,12 @@
 namespace Sitegeist\EditorWidgets\Widgets;
 
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Dashboard\Widgets\AdditionalCssInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
-class LatestRedirectsWidget implements WidgetInterface
+class LatestRedirectsWidget implements WidgetInterface, AdditionalCssInterface
 {
     public function __construct(
         private WidgetConfigurationInterface $configuration,
@@ -42,5 +43,12 @@ class LatestRedirectsWidget implements WidgetInterface
     public function getOptions(): array
     {
         return $this->options;
+    }
+
+    public function getCssFiles(): array
+    {
+       return [
+           'EXT:editor_widgets/Resources/Public/Css/backend.css',
+       ];
     }
 }
