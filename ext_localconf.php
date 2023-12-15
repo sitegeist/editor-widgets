@@ -16,5 +16,3 @@ if (!is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations
         ],
     ];
 }
-
-$GLOBALS['TYPO3_CONF_VARS']['BE']['stylesheets'] = 'EXT:editor_widgets/Resources/Public/Css/backend.css';
