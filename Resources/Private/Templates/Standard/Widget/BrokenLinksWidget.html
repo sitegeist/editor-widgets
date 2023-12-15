@@ -18,7 +18,7 @@
                         <f:render section="brokenLinkRecord" arguments="{brokenLink: brokenLink}"></f:render>
                     </f:for>
 
-                    <tr><td colspan="7">Hidden Records</td></tr>
+                    <tr><td colspan="7"><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.hiddenRecords" /></td></tr>
                     <f:for each="{hiddenBrokenLinks}" as="brokenLink">
                         <f:render section="brokenLinkRecord" arguments="{brokenLink: brokenLink}"></f:render>
                     </f:for>
@@ -70,7 +70,9 @@
                     <span class="text-danger">{brokenLink.linkMessage -> f:format.htmlspecialchars() -> f:format.nl2br()}</span>
                 </f:then>
                 <f:else>
-                    <span class="text-success">###OK###</span>
+                    <span class="text-success">
+                        <f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.success" />
+                    </span>
                 </f:else>
             </f:if>
         </td>
@@ -91,13 +93,15 @@
                 >
                     <core:icon identifier="actions-open" />
                 </be:link.editRecord>
+                <f:variable name="labelHide"><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.hide" /></f:variable>
+                <f:variable name="labelUnHide"><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.unHide" /></f:variable>
                 <button
                     type="button"
                     class="btn btn-default btn-sm t3js-record-hide"
                     data-state="{f:if(condition: brokenLink.tx_editor_widgets_hidden, then: 'hidden', else: 'visible')}"
                     data-params="data[tx_linkvalidator_link][{brokenLink.uid}][tx_editor_widgets_hidden]={f:if(condition: brokenLink.tx_editor_widgets_hidden, then: 0, else: 1)}"
-                    data-toggle-title="{f:if(condition: brokenLink.tx_editor_widgets_hidden, then: 'hide', else: 'un-hide')}"
-                    title="{f:if(condition: brokenLink.tx_editor_widgets_hidden, then: 'un-hide', else: 'hide')}"
+                    data-toggle-title="{f:if(condition: brokenLink.tx_editor_widgets_hidden, then: labelHide, else: labelUnHide)}"
+                    title="{f:if(condition: brokenLink.tx_editor_widgets_hidden, then: labelUnHide, else: labelHide)}"
                 >
                     <core:icon identifier="{f:if(condition: brokenLink.tx_editor_widgets_hidden, then: 'actions-edit-unhide', else: 'actions-edit-hide')}" />
                 </button>
