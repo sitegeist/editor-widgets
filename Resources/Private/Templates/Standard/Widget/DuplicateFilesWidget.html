@@ -45,15 +45,15 @@
                                                                 <core:icon identifier="actions-eye" />
                                                             </f:link.file>
 
-                                                            <f:be.link
-                                                                route="show_item"
-                                                                parameters="{table: '_FILE', uid: '{duplicate.file.storage.storageRecord.uid}:{duplicate.file.identifier}'}"
-                                                                target="_blank"
+                                                            <a
+                                                                href="#"
+                                                                data-dispatch-action="TYPO3.InfoWindow.showItem"
+                                                                data-dispatch-args-list="_FILE,{duplicate.file.storage.storageRecord.uid}:{duplicate.file.identifier}"
                                                                 title="{f:translate(key: 'LLL:EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf:showInfo')}"
                                                                 class="btn btn-default btn-sm"
                                                             >
                                                                 <core:icon identifier="actions-document-info" />
-                                                            </f:be.link>
+                                                            </a>
 
                                                             <f:be.link
                                                                 route="file_FilelistList"
