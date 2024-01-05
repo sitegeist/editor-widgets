@@ -85,7 +85,7 @@ class BrokenLinksWidget implements WidgetInterface
         $permsClause = (string)$this->getBackendUser()->getPagePermsClause(Permission::PAGE_SHOW);
         $pageList = $this->pagesRepository->getAllSubpagesForPage(
             self::PAGE_ID,
-            0,
+            999,
             $permsClause,
             $checkForHiddenPages
         );
