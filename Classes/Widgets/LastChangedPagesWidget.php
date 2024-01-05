@@ -5,8 +5,10 @@ namespace Sitegeist\EditorWidgets\Widgets;
 use TYPO3\CMS\Backend\History\RecordHistory;
 use TYPO3\CMS\Backend\Routing\PreviewUriBuilder;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\HiddenRestriction;
+use TYPO3\CMS\Core\Database\Query\Restriction\WorkspaceRestriction;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
@@ -29,7 +31,15 @@ class LastChangedPagesWidget implements WidgetInterface
     public function renderWidgetContent(): string
     {
         $queryBuilder = $this->connectionPool->getConnectionForTable('sys_file')->createQueryBuilder();
-        $queryBuilder->getRestrictions()->removeByType(HiddenRestriction::class);
+        $queryBuilder->getRestrictions()
+            ->removeByType(HiddenRestriction::class)
+            // Send currentWorkspace to WorkspaceRestriction constructor manually, due to BUG in Core
+            ->add(
+                GeneralUtility::makeInstance(
+                    WorkspaceRestriction::class,
+                    GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('workspace', 'id')
+                )
+            );
 
         $pages = $queryBuilder
             ->select('*')
