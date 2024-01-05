@@ -15,6 +15,11 @@
                                 <span title="id={page.uid}">
                                     <core:iconForRecord table="pages" row="{page}" />
                                 </span>
+                                <f:if condition="{page.t3ver_wsid}">
+                                    <span title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.lastChangedPages.pageInWorkspace')}">
+                                        <core:icon identifier="apps-toolbar-menu-workspace" size="small" />
+                                    </span>
+                                </f:if>
                             </td>
                             <td>
                                 <f:if condition="{page.rootline}">
