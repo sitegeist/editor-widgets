@@ -53,6 +53,9 @@
 			<trans-unit id="widgets.lastChangedPages.description">
 				<source>Displays last changed pages the active backend user has access to</source>
 			</trans-unit>
+			<trans-unit id="widgets.lastChangedPages.pageInWorkspace">
+				<source>The page is in current selected workspace</source>
+			</trans-unit>
 			<trans-unit id="widgets.lastChangedPages.recordHistory">
 				<source>Show history</source>
 			</trans-unit>
