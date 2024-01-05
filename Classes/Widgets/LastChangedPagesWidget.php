@@ -33,7 +33,6 @@ class LastChangedPagesWidget implements WidgetInterface
         $queryBuilder = $this->connectionPool->getConnectionForTable('pages')->createQueryBuilder();
         $queryBuilder->getRestrictions()
             ->removeByType(HiddenRestriction::class)
-            // Send currentWorkspace to WorkspaceRestriction constructor manually, due to BUG in Core
             ->add(
                 GeneralUtility::makeInstance(
                     WorkspaceRestriction::class,
