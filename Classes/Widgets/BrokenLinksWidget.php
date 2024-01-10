@@ -45,7 +45,19 @@ class BrokenLinksWidget implements WidgetInterface
             $this->getSearchFields()
         );
 
-        foreach ($brokenLinks as &$brokenLink) {
+        foreach ($brokenLinks as $key => &$brokenLink) {
+            if ($GLOBALS['TCA'][$brokenLink['table_name']]['ctrl']['versioningWS']) {
+                $recordWorkspaceId = $this->getRecordWorkspaceId($brokenLink['table_name'], $brokenLink['record_uid']);
+                $brokenLink['isWorkspaceRecord'] = $recordWorkspaceId > 0;
+
+                if ($brokenLink['isWorkspaceRecord']
+                    && $recordWorkspaceId != $this->getBackendUser()->workspace
+                ) {
+                    unset($brokenLinks[$key]);
+                    continue;
+                }
+            }
+
             /** @var AbstractLinktype $linkType */
             $linkType = GeneralUtility::makeInstance($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['linkvalidator']['checkLinks'][$brokenLink['link_type']]);
             $brokenLink['path'] = BackendUtility::getRecordPath($brokenLink['record_pid'], $this->getClause(), 0);
@@ -128,5 +140,14 @@ class BrokenLinksWidget implements WidgetInterface
 
         $this->clause = $pageClause . ' AND ' . $workspaceClause;
         return $this->clause;
+    }
+
+    protected function getRecordWorkspaceId(string $tableName, int $recordUid): bool
+    {
+        return (int) BackendUtility::getRecord(
+            $tableName,
+            $recordUid,
+            't3ver_wsid'
+        )['t3ver_wsid'];
     }
 }
