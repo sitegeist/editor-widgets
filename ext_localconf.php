@@ -23,3 +23,11 @@ if (!is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations
         ],
     ];
 }
+
+ExtensionManagementUtility::addTypoScript(
+    'editor_widgets',
+    'setup',
+    "@import 'EXT:editor_widgets/Configuration/TypoScript/setup.typoscript'"
+);
+
+$GLOBALS['TYPO3_CONF_VARS']['BE']['stylesheets'] = 'EXT:editor_widgets/Resources/Public/Css/backend.css';

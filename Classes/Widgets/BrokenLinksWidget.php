@@ -124,6 +124,10 @@ class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, Requ
 
     protected function getSearchFields(): array
     {
-        return BackendUtility::getPagesTSconfig(self::PAGE_ID)['mod.']['linkvalidator.']['searchFields.'] ?? [];
+        $searchFieldMapping = BackendUtility::getPagesTSconfig(self::PAGE_ID)['mod.']['linkvalidator.']['searchFields.'] ?? [];
+        foreach ($searchFieldMapping as $table => $searchFields) {
+            $searchFieldMapping[$table] = GeneralUtility::trimExplode(',', $searchFields);
+        }
+        return $searchFieldMapping;
     }
 }
