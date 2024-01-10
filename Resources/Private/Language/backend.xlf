@@ -115,6 +115,9 @@
 			<trans-unit id="widgets.brokenLinks.empty">
 				<source>No broken links found</source>
 			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.isWorkspaceRecord">
+				<source>This record is in current workspace</source>
+			</trans-unit>
 			<trans-unit id="widgets.brokenLinks.needsRecheck">
 				<source>Needs recheck</source>
 			</trans-unit>
