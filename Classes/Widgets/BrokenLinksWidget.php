@@ -8,6 +8,8 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\Type\Bitmask\Permission;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Dashboard\Widgets\AdditionalCssInterface;
+use TYPO3\CMS\Dashboard\Widgets\RequireJsModuleInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 use TYPO3\CMS\Fluid\View\StandaloneView;
@@ -15,7 +17,7 @@ use TYPO3\CMS\Linkvalidator\Linktype\AbstractLinktype;
 use TYPO3\CMS\Linkvalidator\Repository\BrokenLinkRepository;
 use TYPO3\CMS\Linkvalidator\Repository\PagesRepository;
 
-class BrokenLinksWidget implements WidgetInterface
+class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, RequireJsModuleInterface
 {
     const PAGE_ID = 0;
 
@@ -40,17 +42,24 @@ class BrokenLinksWidget implements WidgetInterface
             ['db', 'file', 'external'],
             $this->getSearchFields()
         );
+        $hiddenBrokenLinks = [];
 
-        foreach ($brokenLinks as &$brokenLink) {
+        foreach ($brokenLinks as $key => &$brokenLink ) {
             /** @var AbstractLinktype $linkType */
             $linkType = GeneralUtility::makeInstance($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['linkvalidator']['checkLinks'][$brokenLink['link_type']]);
             $brokenLink['path'] = BackendUtility::getRecordPath($brokenLink['record_pid'], $this->getBackendUser()->getPagePermsClause(Permission::PAGE_SHOW), 0);
             $brokenLink['linkTarget'] = $linkType->getBrokenUrl($brokenLink);
             $brokenLink['linkMessage'] = $this->getLinkMessage($brokenLink, $linkType);
+
+            if ($brokenLink['tx_editor_widgets_hidden']) {
+                $hiddenBrokenLinks[] = $brokenLink;
+                unset($brokenLinks[$key]);
+            }
         }
 
         $this->view->assignMultiple([
             'brokenLinks' => $brokenLinks,
+            'hiddenBrokenLinks' => $hiddenBrokenLinks,
             'configuration' => $this->configuration,
             'dateFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'] . ' ' . $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'],
         ]);
@@ -62,6 +71,20 @@ class BrokenLinksWidget implements WidgetInterface
     public function getOptions(): array
     {
         return $this->options;
+    }
+
+    public function getCssFiles(): array
+    {
+       return [
+           'EXT:editor_widgets/Resources/Public/Css/backend.css',
+       ];
+    }
+
+    public function getRequireJsModules(): array
+    {
+        return [
+            'TYPO3/CMS/Backend/AjaxDataHandler',
+        ];
     }
 
     protected function getBackendUser(): BackendUserAuthentication
