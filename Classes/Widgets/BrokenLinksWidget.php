@@ -4,7 +4,9 @@ namespace Sitegeist\EditorWidgets\Widgets;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\Restriction\WorkspaceRestriction;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\Type\Bitmask\Permission;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -20,6 +22,8 @@ use TYPO3\CMS\Linkvalidator\Repository\PagesRepository;
 class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, RequireJsModuleInterface
 {
     const PAGE_ID = 0;
+
+    private $clause = null;
 
     public function __construct(
         private BrokenLinkRepository $brokenLinkRepository,
@@ -44,10 +48,22 @@ class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, Requ
         );
         $hiddenBrokenLinks = [];
 
-        foreach ($brokenLinks as $key => &$brokenLink ) {
+        foreach ($brokenLinks as $key => &$brokenLink) {
+            if ($GLOBALS['TCA'][$brokenLink['table_name']]['ctrl']['versioningWS']) {
+                $recordWorkspaceId = $this->getRecordWorkspaceId($brokenLink['table_name'], $brokenLink['record_uid']);
+                $brokenLink['isWorkspaceRecord'] = $recordWorkspaceId > 0;
+
+                if ($brokenLink['isWorkspaceRecord']
+                    && $recordWorkspaceId != $this->getBackendUser()->workspace
+                ) {
+                    unset($brokenLinks[$key]);
+                    continue;
+                }
+            }
+
             /** @var AbstractLinktype $linkType */
             $linkType = GeneralUtility::makeInstance($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['linkvalidator']['checkLinks'][$brokenLink['link_type']]);
-            $brokenLink['path'] = BackendUtility::getRecordPath($brokenLink['record_pid'], $this->getBackendUser()->getPagePermsClause(Permission::PAGE_SHOW), 0);
+            $brokenLink['path'] = BackendUtility::getRecordPath($brokenLink['record_pid'], $this->getClause(), 0);
             $brokenLink['linkTarget'] = $linkType->getBrokenUrl($brokenLink);
             $brokenLink['linkMessage'] = $this->getLinkMessage($brokenLink, $linkType);
 
@@ -105,18 +121,17 @@ class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, Requ
     {
         $modTS = BackendUtility::getPagesTSconfig(self::PAGE_ID)['mod.']['linkvalidator.'] ?? [];
         $checkForHiddenPages = (bool)$modTS['checkhidden'];
-        $permsClause = (string)$this->getBackendUser()->getPagePermsClause(Permission::PAGE_SHOW);
         $pageList = $this->pagesRepository->getAllSubpagesForPage(
             self::PAGE_ID,
-            0,
-            $permsClause,
+            999,
+            $this->getClause(),
             $checkForHiddenPages
         );
         // Always add the current page, because we are just displaying the results
         $pageList[] = self::PAGE_ID;
         $pageTranslations = $this->pagesRepository->getTranslationForPage(
             self::PAGE_ID,
-            $permsClause,
+            $this->getClause(),
             $checkForHiddenPages
         );
         return array_merge($pageList, $pageTranslations);
@@ -129,5 +144,33 @@ class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, Requ
             $searchFieldMapping[$table] = GeneralUtility::trimExplode(',', $searchFields);
         }
         return $searchFieldMapping;
+    }
+
+    protected function getClause(): string
+    {
+        if ($this->clause) {
+            return $this->clause;
+        }
+
+        $pageClause = $this->getBackendUser()->getPagePermsClause(Permission::PAGE_SHOW);
+
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('pages');
+        $workspaceRestriction = GeneralUtility::makeInstance(
+            WorkspaceRestriction::class,
+            GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('workspace', 'id')
+        );
+        $workspaceClause = $workspaceRestriction->buildExpression(['pages' => 'pages'], $queryBuilder->expr());
+
+        $this->clause = $pageClause . ' AND ' . $workspaceClause;
+        return $this->clause;
+    }
+
+    protected function getRecordWorkspaceId(string $tableName, int $recordUid): bool
+    {
+        return (int) BackendUtility::getRecord(
+            $tableName,
+            $recordUid,
+            't3ver_wsid'
+        )['t3ver_wsid'];
     }
 }

@@ -43,13 +43,20 @@
 <f:section name="brokenLinkRecord">
     <tr class="text-break {f:if(condition: brokenLink.tx_editor_widgets_hidden, then: 'opacity-50')}" data-uid="{brokenLink.uid}">
         <td>
+            <span title="id={brokenLink.record_uid}">
+                <core:iconForRecord table="{brokenLink.table_name}" row="{brokenLink}" />
+            </span>
+            <f:if condition="{brokenLink.isWorkspaceRecord}">
+                <span title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.isWorkspaceRecord')}">
+                    <core:icon identifier="apps-toolbar-menu-workspace" size="small" />
+                </span>
+            </f:if>
             <be:link.editRecord
                 uid="{brokenLink.record_uid}"
                 table="{brokenLink.table_name}"
                 title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.edit')}"
                 returnUrl="{f:be.uri(route: 'dashboard')}"
             >
-                <core:iconForRecord table="{brokenLink.table_name}" row="{brokenLink}" />
                 {brokenLink.headline -> f:format.crop(maxCharacters: 80)}
             </be:link.editRecord>
         </td>
