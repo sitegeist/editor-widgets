@@ -131,7 +131,7 @@ class BrokenLinksWidget implements WidgetInterface
 
         $pageClause = $this->getBackendUser()->getPagePermsClause(Permission::PAGE_SHOW);
 
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_linkvalidator_link');
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('pages');
         $workspaceRestriction = GeneralUtility::makeInstance(
             WorkspaceRestriction::class,
             GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('workspace', 'id')
