@@ -5,7 +5,9 @@ namespace Sitegeist\EditorWidgets\Widgets;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Database\Query\Restriction\WorkspaceRestriction;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\Type\Bitmask\Permission;
@@ -46,7 +48,10 @@ class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, Requ
             ['db', 'file', 'external'],
             $this->getSearchFields()
         );
-        $hiddenBrokenLinks = [];
+
+        $persistentBrokenLinks = $this->getPersistentBrokenLinks();
+        $enabledBrokenLinks = [];
+        $suppressedBrokenLinks = [];
 
         foreach ($brokenLinks as $key => &$brokenLink) {
             if ($GLOBALS['TCA'][$brokenLink['table_name']]['ctrl']['versioningWS']) {
@@ -56,7 +61,6 @@ class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, Requ
                 if ($brokenLink['isWorkspaceRecord']
                     && $recordWorkspaceId != $this->getBackendUser()->workspace
                 ) {
-                    unset($brokenLinks[$key]);
                     continue;
                 }
             }
@@ -69,13 +73,26 @@ class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, Requ
 
             $brokenLink['hash'] = md5($brokenLink['record_uid'] . $brokenLink['record_pid'] . $brokenLink['url']);
 
-            $brokenLinks[$brokenLink['hash']] = $brokenLink;
-            unset($brokenLinks[$key]);
+            if (!isset($persistentBrokenLinks[$brokenLink['hash']])) {
+                $brokenLink['suppressed'] = 0;
+                $brokenLink['persistentUid'] = $this->createNewPersistentBrokenLink($brokenLink['hash']);
+                $enabledBrokenLinks[$brokenLink['hash']] = $brokenLink;
+                continue;
+            }
+
+            $brokenLink['suppressed'] = $persistentBrokenLinks[$brokenLink['hash']]['suppressed'];
+            $brokenLink['persistentUid'] = $persistentBrokenLinks[$brokenLink['hash']]['uid'];
+
+            if($brokenLink['suppressed']) {
+                $suppressedBrokenLinks[$brokenLink['hash']] = $brokenLink;
+                continue;
+            }
+            $enabledBrokenLinks[$brokenLink['hash']] = $brokenLink;
         }
 
         $this->view->assignMultiple([
-            'brokenLinks' => $brokenLinks,
-            'hiddenBrokenLinks' => $hiddenBrokenLinks,
+            'brokenLinks' => $enabledBrokenLinks,
+            'suppressedBrokenLinks' => $suppressedBrokenLinks,
             'configuration' => $this->configuration,
             'dateFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'] . ' ' . $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'],
         ]);
@@ -172,5 +189,30 @@ class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, Requ
             $recordUid,
             't3ver_wsid'
         )['t3ver_wsid'];
+    }
+
+    protected function getPersistentBrokenLinks(): array
+    {
+         /** @var QueryBuilder $queryBuilder */
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_editor_widgets_broken_link');
+        $links = $queryBuilder
+            ->select('uid', 'linkvalidator_link', 'suppressed')
+            ->from('tx_editor_widgets_broken_link')
+            ->executeQuery()
+            ->fetchAllAssociative();
+
+        return array_column($links, null, 'linkvalidator_link');
+    }
+
+    protected function createNewPersistentBrokenLink(string $hash): int
+    {
+        /** @var Connection $connection */
+        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('tx_editor_widgets_broken_link');
+        $connection->insert(
+            'tx_editor_widgets_broken_link',
+            ['linkvalidator_link' => $hash],
+            [Connection::PARAM_STR]
+        );
+        return $connection->lastInsertId('tx_editor_widgets_broken_link');
     }
 }
