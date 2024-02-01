@@ -66,11 +66,6 @@ class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, Requ
             $brokenLink['path'] = BackendUtility::getRecordPath($brokenLink['record_pid'], $this->getClause(), 0);
             $brokenLink['linkTarget'] = $linkType->getBrokenUrl($brokenLink);
             $brokenLink['linkMessage'] = $this->getLinkMessage($brokenLink, $linkType);
-
-            if ($brokenLink['tx_editor_widgets_hidden']) {
-                $hiddenBrokenLinks[] = $brokenLink;
-                unset($brokenLinks[$key]);
-            }
         }
 
         $this->view->assignMultiple([
