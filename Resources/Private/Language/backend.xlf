@@ -118,8 +118,8 @@
 			<trans-unit id="widgets.brokenLinks.empty">
 				<source>No broken links found</source>
 			</trans-unit>
-			<trans-unit id="widgets.brokenLinks.hiddenRecords">
-				<source>Hidden Records</source>
+			<trans-unit id="widgets.brokenLinks.suppressedRecords">
+				<source>Suppressed Errors</source>
 			</trans-unit>
 			<trans-unit id="widgets.brokenLinks.isWorkspaceRecord">
 				<source>This record is in current workspace</source>
@@ -136,11 +136,11 @@
 			<trans-unit id="widgets.brokenLinks.edit">
 				<source>Edit element containing this broken link</source>
 			</trans-unit>
-			<trans-unit id="widgets.brokenLinks.hide">
-				<source>Hide record</source>
+			<trans-unit id="widgets.brokenLinks.suppress">
+				<source>Suppress error</source>
 			</trans-unit>
-			<trans-unit id="widgets.brokenLinks.unHide">
-				<source>Un-hide record</source>
+			<trans-unit id="widgets.brokenLinks.release">
+				<source>Release error</source>
 			</trans-unit>
 			<trans-unit id="widgets.brokenLinks.tableHead.path">
 				<source>Path</source>
