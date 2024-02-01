@@ -7,7 +7,6 @@ use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Database\Query\Restriction\WorkspaceRestriction;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\Type\Bitmask\Permission;
@@ -24,6 +23,7 @@ use TYPO3\CMS\Linkvalidator\Repository\PagesRepository;
 class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, RequireJsModuleInterface
 {
     const PAGE_ID = 0;
+    const PERSISTENT_TABLE = 'tx_editor_widgets_broken_link';
 
     private $clause = null;
 
@@ -83,7 +83,7 @@ class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, Requ
             $brokenLink['suppressed'] = $persistentBrokenLinks[$brokenLink['hash']]['suppressed'];
             $brokenLink['persistentUid'] = $persistentBrokenLinks[$brokenLink['hash']]['uid'];
 
-            if($brokenLink['suppressed']) {
+            if ($brokenLink['suppressed']) {
                 $suppressedBrokenLinks[$brokenLink['hash']] = $brokenLink;
                 continue;
             }
@@ -171,7 +171,7 @@ class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, Requ
 
         $pageClause = $this->getBackendUser()->getPagePermsClause(Permission::PAGE_SHOW);
 
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('pages');
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable('pages');
         $workspaceRestriction = GeneralUtility::makeInstance(
             WorkspaceRestriction::class,
             GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('workspace', 'id')
@@ -193,26 +193,23 @@ class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, Requ
 
     protected function getPersistentBrokenLinks(): array
     {
-         /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_editor_widgets_broken_link');
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::PERSISTENT_TABLE);
         $links = $queryBuilder
             ->select('uid', 'linkvalidator_link', 'suppressed')
-            ->from('tx_editor_widgets_broken_link')
+            ->from(self::PERSISTENT_TABLE)
             ->executeQuery()
             ->fetchAllAssociative();
-
         return array_column($links, null, 'linkvalidator_link');
     }
 
     protected function createNewPersistentBrokenLink(string $hash): int
     {
-        /** @var Connection $connection */
-        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('tx_editor_widgets_broken_link');
+        $connection = $this->connectionPool->getConnectionForTable(self::PERSISTENT_TABLE);
         $connection->insert(
-            'tx_editor_widgets_broken_link',
+            self::PERSISTENT_TABLE,
             ['linkvalidator_link' => $hash],
             [Connection::PARAM_STR]
         );
-        return $connection->lastInsertId('tx_editor_widgets_broken_link');
+        return $connection->lastInsertId(self::PERSISTENT_TABLE);
     }
 }
