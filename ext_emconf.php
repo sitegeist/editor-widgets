@@ -1,5 +1,5 @@
 <?php
-$EM_CONF['editor_widgets'] = [
+$EM_CONF[$_EXTKEY] = [
     'title' => 'Editor Widgets',
     'description' => 'Collection of useful dashboard widgets focused on editors',
     'category' => 'backend',
@@ -9,7 +9,7 @@ $EM_CONF['editor_widgets'] = [
     'state' => 'beta',
     'uploadfolder' => false,
     'clearCacheOnLoad' => true,
-    'version' => '1.0.1',
+    'version' => '1.2.2',
     'constraints' => [
         'depends' => [
             'typo3' => '11.5.0-11.5.99',
