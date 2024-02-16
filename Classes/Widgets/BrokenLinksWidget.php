@@ -5,6 +5,7 @@ namespace Sitegeist\EditorWidgets\Widgets;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\WorkspaceRestriction;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
@@ -22,6 +23,7 @@ use TYPO3\CMS\Linkvalidator\Repository\PagesRepository;
 class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, RequireJsModuleInterface
 {
     const PAGE_ID = 0;
+    const PERSISTENT_TABLE = 'tx_editor_widgets_broken_link';
 
     private $clause = null;
 
@@ -46,7 +48,10 @@ class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, Requ
             ['db', 'file', 'external'],
             $this->getSearchFields()
         );
-        $hiddenBrokenLinks = [];
+
+        $persistentBrokenLinks = $this->getPersistentBrokenLinks();
+        $enabledBrokenLinks = [];
+        $suppressedBrokenLinks = [];
 
         foreach ($brokenLinks as $key => &$brokenLink) {
             if ($GLOBALS['TCA'][$brokenLink['table_name']]['ctrl']['versioningWS']) {
@@ -56,7 +61,6 @@ class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, Requ
                 if ($brokenLink['isWorkspaceRecord']
                     && $recordWorkspaceId != $this->getBackendUser()->workspace
                 ) {
-                    unset($brokenLinks[$key]);
                     continue;
                 }
             }
@@ -67,15 +71,28 @@ class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, Requ
             $brokenLink['linkTarget'] = $linkType->getBrokenUrl($brokenLink);
             $brokenLink['linkMessage'] = $this->getLinkMessage($brokenLink, $linkType);
 
-            if ($brokenLink['tx_editor_widgets_hidden']) {
-                $hiddenBrokenLinks[] = $brokenLink;
-                unset($brokenLinks[$key]);
+            $brokenLink['hash'] = md5($brokenLink['record_uid'] . $brokenLink['record_pid'] . $brokenLink['url']);
+
+            if (!isset($persistentBrokenLinks[$brokenLink['hash']])) {
+                $brokenLink['suppressed'] = 0;
+                $brokenLink['persistentUid'] = $this->createNewPersistentBrokenLink($brokenLink['hash']);
+                $enabledBrokenLinks[$brokenLink['hash']] = $brokenLink;
+                continue;
             }
+
+            $brokenLink['suppressed'] = $persistentBrokenLinks[$brokenLink['hash']]['suppressed'];
+            $brokenLink['persistentUid'] = $persistentBrokenLinks[$brokenLink['hash']]['uid'];
+
+            if ($brokenLink['suppressed']) {
+                $suppressedBrokenLinks[$brokenLink['hash']] = $brokenLink;
+                continue;
+            }
+            $enabledBrokenLinks[$brokenLink['hash']] = $brokenLink;
         }
 
         $this->view->assignMultiple([
-            'brokenLinks' => $brokenLinks,
-            'hiddenBrokenLinks' => $hiddenBrokenLinks,
+            'brokenLinks' => $enabledBrokenLinks,
+            'suppressedBrokenLinks' => $suppressedBrokenLinks,
             'configuration' => $this->configuration,
             'dateFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'] . ' ' . $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'],
         ]);
@@ -154,7 +171,7 @@ class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, Requ
 
         $pageClause = $this->getBackendUser()->getPagePermsClause(Permission::PAGE_SHOW);
 
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('pages');
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable('pages');
         $workspaceRestriction = GeneralUtility::makeInstance(
             WorkspaceRestriction::class,
             GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('workspace', 'id')
@@ -172,5 +189,27 @@ class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, Requ
             $recordUid,
             't3ver_wsid'
         )['t3ver_wsid'];
+    }
+
+    protected function getPersistentBrokenLinks(): array
+    {
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::PERSISTENT_TABLE);
+        $links = $queryBuilder
+            ->select('uid', 'linkvalidator_link', 'suppressed')
+            ->from(self::PERSISTENT_TABLE)
+            ->executeQuery()
+            ->fetchAllAssociative();
+        return array_column($links, null, 'linkvalidator_link');
+    }
+
+    protected function createNewPersistentBrokenLink(string $hash): int
+    {
+        $connection = $this->connectionPool->getConnectionForTable(self::PERSISTENT_TABLE);
+        $connection->insert(
+            self::PERSISTENT_TABLE,
+            ['linkvalidator_link' => $hash],
+            [Connection::PARAM_STR]
+        );
+        return $connection->lastInsertId(self::PERSISTENT_TABLE);
     }
 }
