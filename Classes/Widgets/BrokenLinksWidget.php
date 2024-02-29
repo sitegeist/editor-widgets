@@ -75,7 +75,12 @@ class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, Requ
 
             if (!isset($persistentBrokenLinks[$brokenLink['hash']])) {
                 $brokenLink['suppressed'] = 0;
-                $brokenLink['persistentUid'] = $this->createNewPersistentBrokenLink($brokenLink['hash']);
+                try {
+                    $brokenLink['persistentUid'] = $this->createNewPersistentBrokenLink($brokenLink['hash']);
+                } catch (\Doctrine\DBAL\Exception $e) {
+                    $this->view->assign('error', true);
+                    return $this->view->render();
+                }
                 $enabledBrokenLinks[$brokenLink['hash']] = $brokenLink;
                 continue;
             }

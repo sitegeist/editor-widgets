@@ -1,7 +1,7 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:layout name="Widget/Widget" />
 <f:section name="main">
-    <f:if condition="{brokenLinks || suppressedBrokenLinks}">
+    <f:if condition="!{error} && ({brokenLinks} || {suppressedBrokenLinks})">
         <f:then>
             <div class="widget-table-wrapper">
                 <table class="widget-table">
@@ -28,8 +28,16 @@
         <f:else>
             <div class="sitegeist-editor-widgets_info-wrapper">
                 <p class="sitegeist-editor-widgets_empty-widget">
-                    <core:icon identifier="actions-rocket" size="large" /><br />
-                    <f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.empty" />
+                    <f:if condition="{error}">
+                        <f:then>
+                            <core:icon identifier="actions-exclamation-circle" size="large" /><br />
+                            <f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.error" />
+                        </f:then>
+                        <f:else>
+                            <core:icon identifier="actions-rocket" size="large" /><br />
+                            <f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.empty" />
+                        </f:else>
+                    </f:if>
                 </p>
             </div>
         </f:else>
