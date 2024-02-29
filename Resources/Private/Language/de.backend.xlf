@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2023-04-14T12:34:00Z">
+		<body>
+			<trans-unit id="widgets.storageSize.title">
+				<source>Storage usage</source>
+				<target>Speichernutzung</target>
+			</trans-unit>
+			<trans-unit id="widgets.storageSize.description">
+				<source>Show usage in percent of default storage</source>
+				<target>Zeige Nutzung in Prozent des Standard-Speichers</target>
+			</trans-unit>
+			<trans-unit id="widgets.storageSize.chart.used">
+				<source>Used</source>
+				<target>Genutzt</target>
+			</trans-unit>
+			<trans-unit id="widgets.storageSize.chart.free">
+				<source>Free</source>
+				<target>Frei</target>
+			</trans-unit>
+
+			<trans-unit id="widgets.unusedFiles.title">
+				<source>Biggest unused files</source>
+				<target>Größte ungenutzte Dateien</target>
+			</trans-unit>
+			<trans-unit id="widgets.unusedFiles.description">
+				<source>Displays the 10 biggest files that are not referenced</source>
+				<target>Zeigt die 10 größten nicht referenzierten Dateien an</target>
+			</trans-unit>
+			<trans-unit id="widgets.unusedFiles.empty">
+				<source>No unused files found</source>
+				<target>Keine ungenutzten Dateien gefunden</target>
+			</trans-unit>
+
+			<trans-unit id="widgets.duplicateFiles.title">
+				<source>Duplicate files</source>
+				<target>Duplikate Dateien</target>
+			</trans-unit>
+			<trans-unit id="widgets.duplicateFiles.description">
+				<source>Displays all files that are duplicates</source>
+				<target>Zeigt alle Dateien an, die Duplikate sind</target>
+			</trans-unit>
+			<trans-unit id="widgets.duplicateFiles.openOriginalFile">
+				<source>Open original file in new window</source>
+				<target>Originaldatei in neuem Fenster öffnen</target>
+			</trans-unit>
+			<trans-unit id="widgets.duplicateFiles.control">
+				<source>Control</source>
+				<target>Kontrolle</target>
+			</trans-unit>
+			<trans-unit id="widgets.duplicateFiles.referenceCount">
+				<source>References</source>
+				<target>Referenzen</target>
+			</trans-unit>
+			<trans-unit id="widgets.duplicateFiles.openFileList">
+				<source>Search in folder</source>
+				<target>Im Ordner suchen</target>
+			</trans-unit>
+			<trans-unit id="widgets.duplicateFiles.empty">
+				<source>No duplicates found</source>
+				<target>Keine Duplikate gefunden</target>
+			</trans-unit>
+
+			<trans-unit id="widgets.lastChangedPages.title">
+				<source>Last changed pages</source>
+				<target>Zuletzt geänderte Seiten</target>
+			</trans-unit>
+			<trans-unit id="widgets.lastChangedPages.description">
+				<source>Displays last changed pages the active backend user has access to</source>
+				<target>Zeigt die zuletzt geänderten Seiten an, auf die der aktive Backend-Benutzer Zugriff hat</target>
+			</trans-unit>
+			<trans-unit id="widgets.lastChangedPages.workspace">
+				<source>Changes in current selected workspace</source>
+				<target>Änderungen im aktuell ausgewählten Arbeitsbereich</target>
+			</trans-unit>
+			<trans-unit id="widgets.lastChangedPages.recordHistory">
+				<source>Show history</source>
+				<target>Verlauf anzeigen</target>
+			</trans-unit>
+			<trans-unit id="widgets.lastChangedPages.editPageContent">
+				<source>Edit page content</source>
+				<target>Seiteninhalt bearbeiten</target>
+			</trans-unit>
+			<trans-unit id="widgets.lastChangedPages.pagetree">
+				<source>Position in pagetree</source>
+				<target>Position im Seitenbaum</target>
+			</trans-unit>
+			<trans-unit id="widgets.lastChangedPages.empty">
+				<source>No page history found</source>
+				<target>Keine Seitenhistorie gefunden</target>
+			</trans-unit>
+
+			<trans-unit id="widgets.latestRedirects.title">
+				<source>Latest redirects</source>
+				<target>Neueste Weiterleitungen</target>
+			</trans-unit>
+			<trans-unit id="widgets.latestRedirects.description">
+				<source>Shows a list of latest redirects</source>
+				<target>Zeigt eine Liste der neuesten Weiterleitungen an</target>
+			</trans-unit>
+			<trans-unit id="widgets.latestRedirects.empty">
+				<source>No redirects found</source>
+				<target>Keine Weiterleitungen gefunden</target>
+			</trans-unit>
+			<trans-unit id="widgets.latestRedirects.sourceDomain">
+				<source>Source Domain</source>
+				<target>Quelldomain</target>
+			</trans-unit>
+			<trans-unit id="widgets.latestRedirects.sourcePath">
+				<source>Source Path</source>
+				<target>Quellpfad</target>
+			</trans-unit>
+			<trans-unit id="widgets.latestRedirects.sourceTarget">
+				<source>Source Target</source>
+				<target>Ziel der Quelle</target>
+			</trans-unit>
+			<trans-unit id="widgets.latestRedirects.statusCode">
+				<source>Status Code</source>
+				<target>Statuscode</target>
+			</trans-unit>
+			<trans-unit id="widgets.latestRedirects.hitCount">
+				<source>Hit Count</source>
+				<target>Trefferanzahl</target>
+			</trans-unit>
+			<trans-unit id="widgets.latestRedirects.lastHit">
+				<source>Last Hit</source>
+				<target>Letzter Treffer</target>
+			</trans-unit>
+			<trans-unit id="widgets.latestRedirects.updated">
+				<source>Updated ▼</source>
+				<target>Aktualisiert ▼</target>
+			</trans-unit>
+			<trans-unit id="widgets.latestRedirects.edit">
+				<source>Edit Redirect</source>
+				<target>Weiterleitung bearbeiten</target>
+			</trans-unit>
+
+			<trans-unit id="widgets.brokenLinks.title">
+				<source>Broken links</source>
+				<target>Defekte Links</target>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.description">
+				<source>Shows a list of broken links (based on tx_linkvalidator)</source>
+				<target>Zeigt eine Liste defekter Links an (basierend auf tx_linkvalidator)</target>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.text">
+				<source><![CDATA[Broken link is used in record <strong>%s</strong>
+					(UID: <strong>%s</strong>) on page ID <strong>%s</strong>
+					in field <strong>%s</strong>.]]>
+				</source>
+				<target><![CDATA[Defekter Link wird im Datensatz <strong>%s</strong>
+					(UID: <strong>%s</strong>) auf Seite ID <strong>%s</strong>
+					im Feld <strong>%s</strong> verwendet.]]>
+				</target>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.empty">
+				<source>No broken links found</source>
+				<target>Keine defekten Links gefunden</target>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.error">
+				<source>Error fetching broken links. Please try again.</source>
+				<target>Fehler beim Abrufen defekter Links. Bitte versuchen Sie es erneut.</target>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.suppressedRecords">
+				<source>Suppressed Errors</source>
+				<target>Unterdrückte Fehler</target>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.isWorkspaceRecord">
+				<source>This record is in current workspace</source>
+				<target>Dieser Datensatz befindet sich im aktuellen Arbeitsbereich</target>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.needsRecheck">
+				<source>Needs recheck</source>
+				<target>Benötigt erneute Überprüfung</target>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.success">
+				<source>OK</source>
+				<target>OK</target>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.open">
+				<source>Open in new tab</source>
+				<target>In neuem Tab öffnen</target>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.edit">
+				<source>Edit element containing this broken link</source>
+				<target>Element mit diesem defekten Link bearbeiten</target>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.suppress">
+				<source>Suppress error</source>
+				<target>Fehler unterdrücken</target>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.release">
+				<source>Release error</source>
+				<target>Fehler freigeben</target>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.tableHead.path">
+				<source>Path</source>
+				<target>Pfad</target>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.tableHead.element">
+				<source>Element</source>
+				<target>Element</target>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.tableHead.headlink">
+				<source>Link</source>
+				<target>Link</target>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.tableHead.linktarget">
+				<source>URL / Link Target</source>
+				<target>URL / Link-Ziel</target>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.tableHead.linkmessage">
+				<source>Error message</source>
+				<target>Fehlermeldung</target>
+			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.tableHead.lastCheck">
+				<source>Last check</source>
+				<target>Letzte Überprüfung</target>
+			</trans-unit>
+
+			<trans-unit id="sys_file_storage.editor_widgets">
+				<source>Editor widgets</source>
+				<target>Editor-Widgets</target>
+			</trans-unit>
+			<trans-unit id="sys_file_storage.editor_widgets.max_storage_size">
+				<source>Maximum size (only used for display, no validation is done!)</source>
+				<target>Maximale Größe (nur zur Anzeige, es erfolgt keine Validierung!)</target>
+			</trans-unit>
+			<trans-unit id="sys_file_storage.editor_widgets.max_storage_size.description">
+				<source>In bytes or simply KB, MB, GB</source>
+				<target>In Bytes oder einfach KB, MB, GB</target>
+			</trans-unit>
+
+			<trans-unit id="openOriginalFile">
+				<source>Open file in new window</source>
+				<target>Datei in neuem Fenster öffnen</target>
+			</trans-unit>
+			<trans-unit id="showInfo">
+				<source>Display information</source>
+				<target>Informationen anzeigen</target>
+			</trans-unit>
+			<trans-unit id="openFileList">
+				<source>Search in folder</source>
+				<target>Im Ordner suchen</target>
+			</trans-unit>
+			<trans-unit id="fileMissing">
+				<source>File missing</source>
+				<target>Datei fehlt</target>
+			</trans-unit>
+			<trans-unit id="fileMissing.description">
+				<source>please inform your administrator to run FAL: update storage index</source>
+				<target>Bitte informieren Sie Ihren Administrator, dass er FAL: Speicherindex aktualisieren soll</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
