@@ -43,7 +43,7 @@
     },
     "scripts": {
         "prepare-release": [
-            "rm -r .github .ecrc .editorconfig .gitattributes Build Tests"
+            "sed -i '$ i\\    \"version\" => \"'$TAG_WITHOUT_V'\",' ext_emconf.php"
         ]
     },
     "suggest": {
