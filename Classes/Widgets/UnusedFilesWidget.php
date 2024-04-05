@@ -40,7 +40,13 @@ class UnusedFilesWidget implements WidgetInterface, RequestAwareWidgetInterface,
             ->leftJoin('sys_file', 'sys_refindex', 'sr', 'sr.ref_uid = sys_file.uid AND sr.tablename != "sys_file_metadata" AND sr.ref_table = "sys_file"')
             ->orderBy('sys_file.size', 'desc')
             ->addOrderBy('sys_file.identifier', 'desc')
-            ->where('sys_file.missing = 0 AND sys_file.storage > 0 AND sys_file.identifier NOT LIKE "%_recycler_%" AND sr.hash IS NULL')
+            ->where(
+                'sr.hash IS NULL',
+                'sys_file.missing = 0',
+                'sys_file.storage > 0',
+                'sys_file.identifier NOT LIKE "%_recycler_%"',
+                'sys_file.identifier NOT LIKE "/user_upload/index.html"'
+            )
             ->setMaxResults(10)
             ->fetchAllAssociative();
 
