@@ -47,6 +47,7 @@
         ]
     },
     "suggest": {
-        "typo3/cms-linkvalidator": "Broken links widget shows links found by LinkValidator"
+        "typo3/cms-linkvalidator": "Broken links widget shows links found by LinkValidator",
+        "typo3/cms-redirects": "Shows a list of latest redirects"
     }
 }

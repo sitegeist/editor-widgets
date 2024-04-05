@@ -71,18 +71,3 @@ services:
         height: 'medium'
         width: 'medium'
         additionalCssClasses: 'sitegeist-editor-widgets'
-
-  dashboard.widget.sitegeist.editor_widgets.latestRedirects:
-    class: 'Sitegeist\EditorWidgets\Widgets\LatestRedirectsWidget'
-    arguments:
-      $connectionPool: '@TYPO3\CMS\Core\Database\ConnectionPool'
-    tags:
-      - name: dashboard.widget
-        identifier: sitegeist.editor_widgets.latestRedirects
-        groupNames: systemInfo
-        title: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.latestRedirects.title'
-        description: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.latestRedirects.description'
-        iconIdentifier: 'editor-widgets'
-        height: 'medium'
-        width: 'medium'
-        additionalCssClasses: 'sitegeist-editor-widgets'

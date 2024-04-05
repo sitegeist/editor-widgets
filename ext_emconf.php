@@ -19,6 +19,7 @@ $EM_CONF[$_EXTKEY] = [
         ],
         'suggests' => [
             'typo3/cms-linkvalidator' => '*',
+            'typo3/cms-redirects' => '*',
         ],
     ],
     'autoload' => [
