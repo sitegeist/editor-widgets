@@ -11,18 +11,20 @@ use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\WorkspaceRestriction;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
+use TYPO3\CMS\Core\Page\JavaScriptModuleInstruction;
 use TYPO3\CMS\Core\Type\Bitmask\Permission;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Dashboard\Widgets\AdditionalCssInterface;
+use TYPO3\CMS\Dashboard\Widgets\JavaScriptInterface;
 use TYPO3\CMS\Dashboard\Widgets\RequestAwareWidgetInterface;
-use TYPO3\CMS\Dashboard\Widgets\RequireJsModuleInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 use TYPO3\CMS\Linkvalidator\Linktype\AbstractLinktype;
+use TYPO3\CMS\Linkvalidator\Linktype\LinktypeRegistry;
 use TYPO3\CMS\Linkvalidator\Repository\BrokenLinkRepository;
 use TYPO3\CMS\Linkvalidator\Repository\PagesRepository;
 
-class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInterface, AdditionalCssInterface, RequireJsModuleInterface
+class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInterface, AdditionalCssInterface, JavaScriptInterface
 {
     private ServerRequestInterface $request;
 
@@ -35,6 +37,7 @@ class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInterface,
         private readonly BackendViewFactory $backendViewFactory,
         private BrokenLinkRepository $brokenLinkRepository,
         private ConnectionPool $connectionPool,
+        protected readonly LinktypeRegistry $linktypeRegistry,
         private PagesRepository $pagesRepository,
         private WidgetConfigurationInterface $configuration,
         private readonly array $options = []
@@ -76,7 +79,7 @@ class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInterface,
             }
 
             /** @var AbstractLinktype $linkType */
-            $linkType = GeneralUtility::makeInstance($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['linkvalidator']['checkLinks'][$brokenLink['link_type']]);
+            $linkType = $this->linktypeRegistry->getLinktype($brokenLink['link_type'] ?? '');
             $brokenLink['path'] = BackendUtility::getRecordPath($brokenLink['record_pid'], $this->getClause(), 0);
             $brokenLink['linkTarget'] = $linkType->getBrokenUrl($brokenLink);
             $brokenLink['linkMessage'] = $this->getLinkMessage($brokenLink, $linkType);

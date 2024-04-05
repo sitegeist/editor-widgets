@@ -9,6 +9,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 use Symfony\Component\DependencyInjection\Reference;
 use TYPO3\CMS\Backend\View\BackendViewFactory;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Linkvalidator\Linktype\LinktypeRegistry;
 use TYPO3\CMS\Linkvalidator\Repository\BrokenLinkRepository;
 use TYPO3\CMS\Linkvalidator\Repository\PagesRepository;
 
@@ -19,8 +20,9 @@ return function (ContainerConfigurator $configurator, ContainerBuilder $containe
         $services->set('dashboard.widget.sitegeist.editor_widgets.brokenLinks:')
             ->class(BrokenLinksWidget::class)
             ->arg('$backendViewFactory', new Reference(BackendViewFactory::class))
-            ->arg('$connectionPool', new Reference(ConnectionPool::class))
             ->arg('$brokenLinkRepository', new Reference(BrokenLinkRepository::class))
+            ->arg('$connectionPool', new Reference(ConnectionPool::class))
+            ->arg('$linktypeRegistry', new Reference(LinktypeRegistry::class))
             ->arg('$pagesRepository', new Reference(PagesRepository::class))
             ->tag('dashboard.widget', [
                 'identifier' => 'sitegeist.editor_widgets.brokenLinks',
