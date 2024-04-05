@@ -7,17 +7,17 @@ use TYPO3\CMS\Backend\View\BackendViewFactory;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface as Cache;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
+use TYPO3\CMS\Core\Page\JavaScriptModuleInstruction;
 use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Dashboard\WidgetApi;
-use TYPO3\CMS\Dashboard\Widgets\AdditionalCssInterface;
 use TYPO3\CMS\Dashboard\Widgets\EventDataInterface;
 use TYPO3\CMS\Dashboard\Widgets\JavaScriptInterface;
 use TYPO3\CMS\Dashboard\Widgets\RequestAwareWidgetInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 
-class StorageSizeWidget implements WidgetInterface, EventDataInterface, RequestAwareWidgetInterface, AdditionalCssInterface, JavaScriptInterface
+class StorageSizeWidget implements WidgetInterface, EventDataInterface, RequestAwareWidgetInterface, JavaScriptInterface
 {
     private ServerRequestInterface $request;
 
@@ -52,6 +52,7 @@ class StorageSizeWidget implements WidgetInterface, EventDataInterface, RequestA
         $languageServiceFactory = GeneralUtility::makeInstance(LanguageServiceFactory::class);
         $languageService = $languageServiceFactory->createFromUserPreferences($GLOBALS['BE_USER']);
         $storageData = $this->getDefaultStorageData();
+
         return [
             'graphConfig' => [
                 'type' => 'pie',
@@ -87,22 +88,17 @@ class StorageSizeWidget implements WidgetInterface, EventDataInterface, RequestA
         ];
     }
 
-    public function getCssFiles(): array
-    {
-        return ['EXT:dashboard/Resources/Public/Css/Contrib/chart.css'];
-    }
-
     public function getJavaScriptModuleInstructions(): array
     {
         return [
-            JavaScriptModuleInstruction::forRequireJS('TYPO3/CMS/Dashboard/Contrib/chartjs'),
-            JavaScriptModuleInstruction::forRequireJS('TYPO3/CMS/Dashboard/ChartInitializer'),
+            JavaScriptModuleInstruction::create('@typo3/dashboard/contrib/chartjs.js'),
+            JavaScriptModuleInstruction::create('@typo3/dashboard/chart-initializer.js'),
         ];
     }
 
     protected function getDefaultStorageData()
     {
-        if($data = $this->cache->get(self::CACHE_IDENTIFIER)) {
+        if ($data = $this->cache->get(self::CACHE_IDENTIFIER)) {
             return $data;
         }
 
