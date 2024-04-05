@@ -1,7 +1,0 @@
-module.tx_dashboard {
-    view {
-        templateRootPaths {
-            1704452027 = EXT:editor_widgets/Resources/Private/Templates
-        }
-    }
-}
