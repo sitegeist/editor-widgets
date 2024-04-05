@@ -113,9 +113,17 @@
                 <button
                     type="button"
                     class="btn btn-default btn-sm t3js-record-hide"
-                    data-state="{f:if(condition: brokenLink.suppressed, then: 'hidden', else: 'visible')}"
-                    data-params="data[tx_editor_widgets_broken_link][{brokenLink.persistentUid}][suppressed]={f:if(condition: brokenLink.suppressed, then: 0, else: 1)}"
-                    data-toggle-title="{f:if(condition: brokenLink.suppressed, then: labelSuppress, else: labelRelease)}"
+                    data-datahandler-action="visibility"
+                    data-datahandler-table="tx_editor_widgets_broken_link"
+                    data-datahandler-uid="{brokenLink.persistentUid}"
+                    data-datahandler-field="suppressed"
+                    data-datahandler-status="{f:if(condition: brokenLink.suppressed, then: 'visible', else: 'hidden')}"
+                    data-datahandler-visible-label="{labelRelease}"
+                    data-datahandler-visible-value="1"
+                    data-datahandler-visible-icon="actions-check-square"
+                    data-datahandler-hidden-label="{labelSuppress}"
+                    data-datahandler-hidden-value="0"
+                    data-datahandler-hidden-icon="actions-check-square-alt"
                     title="{f:if(condition: brokenLink.suppressed, then: labelRelease, else: labelSuppress)}"
                 >
                     <core:icon identifier="{f:if(condition: brokenLink.suppressed, then: 'actions-check-square', else: 'actions-check-square-alt')}" />

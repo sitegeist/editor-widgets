@@ -130,10 +130,10 @@ class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInterface,
        ];
     }
 
-    public function getRequireJsModules(): array
+    public function getJavaScriptModuleInstructions(): array
     {
         return [
-            'TYPO3/CMS/Backend/AjaxDataHandler',
+            JavaScriptModuleInstruction::create('@typo3/backend/ajax-data-handler.js'),
         ];
     }
 
