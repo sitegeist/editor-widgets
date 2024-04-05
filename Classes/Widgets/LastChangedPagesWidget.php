@@ -56,6 +56,7 @@ class LastChangedPagesWidget implements WidgetInterface, RequestAwareWidgetInter
             ->addOrderBy('tstamp', 'desc')
             ->where($GLOBALS['BE_USER']->getPagePermsClause(1))
             ->setMaxResults(10)
+            ->executeQuery()
             ->fetchAllAssociative();
 
         foreach ($pages as &$page) {

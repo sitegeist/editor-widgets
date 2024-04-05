@@ -48,6 +48,7 @@ class DuplicateFilesWidget implements WidgetInterface, RequestAwareWidgetInterfa
             ->groupBy('sha1')
             ->having('counting > 1')
             ->setMaxResults(200)
+            ->executeQuery()
             ->fetchAllAssociative();
 
         foreach ($duplicates as &$duplicate) {

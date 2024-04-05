@@ -48,6 +48,7 @@ class UnusedFilesWidget implements WidgetInterface, RequestAwareWidgetInterface,
                 'sys_file.identifier NOT LIKE "/user_upload/index.html"'
             )
             ->setMaxResults(10)
+            ->executeQuery()
             ->fetchAllAssociative();
 
         foreach ($files as &$file) {

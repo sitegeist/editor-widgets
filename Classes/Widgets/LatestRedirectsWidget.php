@@ -36,6 +36,7 @@ class LatestRedirectsWidget implements WidgetInterface, RequestAwareWidgetInterf
             ->from('sys_redirect')
             ->addOrderBy('updatedon', 'desc')
             ->setMaxResults(10)
+            ->executeQuery()
             ->fetchAllAssociative();
 
         $view = $this->backendViewFactory->create($this->request, ['sitegeist/editor-widgets']);
