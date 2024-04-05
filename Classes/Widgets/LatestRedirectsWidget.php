@@ -2,21 +2,30 @@
 
 namespace Sitegeist\EditorWidgets\Widgets;
 
+use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Backend\View\BackendViewFactory;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Dashboard\Widgets\AdditionalCssInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
-use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Dashboard\Widgets\RequestAwareWidgetInterface;
 
-class LatestRedirectsWidget implements WidgetInterface, AdditionalCssInterface
+class LatestRedirectsWidget implements WidgetInterface, RequestAwareWidgetInterface, AdditionalCssInterface
 {
+    private ServerRequestInterface $request;
+
     public function __construct(
-        private WidgetConfigurationInterface $configuration,
-        private StandaloneView $view,
+        private readonly BackendViewFactory $backendViewFactory,
         private ConnectionPool $connectionPool,
+        private WidgetConfigurationInterface $configuration,
         private readonly array $options = []
     )
     {}
+
+    public function setRequest(ServerRequestInterface $request): void
+    {
+        $this->request = $request;
+    }
 
     public function renderWidgetContent(): string
     {
@@ -27,17 +36,15 @@ class LatestRedirectsWidget implements WidgetInterface, AdditionalCssInterface
             ->from('sys_redirect')
             ->addOrderBy('updatedon', 'desc')
             ->setMaxResults(10)
-            ->execute()
             ->fetchAllAssociative();
 
-
-        $this->view->setTemplate('Widget/LatestRedirectsWidget');
-        $this->view->assignMultiple([
+        $view = $this->backendViewFactory->create($this->request, ['sitegeist/editor-widgets']);
+        $view->assignMultiple([
             'redirects' => $redirects,
             'configuration' => $this->configuration
         ]);
 
-        return $this->view->render();
+        return $view->render('LatestRedirectsWidget');
     }
 
     public function getOptions(): array

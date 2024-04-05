@@ -2,23 +2,32 @@
 
 namespace Sitegeist\EditorWidgets\Widgets;
 
+use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Backend\View\BackendViewFactory;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Resource\ResourceFactory;
 use TYPO3\CMS\Dashboard\Widgets\AdditionalCssInterface;
+use TYPO3\CMS\Dashboard\Widgets\RequestAwareWidgetInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
-use TYPO3\CMS\Fluid\View\StandaloneView;
 
-class UnusedFilesWidget implements WidgetInterface, AdditionalCssInterface
+class UnusedFilesWidget implements WidgetInterface, RequestAwareWidgetInterface, AdditionalCssInterface
 {
+    private ServerRequestInterface $request;
+
     public function __construct(
+        private readonly BackendViewFactory $backendViewFactory,
         private ConnectionPool $connectionPool,
         private ResourceFactory $resourceFactory,
-        private StandaloneView $view,
         private WidgetConfigurationInterface $configuration,
         private readonly array $options = []
     )
     {}
+
+    public function setRequest(ServerRequestInterface $request): void
+    {
+        $this->request = $request;
+    }
 
     public function renderWidgetContent(): string
     {
@@ -33,7 +42,6 @@ class UnusedFilesWidget implements WidgetInterface, AdditionalCssInterface
             ->addOrderBy('sys_file.identifier', 'desc')
             ->where('sys_file.missing = 0 AND sys_file.storage > 0 AND sys_file.identifier NOT LIKE "%_recycler_%" AND sr.hash IS NULL')
             ->setMaxResults(10)
-            ->execute()
             ->fetchAllAssociative();
 
         foreach ($files as &$file) {
@@ -45,13 +53,13 @@ class UnusedFilesWidget implements WidgetInterface, AdditionalCssInterface
             }
         }
 
-        $this->view->setTemplate('Widget/UnusedFilesWidget');
-        $this->view->assignMultiple([
+        $view = $this->backendViewFactory->create($this->request, ['sitegeist/editor-widgets']);
+        $view->assignMultiple([
             'files' => $files,
             'configuration' => $this->configuration
         ]);
 
-        return $this->view->render();
+        return $view->render('UnusedFilesWidget');
     }
 
     public function getOptions(): array

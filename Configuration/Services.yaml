@@ -10,7 +10,6 @@ services:
   dashboard.widget.sitegeist.editor_widgets.storageSize:
     class: 'Sitegeist\EditorWidgets\Widgets\StorageSizeWidget'
     arguments:
-      $view: '@dashboard.views.widget'
       $cache: '@cache.editor_widgets.storageSize'
     tags:
       - name: dashboard.widget
@@ -31,7 +30,6 @@ services:
   dashboard.widget.sitegeist.editor_widgets.unusedFiles:
     class: 'Sitegeist\EditorWidgets\Widgets\UnusedFilesWidget'
     arguments:
-      $view: '@dashboard.views.widget'
       $connectionPool: '@TYPO3\CMS\Core\Database\ConnectionPool'
     tags:
       - name: dashboard.widget
@@ -47,7 +45,6 @@ services:
   dashboard.widget.sitegeist.editor_widgets.duplicateFiles:
     class: 'Sitegeist\EditorWidgets\Widgets\DuplicateFilesWidget'
     arguments:
-      $view: '@dashboard.views.widget'
       $connectionPool: '@TYPO3\CMS\Core\Database\ConnectionPool'
     tags:
       - name: dashboard.widget
@@ -63,7 +60,6 @@ services:
   dashboard.widget.sitegeist.editor_widgets.lastChangedPages:
     class: 'Sitegeist\EditorWidgets\Widgets\LastChangedPagesWidget'
     arguments:
-      $view: '@dashboard.views.widget'
       $connectionPool: '@TYPO3\CMS\Core\Database\ConnectionPool'
     tags:
       - name: dashboard.widget
@@ -79,7 +75,6 @@ services:
   dashboard.widget.sitegeist.editor_widgets.latestRedirects:
     class: 'Sitegeist\EditorWidgets\Widgets\LatestRedirectsWidget'
     arguments:
-      $view: '@dashboard.views.widget'
       $connectionPool: '@TYPO3\CMS\Core\Database\ConnectionPool'
     tags:
       - name: dashboard.widget

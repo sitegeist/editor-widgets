@@ -2,41 +2,49 @@
 
 namespace Sitegeist\EditorWidgets\Widgets;
 
+use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Backend\View\BackendViewFactory;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface as Cache;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
-use TYPO3\CMS\Core\Page\JavaScriptModuleInstruction;
 use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Dashboard\WidgetApi;
 use TYPO3\CMS\Dashboard\Widgets\AdditionalCssInterface;
 use TYPO3\CMS\Dashboard\Widgets\EventDataInterface;
 use TYPO3\CMS\Dashboard\Widgets\JavaScriptInterface;
+use TYPO3\CMS\Dashboard\Widgets\RequestAwareWidgetInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
-use TYPO3\CMS\Fluid\View\StandaloneView;
 
-class StorageSizeWidget implements WidgetInterface, EventDataInterface, AdditionalCssInterface, JavaScriptInterface
+class StorageSizeWidget implements WidgetInterface, EventDataInterface, RequestAwareWidgetInterface, AdditionalCssInterface, JavaScriptInterface
 {
+    private ServerRequestInterface $request;
+
     private const DEFAULT_MAX_SIZE = 214748364800;
     private const CACHE_IDENTIFIER = 'default_storage_data';
 
     public function __construct(
+        private readonly BackendViewFactory $backendViewFactory,
         private Cache $cache,
         private WidgetConfigurationInterface $configuration,
-        private StandaloneView $view,
         private readonly array $options = []
     )
     {}
 
+    public function setRequest(ServerRequestInterface $request): void
+    {
+        $this->request = $request;
+    }
+    
     public function renderWidgetContent(): string
     {
-        $this->view->setTemplate('Widget/StorageSizeWidget');
-        $this->view->assignMultiple([
+        $view = $this->backendViewFactory->create($this->request, ['sitegeist/editor-widgets']);
+        $view->assignMultiple([
             'configuration' => $this->configuration,
         ]);
 
-        return $this->view->render();
+        return $view->render('StorageSizeWidget');
     }
 
     public function getEventData(): array

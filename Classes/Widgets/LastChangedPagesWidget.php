@@ -2,9 +2,11 @@
 
 namespace Sitegeist\EditorWidgets\Widgets;
 
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\History\RecordHistory;
 use TYPO3\CMS\Backend\Routing\PreviewUriBuilder;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Backend\View\BackendViewFactory;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\HiddenRestriction;
@@ -12,21 +14,28 @@ use TYPO3\CMS\Core\Database\Query\Restriction\WorkspaceRestriction;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
 use TYPO3\CMS\Dashboard\Widgets\AdditionalCssInterface;
+use TYPO3\CMS\Dashboard\Widgets\RequestAwareWidgetInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
-use TYPO3\CMS\Fluid\View\StandaloneView;
 
-class LastChangedPagesWidget implements WidgetInterface, AdditionalCssInterface
+class LastChangedPagesWidget implements WidgetInterface, RequestAwareWidgetInterface, AdditionalCssInterface
 {
+    private ServerRequestInterface $request;
+    
     public function __construct(
+        private readonly BackendViewFactory $backendViewFactory,
         private ConnectionPool $connectionPool,
-        private StandaloneView $view,
         private WidgetConfigurationInterface $configuration,
         private array $userNames = [],
         private readonly array $options = []
     )
     {
         $this->userNames = BackendUtility::getUserNames();
+    }
+    
+    public function setRequest(ServerRequestInterface $request): void
+    {
+        $this->request = $request;
     }
 
     public function renderWidgetContent(): string
@@ -47,7 +56,6 @@ class LastChangedPagesWidget implements WidgetInterface, AdditionalCssInterface
             ->addOrderBy('tstamp', 'desc')
             ->where($GLOBALS['BE_USER']->getPagePermsClause(1))
             ->setMaxResults(10)
-            ->execute()
             ->fetchAllAssociative();
 
         foreach ($pages as &$page) {
@@ -69,14 +77,15 @@ class LastChangedPagesWidget implements WidgetInterface, AdditionalCssInterface
 
             $page['userName'] = $this->getUserNameOfLatestChange($page['uid']);
         }
-        $this->view->setTemplate('Widget/LastChangedPagesWidget');
-        $this->view->assignMultiple([
+
+        $view = $this->backendViewFactory->create($this->request, ['sitegeist/editor-widgets']);
+        $view->assignMultiple([
             'pages' => $pages,
             'configuration' => $this->configuration,
             'dateFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'] . ' ' . $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm']
         ]);
 
-        return $this->view->render();
+        return $view->render('LastChangedPagesWidget');
     }
 
     public function getOptions(): array

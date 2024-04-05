@@ -2,7 +2,9 @@
 
 namespace Sitegeist\EditorWidgets\Widgets;
 
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Backend\View\BackendViewFactory;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Database\Connection;
@@ -12,30 +14,37 @@ use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\Type\Bitmask\Permission;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Dashboard\Widgets\AdditionalCssInterface;
+use TYPO3\CMS\Dashboard\Widgets\RequestAwareWidgetInterface;
 use TYPO3\CMS\Dashboard\Widgets\RequireJsModuleInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
-use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Linkvalidator\Linktype\AbstractLinktype;
 use TYPO3\CMS\Linkvalidator\Repository\BrokenLinkRepository;
 use TYPO3\CMS\Linkvalidator\Repository\PagesRepository;
 
-class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, RequireJsModuleInterface
+class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInterface, AdditionalCssInterface, RequireJsModuleInterface
 {
+    private ServerRequestInterface $request;
+
     const PAGE_ID = 0;
     const PERSISTENT_TABLE = 'tx_editor_widgets_broken_link';
 
     private $clause = null;
 
     public function __construct(
+        private readonly BackendViewFactory $backendViewFactory,
         private BrokenLinkRepository $brokenLinkRepository,
         private ConnectionPool $connectionPool,
         private PagesRepository $pagesRepository,
-        private StandaloneView $view,
         private WidgetConfigurationInterface $configuration,
         private readonly array $options = []
     )
     {}
+
+    public function setRequest(ServerRequestInterface $request): void
+    {
+        $this->request = $request;
+    }
 
     public function renderWidgetContent(): string
     {
@@ -49,6 +58,7 @@ class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, Requ
             $this->getSearchFields()
         );
 
+        $view = $this->backendViewFactory->create($this->request, ['sitegeist/editor-widgets']);
         $persistentBrokenLinks = $this->getPersistentBrokenLinks();
         $enabledBrokenLinks = [];
         $suppressedBrokenLinks = [];
@@ -78,8 +88,8 @@ class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, Requ
                 try {
                     $brokenLink['persistentUid'] = $this->createNewPersistentBrokenLink($brokenLink['hash']);
                 } catch (\Doctrine\DBAL\Exception $e) {
-                    $this->view->assign('error', true);
-                    return $this->view->render();
+                    $view->assign('error', true);
+                    return $view->render();
                 }
                 $enabledBrokenLinks[$brokenLink['hash']] = $brokenLink;
                 continue;
@@ -95,15 +105,14 @@ class BrokenLinksWidget implements WidgetInterface, AdditionalCssInterface, Requ
             $enabledBrokenLinks[$brokenLink['hash']] = $brokenLink;
         }
 
-        $this->view->assignMultiple([
+        $view->assignMultiple([
             'brokenLinks' => $enabledBrokenLinks,
             'suppressedBrokenLinks' => $suppressedBrokenLinks,
             'configuration' => $this->configuration,
             'dateFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'] . ' ' . $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'],
         ]);
-        $this->view->setTemplate('Widget/BrokenLinksWidget');
 
-        return $this->view->render();
+        return $view->render('BrokenLinksWidget');
     }
 
     public function getOptions(): array
