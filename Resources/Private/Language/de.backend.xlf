@@ -8,11 +8,11 @@
 			</trans-unit>
 			<trans-unit id="widgets.storageSize.description">
 				<source>Show usage in percent of default storage</source>
-				<target>Zeige Nutzung in Prozent des Standard-Speichers</target>
+				<target>Zeigt Nutzung des Speichers-Volumens in Prozent</target>
 			</trans-unit>
 			<trans-unit id="widgets.storageSize.chart.used">
 				<source>Used</source>
-				<target>Genutzt</target>
+				<target>Belegt</target>
 			</trans-unit>
 			<trans-unit id="widgets.storageSize.chart.free">
 				<source>Free</source>
@@ -34,11 +34,11 @@
 
 			<trans-unit id="widgets.duplicateFiles.title">
 				<source>Duplicate files</source>
-				<target>Duplikate Dateien</target>
+				<target>Identische Dateien</target>
 			</trans-unit>
 			<trans-unit id="widgets.duplicateFiles.description">
 				<source>Displays all files that are duplicates</source>
-				<target>Zeigt alle Dateien an, die Duplikate sind</target>
+				<target>Zeigt Dateien an, die mehrfach vorhanden sind</target>
 			</trans-unit>
 			<trans-unit id="widgets.duplicateFiles.openOriginalFile">
 				<source>Open original file in new window</source>
@@ -46,7 +46,7 @@
 			</trans-unit>
 			<trans-unit id="widgets.duplicateFiles.control">
 				<source>Control</source>
-				<target>Kontrolle</target>
+				<target>Interaktion</target>
 			</trans-unit>
 			<trans-unit id="widgets.duplicateFiles.referenceCount">
 				<source>References</source>
@@ -228,7 +228,7 @@
 			</trans-unit>
 			<trans-unit id="sys_file_storage.editor_widgets.max_storage_size.description">
 				<source>In bytes or simply KB, MB, GB</source>
-				<target>In Bytes oder einfach KB, MB, GB</target>
+				<target>Angabe in Bytes KB, MB oder GB</target>
 			</trans-unit>
 
 			<trans-unit id="openOriginalFile">
@@ -249,7 +249,7 @@
 			</trans-unit>
 			<trans-unit id="fileMissing.description">
 				<source>please inform your administrator to run FAL: update storage index</source>
-				<target>Bitte informieren Sie Ihren Administrator, dass er FAL: Speicherindex aktualisieren soll</target>
+				<target>Bitte informieren Sie Ihren Administrator, dass er den FAL: Speicherindex aktualisieren soll</target>
 			</trans-unit>
 		</body>
 	</file>
