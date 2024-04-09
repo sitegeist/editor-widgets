@@ -32,11 +32,12 @@ class LastChangedPagesWidget implements WidgetInterface, AdditionalCssInterface
         private readonly array $options = []
     )
     {
-        $this->userNames = BackendUtility::getUserNames();
     }
 
     public function renderWidgetContent(): string
     {
+        $this->userNames = BackendUtility::getUserNames();
+
         $workspaceRestriction = GeneralUtility::makeInstance(
             WorkspaceRestriction::class,
             GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('workspace', 'id')
