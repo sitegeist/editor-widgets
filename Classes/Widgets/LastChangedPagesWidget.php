@@ -6,6 +6,7 @@ use TYPO3\CMS\Backend\Routing\PreviewUriBuilder;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\Database\Query\Restriction\WorkspaceRestriction;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -18,11 +19,16 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 /**
  * Fetches many sys_history entries and finds it's related page uids.
  * The latest pages are fetched respecting backend user access.
+ * Deleted pages don't show up in list.
  */
 class LastChangedPagesWidget implements WidgetInterface, AdditionalCssInterface
 {
     const NUM_ENTRIES = 10;
     const NUM_FETCH_SYS_HISTORY_ENTRIES = 1000;
+
+    private ?QueryBuilder $queryBuilderSysHistory = null;
+    private ?QueryBuilder $queryBuilderTtContent = null;
+    private ?QueryBuilder $queryBuilderPages = null;
 
     public function __construct(
         private ConnectionPool $connectionPool,
@@ -37,63 +43,28 @@ class LastChangedPagesWidget implements WidgetInterface, AdditionalCssInterface
     public function renderWidgetContent(): string
     {
         $this->userNames = BackendUtility::getUserNames();
+        $this->initializeQueryBuilders();
 
-        $workspaceRestriction = GeneralUtility::makeInstance(
-            WorkspaceRestriction::class,
-            GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('workspace', 'id')
-        );
-
-        $queryBuilder = $this->connectionPool->getConnectionForTable('sys_history')->createQueryBuilder();
-        $queryBuilder->getRestrictions()->add($workspaceRestriction);
-
-        $queryBuilderTtContent = $this->connectionPool->getConnectionForTable('tt_content')->createQueryBuilder();
-        $queryBuilderTtContent->getRestrictions()->removeAll();
-
-        $queryBuilderPages = $this->connectionPool->getConnectionForTable('pages')->createQueryBuilder();
-        $queryBuilderPages->getRestrictions()
-            ->removeAll()
-            ->add(GeneralUtility::makeInstance(DeletedRestriction::class))
-            ->add($workspaceRestriction);
-
-        $history = $queryBuilder
-            ->select('tablename', 'recuid', 'tstamp', 'userid')
-            ->from('sys_history')
-            ->where($queryBuilder->expr()->in('tablename', [
-                $queryBuilder->createNamedParameter('pages'),
-                $queryBuilder->createNamedParameter('tt_content'),
-            ]))
-            ->addOrderBy('tstamp', 'desc')
-            ->setMaxResults(self::NUM_FETCH_SYS_HISTORY_ENTRIES)
-            ->execute()
-            ->fetchAllAssociative();
-
+        $history = $this->getSysHistory();
 
         $latestPages = [];
 
         foreach ($history as $historyEntry) {
             if ($historyEntry['tablename'] == 'tt_content') {
-                $pid = $queryBuilderTtContent
-                    ->select('pid')
-                    ->from('tt_content')
-                    ->where($queryBuilderTtContent->expr()->eq('uid', $queryBuilderTtContent->createNamedParameter($historyEntry['recuid'])))
-                    ->execute()
-                    ->fetchOne();
+                $pid = $this->getPidFromTtContent($historyEntry['recuid']);
             } else {
                 $pid = $historyEntry['recuid'];
+            }
+
+            if(!$pid) {
+                continue;
             }
 
             if (isset($latestPages[$pid])) {
                 continue;
             }
 
-            // deleted pages don't show up in list
-            $page = $queryBuilderPages
-                ->select('*')
-                ->from('pages')
-                ->where($queryBuilderPages->expr()->eq('uid', $queryBuilderPages->createNamedParameter($pid)))
-                ->andWhere($GLOBALS['BE_USER']->getPagePermsClause(1))
-                ->execute()
-                ->fetchAssociative();
+            $page = $this->getPage($pid);
 
             if (!$page) {
                 continue;
@@ -108,17 +79,7 @@ class LastChangedPagesWidget implements WidgetInterface, AdditionalCssInterface
         }
 
         foreach ($latestPages as $pageId => &$page) {
-            $rootlineUtility = GeneralUtility::makeInstance(RootlineUtility::class, $pageId);
-            $page['rootline'] = implode(
-                ' / ',
-                array_slice(
-                    array_map(function ($page) {
-                            return $page['title'];
-                        }, array_reverse($rootlineUtility->get())
-                    ),
-                0,
-                -1)
-            );
+            $page['rootline'] = $this->getRootline($pageId);
 
             $page['viewLink'] = (string)PreviewUriBuilder::create($pageId)
                 ->withRootLine(BackendUtility::BEgetRootLine($pageId))
@@ -135,6 +96,81 @@ class LastChangedPagesWidget implements WidgetInterface, AdditionalCssInterface
         ]);
 
         return $this->view->render();
+    }
+
+    private function getSysHistory(): array
+    {
+        return $this->queryBuilderSysHistory
+            ->select('tablename', 'recuid', 'tstamp', 'userid')
+            ->from('sys_history')
+            ->where($this->queryBuilderSysHistory->expr()->in('tablename', [
+                $this->queryBuilderSysHistory->createNamedParameter('pages'),
+                $this->queryBuilderSysHistory->createNamedParameter('tt_content'),
+            ]))
+            ->addOrderBy('tstamp', 'desc')
+            ->setMaxResults(self::NUM_FETCH_SYS_HISTORY_ENTRIES)
+            ->execute()
+            ->fetchAllAssociative() ?? [];
+    }
+
+    private function getPidFromTtContent(int $uid):? int
+    {
+        $pid = $this->queryBuilderTtContent
+            ->select('pid')
+            ->from('tt_content')
+            ->where($this->queryBuilderTtContent->expr()->eq('uid', $this->queryBuilderTtContent->createNamedParameter($uid)))
+            ->execute()
+            ->fetchOne();
+
+        return $pid ? (int) $pid : null;
+    }
+
+    private function getPage(int $pageId):? array
+    {
+        $page = $this->queryBuilderPages
+            ->select('*')
+            ->from('pages')
+            ->where($this->queryBuilderPages->expr()->eq('uid', $this->queryBuilderPages->createNamedParameter($pageId)))
+            ->andWhere($GLOBALS['BE_USER']->getPagePermsClause(1))
+            ->execute()
+            ->fetchAssociative();
+
+        return $page ?: null;
+    }
+
+    private function getRootLine(int $pageId): string
+    {
+        $rootlineUtility = GeneralUtility::makeInstance(RootlineUtility::class, $pageId);
+        return implode(
+            ' / ',
+            array_slice(
+                array_map(function ($page) {
+                        return $page['title'];
+                    }, array_reverse($rootlineUtility->get())
+                ),
+            0,
+            -1)
+        );
+    }
+
+    private function initializeQueryBuilders(): void
+    {
+        $workspaceRestriction = GeneralUtility::makeInstance(
+            WorkspaceRestriction::class,
+            GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('workspace', 'id')
+        );
+
+        $this->queryBuilderSysHistory = $this->connectionPool->getConnectionForTable('sys_history')->createQueryBuilder();
+        $this->queryBuilderSysHistory->getRestrictions()->add($workspaceRestriction);
+
+        $this->queryBuilderTtContent = $this->connectionPool->getConnectionForTable('tt_content')->createQueryBuilder();
+        $this->queryBuilderTtContent->getRestrictions()->removeAll();
+
+        $this->queryBuilderPages = $this->connectionPool->getConnectionForTable('pages')->createQueryBuilder();
+        $this->queryBuilderPages->getRestrictions()
+            ->removeAll()
+            ->add(GeneralUtility::makeInstance(DeletedRestriction::class))
+            ->add($workspaceRestriction);
     }
 
     public function getOptions(): array
