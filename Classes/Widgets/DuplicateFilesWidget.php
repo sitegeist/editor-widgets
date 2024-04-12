@@ -2,7 +2,8 @@
 
 namespace Sitegeist\EditorWidgets\Widgets;
 
-use Psr\Http\Message\ServerRequestInterface;
+use Sitegeist\EditorWidgets\Traits\RequestAwareTrait;
+use Sitegeist\EditorWidgets\Traits\WidgetTrait;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Backend\View\BackendViewFactory;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -13,24 +14,19 @@ use TYPO3\CMS\Dashboard\Widgets\RequestAwareWidgetInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 
-class DuplicateFilesWidget implements WidgetInterface, RequestAwareWidgetInterface, AdditionalCssInterface
+final class DuplicateFilesWidget implements WidgetInterface, RequestAwareWidgetInterface, AdditionalCssInterface
 {
-    private ServerRequestInterface $request;
+    use RequestAwareTrait, WidgetTrait;
     
     public function __construct(
         private readonly BackendViewFactory $backendViewFactory,
-        private ConnectionPool $connectionPool,
-        private ResourceFactory $resourceFactory,
-        private WidgetConfigurationInterface $configuration,
+        private readonly ConnectionPool $connectionPool,
+        private readonly ResourceFactory $resourceFactory,
+        private readonly WidgetConfigurationInterface $configuration,
         private readonly array $options = []
     )
     {}
     
-    public function setRequest(ServerRequestInterface $request): void
-    {
-        $this->request = $request;
-    }
-
     public function renderWidgetContent(): string
     {
         $queryBuilder = $this->connectionPool->getConnectionForTable('sys_file')->createQueryBuilder();
@@ -79,11 +75,6 @@ class DuplicateFilesWidget implements WidgetInterface, RequestAwareWidgetInterfa
         ]);
 
         return $view->render('DuplicateFilesWidget');
-    }
-
-    public function getOptions(): array
-    {
-        return $this->options;
     }
 
     public function getCssFiles(): array

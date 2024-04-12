@@ -2,7 +2,8 @@
 
 namespace Sitegeist\EditorWidgets\Widgets;
 
-use Psr\Http\Message\ServerRequestInterface;
+use Sitegeist\EditorWidgets\Traits\RequestAwareTrait;
+use Sitegeist\EditorWidgets\Traits\WidgetTrait;
 use TYPO3\CMS\Backend\View\BackendViewFactory;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface as Cache;
 use TYPO3\CMS\Core\Core\Environment;
@@ -17,25 +18,20 @@ use TYPO3\CMS\Dashboard\Widgets\RequestAwareWidgetInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 
-class StorageSizeWidget implements WidgetInterface, EventDataInterface, RequestAwareWidgetInterface, JavaScriptInterface
+final class StorageSizeWidget implements WidgetInterface, EventDataInterface, RequestAwareWidgetInterface, JavaScriptInterface
 {
-    private ServerRequestInterface $request;
+    use RequestAwareTrait, WidgetTrait;
 
     private const DEFAULT_MAX_SIZE = 214748364800;
     private const CACHE_IDENTIFIER = 'default_storage_data';
 
     public function __construct(
         private readonly BackendViewFactory $backendViewFactory,
-        private Cache $cache,
-        private WidgetConfigurationInterface $configuration,
+        private readonly Cache $cache,
+        private readonly WidgetConfigurationInterface $configuration,
         private readonly array $options = []
     )
     {}
-
-    public function setRequest(ServerRequestInterface $request): void
-    {
-        $this->request = $request;
-    }
     
     public function renderWidgetContent(): string
     {
@@ -138,10 +134,5 @@ class StorageSizeWidget implements WidgetInterface, EventDataInterface, RequestA
         pclose($fio);
         $size = preg_split('/\s/', $output)[0] ?? 0;
         return GeneralUtility::getBytesFromSizeMeasurement($size);
-    }
-
-    public function getOptions(): array
-    {
-        return $this->options;
     }
 }

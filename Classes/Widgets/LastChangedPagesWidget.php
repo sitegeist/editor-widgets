@@ -2,7 +2,8 @@
 
 namespace Sitegeist\EditorWidgets\Widgets;
 
-use Psr\Http\Message\ServerRequestInterface;
+use Sitegeist\EditorWidgets\Traits\RequestAwareTrait;
+use Sitegeist\EditorWidgets\Traits\WidgetTrait;
 use TYPO3\CMS\Backend\History\RecordHistory;
 use TYPO3\CMS\Backend\Routing\PreviewUriBuilder;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
@@ -18,28 +19,23 @@ use TYPO3\CMS\Dashboard\Widgets\RequestAwareWidgetInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 
-class LastChangedPagesWidget implements WidgetInterface, RequestAwareWidgetInterface, AdditionalCssInterface
+final class LastChangedPagesWidget implements WidgetInterface, RequestAwareWidgetInterface, AdditionalCssInterface
 {
-    private ServerRequestInterface $request;
+    use RequestAwareTrait, WidgetTrait;
     
     public function __construct(
         private readonly BackendViewFactory $backendViewFactory,
-        private ConnectionPool $connectionPool,
-        private WidgetConfigurationInterface $configuration,
+        private readonly ConnectionPool $connectionPool,
+        private readonly WidgetConfigurationInterface $configuration,
         private array $userNames = [],
         private readonly array $options = []
     )
-    {
-        $this->userNames = BackendUtility::getUserNames();
-    }
-    
-    public function setRequest(ServerRequestInterface $request): void
-    {
-        $this->request = $request;
-    }
+    {}
 
     public function renderWidgetContent(): string
     {
+        $this->userNames = BackendUtility::getUserNames();
+
         $queryBuilder = $this->connectionPool->getConnectionForTable('pages')->createQueryBuilder();
         $queryBuilder->getRestrictions()
             ->removeByType(HiddenRestriction::class)
@@ -87,11 +83,6 @@ class LastChangedPagesWidget implements WidgetInterface, RequestAwareWidgetInter
         ]);
 
         return $view->render('LastChangedPagesWidget');
-    }
-
-    public function getOptions(): array
-    {
-        return $this->options;
     }
 
     public function getCssFiles(): array

@@ -2,30 +2,26 @@
 
 namespace Sitegeist\EditorWidgets\Widgets;
 
-use Psr\Http\Message\ServerRequestInterface;
+use Sitegeist\EditorWidgets\Traits\RequestAwareTrait;
+use Sitegeist\EditorWidgets\Traits\WidgetTrait;
 use TYPO3\CMS\Backend\View\BackendViewFactory;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Dashboard\Widgets\AdditionalCssInterface;
+use TYPO3\CMS\Dashboard\Widgets\RequestAwareWidgetInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
-use TYPO3\CMS\Dashboard\Widgets\RequestAwareWidgetInterface;
 
-class LatestRedirectsWidget implements WidgetInterface, RequestAwareWidgetInterface, AdditionalCssInterface
+final class LatestRedirectsWidget implements WidgetInterface, RequestAwareWidgetInterface, AdditionalCssInterface
 {
-    private ServerRequestInterface $request;
+    use RequestAwareTrait, WidgetTrait;
 
     public function __construct(
         private readonly BackendViewFactory $backendViewFactory,
-        private ConnectionPool $connectionPool,
-        private WidgetConfigurationInterface $configuration,
+        private readonly ConnectionPool $connectionPool,
+        private readonly WidgetConfigurationInterface $configuration,
         private readonly array $options = []
     )
     {}
-
-    public function setRequest(ServerRequestInterface $request): void
-    {
-        $this->request = $request;
-    }
 
     public function renderWidgetContent(): string
     {
@@ -46,11 +42,6 @@ class LatestRedirectsWidget implements WidgetInterface, RequestAwareWidgetInterf
         ]);
 
         return $view->render('LatestRedirectsWidget');
-    }
-
-    public function getOptions(): array
-    {
-        return $this->options;
     }
 
     public function getCssFiles(): array

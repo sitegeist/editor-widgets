@@ -2,7 +2,8 @@
 
 namespace Sitegeist\EditorWidgets\Widgets;
 
-use Psr\Http\Message\ServerRequestInterface;
+use Sitegeist\EditorWidgets\Traits\RequestAwareTrait;
+use Sitegeist\EditorWidgets\Traits\WidgetTrait;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Backend\View\BackendViewFactory;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
@@ -24,9 +25,9 @@ use TYPO3\CMS\Linkvalidator\Linktype\LinktypeRegistry;
 use TYPO3\CMS\Linkvalidator\Repository\BrokenLinkRepository;
 use TYPO3\CMS\Linkvalidator\Repository\PagesRepository;
 
-class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInterface, AdditionalCssInterface, JavaScriptInterface
+final class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInterface, AdditionalCssInterface, JavaScriptInterface
 {
-    private ServerRequestInterface $request;
+    use RequestAwareTrait, WidgetTrait;
 
     const PAGE_ID = 0;
     const PERSISTENT_TABLE = 'tx_editor_widgets_broken_link';
@@ -35,19 +36,14 @@ class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInterface,
 
     public function __construct(
         private readonly BackendViewFactory $backendViewFactory,
-        private BrokenLinkRepository $brokenLinkRepository,
-        private ConnectionPool $connectionPool,
-        protected readonly LinktypeRegistry $linktypeRegistry,
-        private PagesRepository $pagesRepository,
-        private WidgetConfigurationInterface $configuration,
+        private readonly BrokenLinkRepository $brokenLinkRepository,
+        private readonly ConnectionPool $connectionPool,
+        private readonly LinktypeRegistry $linktypeRegistry,
+        private readonly PagesRepository $pagesRepository,
+        private readonly WidgetConfigurationInterface $configuration,
         private readonly array $options = []
     )
     {}
-
-    public function setRequest(ServerRequestInterface $request): void
-    {
-        $this->request = $request;
-    }
 
     public function renderWidgetContent(): string
     {
@@ -116,11 +112,6 @@ class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInterface,
         ]);
 
         return $view->render('BrokenLinksWidget');
-    }
-
-    public function getOptions(): array
-    {
-        return $this->options;
     }
 
     public function getCssFiles(): array
