@@ -6,6 +6,7 @@ use Sitegeist\EditorWidgets\Traits\RequestAwareTrait;
 use Sitegeist\EditorWidgets\Traits\WidgetTrait;
 use TYPO3\CMS\Backend\View\BackendViewFactory;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface as Cache;
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\Page\JavaScriptModuleInstruction;
@@ -22,12 +23,13 @@ final class StorageSizeWidget implements WidgetInterface, EventDataInterface, Re
 {
     use RequestAwareTrait, WidgetTrait;
 
-    private const DEFAULT_MAX_SIZE = 214748364800;
+    private const DEFAULT_MAX_SIZE = 2147483648;
     private const CACHE_IDENTIFIER = 'default_storage_data';
 
     public function __construct(
         private readonly BackendViewFactory $backendViewFactory,
         private readonly Cache $cache,
+        private readonly ExtensionConfiguration $extensionConfiguration,
         private readonly WidgetConfigurationInterface $configuration,
         private readonly array $options = []
     )
@@ -105,13 +107,10 @@ final class StorageSizeWidget implements WidgetInterface, EventDataInterface, Re
             'usage' => ''
         ];
 
-        if (!empty($storage->getStorageRecord()['tx_editor_widgets_max_size'])) {
-            $maxSize = GeneralUtility::getBytesFromSizeMeasurement(
-                $storage->getStorageRecord()['tx_editor_widgets_max_size']
-            );
-        } else {
-            $maxSize = self::DEFAULT_MAX_SIZE;
-        }
+        $maxSizeConfiguration = $this->extensionConfiguration->get('editor_widgets', 'storageSizeWidget_maxSize');
+        $maxSize = !empty($maxSizeConfiguration)
+            ? GeneralUtility::getBytesFromSizeMeasurement($maxSizeConfiguration)
+            : self::DEFAULT_MAX_SIZE;
 
         if ($storage->getDriverType() == 'Local' && !empty($maxSize)) {
             $path = Environment::getPublicPath() . $storage->getRootLevelFolder()->getPublicUrl();

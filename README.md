@@ -47,11 +47,13 @@ composer require "sitegeist/editor-widgets"
 ## Configuration
 ### Storage size
 
-This extension adds a field to the storage record to configure the desired maximum storage size.
-Go to `List => [ROOT] => File Storage` and edit the default storage (normally, this should be the fileadmin).
-There is a new tab called "Editor Widgets" with a new field where you can enter a value in bytes or simply KB, MB, GB.
+The maximum storage size is configures in extension configuration. You can enter a value in bytes or simply KB, MB, GB.
 
 **Please note:** This value is only used for displaying how much space is used. There is no real limit.
+
+## Migration from Version 1 to 2
+
+The **maximum storage size** is now configured in extension configuration instead of file storage record.
 
 
 ## Special thanks
