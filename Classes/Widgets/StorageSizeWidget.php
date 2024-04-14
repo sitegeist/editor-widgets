@@ -21,7 +21,8 @@ use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 
 final class StorageSizeWidget implements WidgetInterface, EventDataInterface, RequestAwareWidgetInterface, JavaScriptInterface
 {
-    use RequestAwareTrait, WidgetTrait;
+    use RequestAwareTrait;
+    use WidgetTrait;
 
     private const DEFAULT_MAX_SIZE = 2147483648;
     private const CACHE_IDENTIFIER = 'default_storage_data';
@@ -32,9 +33,9 @@ final class StorageSizeWidget implements WidgetInterface, EventDataInterface, Re
         private readonly ExtensionConfiguration $extensionConfiguration,
         private readonly WidgetConfigurationInterface $configuration,
         private readonly array $options = []
-    )
-    {}
-    
+    ) {
+    }
+
     public function renderWidgetContent(): string
     {
         $view = $this->backendViewFactory->create($this->request, ['sitegeist/editor-widgets']);
@@ -62,7 +63,7 @@ final class StorageSizeWidget implements WidgetInterface, EventDataInterface, Re
                     ],
                     'title' => [
                         'display' => true,
-                        'text' => $storageData['name']
+                        'text' => $storageData['name'],
                     ],
                 ],
                 'data' => [
@@ -81,7 +82,7 @@ final class StorageSizeWidget implements WidgetInterface, EventDataInterface, Re
                             ],
                         ],
                     ],
-                ]
+                ],
             ],
         ];
     }
@@ -104,7 +105,7 @@ final class StorageSizeWidget implements WidgetInterface, EventDataInterface, Re
         $storage = $storageRepository->getDefaultStorage();
         $data = [
             'name' => $storage->getName(),
-            'usage' => ''
+            'usage' => '',
         ];
 
         $maxSizeConfiguration = $this->extensionConfiguration->get('editor_widgets', 'storageSizeWidget_maxSize');
@@ -128,7 +129,7 @@ final class StorageSizeWidget implements WidgetInterface, EventDataInterface, Re
 
     protected function getDirSize($path): int
     {
-        $fio = popen('du -sh '.$path, 'r');
+        $fio = popen('du -sh ' . $path, 'r');
         $output = fgets($fio);
         pclose($fio);
         $size = preg_split('/\s/', $output)[0] ?? 0;

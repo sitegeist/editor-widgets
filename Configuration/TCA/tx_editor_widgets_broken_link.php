@@ -7,12 +7,12 @@ return [
     'columns' => [
         'linkvalidator_link' => [
             'config' => [
-                'type' => 'input'
+                'type' => 'input',
             ],
         ],
         'suppressed' => [
             'config' => [
-                'type' => 'check'
+                'type' => 'check',
             ],
         ],
     ],

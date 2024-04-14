@@ -24,7 +24,7 @@ $EM_CONF[$_EXTKEY] = [
     ],
     'autoload' => [
         'psr-4' => [
-            'Sitegeist\\EditorWidgets\\' => 'Classes'
-        ]
+            'Sitegeist\\EditorWidgets\\' => 'Classes',
+        ],
     ],
 ];

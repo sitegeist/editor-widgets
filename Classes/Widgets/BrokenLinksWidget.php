@@ -27,12 +27,13 @@ use TYPO3\CMS\Linkvalidator\Repository\PagesRepository;
 
 final class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInterface, AdditionalCssInterface, JavaScriptInterface
 {
-    use RequestAwareTrait, WidgetTrait;
+    use RequestAwareTrait;
+    use WidgetTrait;
 
     const PAGE_ID = 0;
     const PERSISTENT_TABLE = 'tx_editor_widgets_broken_link';
 
-    private $clause = null;
+    private $clause;
 
     public function __construct(
         private readonly BackendViewFactory $backendViewFactory,
@@ -42,8 +43,8 @@ final class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInte
         private readonly PagesRepository $pagesRepository,
         private readonly WidgetConfigurationInterface $configuration,
         private readonly array $options = []
-    )
-    {}
+    ) {
+    }
 
     public function renderWidgetContent(): string
     {
@@ -116,9 +117,9 @@ final class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInte
 
     public function getCssFiles(): array
     {
-       return [
-           'EXT:editor_widgets/Resources/Public/Css/backend.css',
-       ];
+        return [
+            'EXT:editor_widgets/Resources/Public/Css/backend.css',
+        ];
     }
 
     public function getJavaScriptModuleInstructions(): array
@@ -192,7 +193,7 @@ final class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInte
 
     protected function getRecordWorkspaceId(string $tableName, int $recordUid): bool
     {
-        return (int) BackendUtility::getRecord(
+        return (int)BackendUtility::getRecord(
             $tableName,
             $recordUid,
             't3ver_wsid'

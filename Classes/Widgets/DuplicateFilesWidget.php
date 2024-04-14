@@ -16,17 +16,18 @@ use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 
 final class DuplicateFilesWidget implements WidgetInterface, RequestAwareWidgetInterface, AdditionalCssInterface
 {
-    use RequestAwareTrait, WidgetTrait;
-    
+    use RequestAwareTrait;
+    use WidgetTrait;
+
     public function __construct(
         private readonly BackendViewFactory $backendViewFactory,
         private readonly ConnectionPool $connectionPool,
         private readonly ResourceFactory $resourceFactory,
         private readonly WidgetConfigurationInterface $configuration,
         private readonly array $options = []
-    )
-    {}
-    
+    ) {
+    }
+
     public function renderWidgetContent(): string
     {
         $queryBuilder = $this->connectionPool->getConnectionForTable('sys_file')->createQueryBuilder();
@@ -71,7 +72,7 @@ final class DuplicateFilesWidget implements WidgetInterface, RequestAwareWidgetI
         $view = $this->backendViewFactory->create($this->request, ['sitegeist/editor-widgets']);
         $view->assignMultiple([
             'duplicates' => $duplicates,
-            'configuration' => $this->configuration
+            'configuration' => $this->configuration,
         ]);
 
         return $view->render('DuplicateFilesWidget');
@@ -79,8 +80,8 @@ final class DuplicateFilesWidget implements WidgetInterface, RequestAwareWidgetI
 
     public function getCssFiles(): array
     {
-       return [
-           'EXT:editor_widgets/Resources/Public/Css/backend.css',
-       ];
+        return [
+            'EXT:editor_widgets/Resources/Public/Css/backend.css',
+        ];
     }
 }

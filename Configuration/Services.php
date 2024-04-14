@@ -18,7 +18,7 @@ use TYPO3\CMS\Redirects\Repository\RedirectRepository;
 
 return function (ContainerConfigurator $configurator) {
     $services = $configurator->services();
-    
+
     $services->defaults()
         ->autowire()
         ->autoconfigure()

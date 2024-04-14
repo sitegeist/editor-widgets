@@ -21,16 +21,17 @@ use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 
 final class LastChangedPagesWidget implements WidgetInterface, RequestAwareWidgetInterface, AdditionalCssInterface
 {
-    use RequestAwareTrait, WidgetTrait;
-    
+    use RequestAwareTrait;
+    use WidgetTrait;
+
     public function __construct(
         private readonly BackendViewFactory $backendViewFactory,
         private readonly ConnectionPool $connectionPool,
         private readonly WidgetConfigurationInterface $configuration,
         private array $userNames = [],
         private readonly array $options = []
-    )
-    {}
+    ) {
+    }
 
     public function renderWidgetContent(): string
     {
@@ -60,12 +61,15 @@ final class LastChangedPagesWidget implements WidgetInterface, RequestAwareWidge
             $page['rootline'] = implode(
                 ' / ',
                 array_slice(
-                    array_map(function ($page) {
+                    array_map(
+                        function ($page) {
                             return $page['title'];
-                        }, array_reverse($rootlineUtility->get())
+                        },
+                        array_reverse($rootlineUtility->get())
                     ),
-                0,
-                -1)
+                    0,
+                    -1
+                )
             );
 
             $page['viewLink'] = (string)PreviewUriBuilder::create($page['uid'])
@@ -79,7 +83,7 @@ final class LastChangedPagesWidget implements WidgetInterface, RequestAwareWidge
         $view->assignMultiple([
             'pages' => $pages,
             'configuration' => $this->configuration,
-            'dateFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'] . ' ' . $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm']
+            'dateFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'] . ' ' . $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'],
         ]);
 
         return $view->render('LastChangedPagesWidget');
@@ -87,9 +91,9 @@ final class LastChangedPagesWidget implements WidgetInterface, RequestAwareWidge
 
     public function getCssFiles(): array
     {
-       return [
-           'EXT:editor_widgets/Resources/Public/Css/backend.css',
-       ];
+        return [
+            'EXT:editor_widgets/Resources/Public/Css/backend.css',
+        ];
     }
 
     private function getUserNameOfLatestChange(int $pageUid): string

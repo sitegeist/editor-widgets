@@ -14,7 +14,8 @@ use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 
 final class UnusedFilesWidget implements WidgetInterface, RequestAwareWidgetInterface, AdditionalCssInterface
 {
-    use RequestAwareTrait, WidgetTrait;
+    use RequestAwareTrait;
+    use WidgetTrait;
 
     public function __construct(
         private readonly BackendViewFactory $backendViewFactory,
@@ -22,8 +23,8 @@ final class UnusedFilesWidget implements WidgetInterface, RequestAwareWidgetInte
         private readonly ResourceFactory $resourceFactory,
         private readonly WidgetConfigurationInterface $configuration,
         private readonly array $options = []
-    )
-    {}
+    ) {
+    }
 
     public function renderWidgetContent(): string
     {
@@ -59,7 +60,7 @@ final class UnusedFilesWidget implements WidgetInterface, RequestAwareWidgetInte
         $view = $this->backendViewFactory->create($this->request, ['sitegeist/editor-widgets']);
         $view->assignMultiple([
             'files' => $files,
-            'configuration' => $this->configuration
+            'configuration' => $this->configuration,
         ]);
 
         return $view->render('UnusedFilesWidget');
@@ -67,8 +68,8 @@ final class UnusedFilesWidget implements WidgetInterface, RequestAwareWidgetInte
 
     public function getCssFiles(): array
     {
-       return [
-           'EXT:editor_widgets/Resources/Public/Css/backend.css',
-       ];
+        return [
+            'EXT:editor_widgets/Resources/Public/Css/backend.css',
+        ];
     }
 }

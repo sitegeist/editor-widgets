@@ -42,7 +42,7 @@
     },
     "scripts": {
         "prepare-release": [
-            "rm -r .github .ecrc .editorconfig .gitattributes Build Tests"
+            "rm -r .editorconfig .php-cs-fixer.dist.php"
         ]
     },
     "suggest": {

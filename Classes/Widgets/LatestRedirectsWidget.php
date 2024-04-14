@@ -13,15 +13,16 @@ use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 
 final class LatestRedirectsWidget implements WidgetInterface, RequestAwareWidgetInterface, AdditionalCssInterface
 {
-    use RequestAwareTrait, WidgetTrait;
+    use RequestAwareTrait;
+    use WidgetTrait;
 
     public function __construct(
         private readonly BackendViewFactory $backendViewFactory,
         private readonly ConnectionPool $connectionPool,
         private readonly WidgetConfigurationInterface $configuration,
         private readonly array $options = []
-    )
-    {}
+    ) {
+    }
 
     public function renderWidgetContent(): string
     {
@@ -38,7 +39,7 @@ final class LatestRedirectsWidget implements WidgetInterface, RequestAwareWidget
         $view = $this->backendViewFactory->create($this->request, ['sitegeist/editor-widgets']);
         $view->assignMultiple([
             'redirects' => $redirects,
-            'configuration' => $this->configuration
+            'configuration' => $this->configuration,
         ]);
 
         return $view->render('LatestRedirectsWidget');
@@ -46,8 +47,8 @@ final class LatestRedirectsWidget implements WidgetInterface, RequestAwareWidget
 
     public function getCssFiles(): array
     {
-       return [
-           'EXT:editor_widgets/Resources/Public/Css/backend.css',
-       ];
+        return [
+            'EXT:editor_widgets/Resources/Public/Css/backend.css',
+        ];
     }
 }
