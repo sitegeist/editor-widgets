@@ -1,19 +1,19 @@
 <?php
+
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Editor Widgets',
     'description' => 'Collection of useful dashboard widgets focused on editors',
     'category' => 'backend',
-    'author' => 'Benjamin Tammling',
-    'author_email' => 'benjamin.tammling@sitegeist.de',
+    'author' => 'Ulrich Mathes, Benjamin Tammling',
+    'author_email' => 'mathes@sitegeist.de, benjamin.tammling@sitegeist.de',
     'author_company' => 'sitegeist media solutions GmbH',
-    'state' => 'beta',
+    'state' => 'stable',
     'uploadfolder' => false,
     'clearCacheOnLoad' => true,
-    'version' => '1.2.3',
     'constraints' => [
         'depends' => [
-            'typo3' => '11.5.0-11.5.99',
-            'php' => '8.1.0-8.2.99'
+            'typo3/cms-dashboard' => '12.4.0-13.9.99',
+            'php' => '8.1.0-8.3.99',
         ],
         'conflicts' => [
         ],

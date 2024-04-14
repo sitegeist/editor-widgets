@@ -1,0 +1,3 @@
+
+- name: TYPO3 Ter Uploader
+  uses: tomasnorre/typo3-upload-ter@v2.0.4
