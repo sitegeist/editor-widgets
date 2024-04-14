@@ -30,7 +30,7 @@ return function (ContainerConfigurator $configurator) {
         ->args(['$identifier' => 'editor_widgets_storage_size']);
     $services->alias(FrontendInterface::class, 'cache.editor_widgets.storageSize');
 
-    $languageFilePath = 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf';
+    $languageFilePath = 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf';
     $commonTags = [
         'additionalCssClasses' => 'sitegeist-editor-widgets',
         'groupNames' => 'systemInfo',

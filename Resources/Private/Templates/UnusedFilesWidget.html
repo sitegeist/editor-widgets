@@ -26,7 +26,7 @@
                                             <f:link.file
                                                 file="{file}"
                                                 target="_blank"
-                                                title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:openOriginalFile')}"
+                                                title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:openOriginalFile')}"
                                                 class="btn btn-default btn-sm"
                                             >
                                                 <core:icon identifier="actions-eye" />
@@ -45,7 +45,7 @@
                                             <f:be.link
                                                 route="media_management"
                                                 parameters="{id: file.parentFolder.combinedIdentifier, searchTerm: file.name}"
-                                                title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:openFileList')}"
+                                                title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:openFileList')}"
                                                 class="btn btn-default btn-sm"
                                             >
                                                 <core:icon identifier="actions-search" />
@@ -53,8 +53,8 @@
                                         </div>
                                     </f:then>
                                     <f:else>
-                                        <span class="text-danger" title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:fileMissing.description')}">
-                                            <f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:fileMissing" />
+                                        <span class="text-danger" title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:fileMissing.description')}">
+                                            <f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:fileMissing" />
                                         </span>
                                     </f:else>
                                 </f:if>
@@ -68,7 +68,7 @@
             <div class="sitegeist-editor-widgets_info-wrapper">
                 <p class="sitegeist-editor-widgets_empty-widget">
                     <core:icon identifier="actions-rocket" size="large" /><br />
-                    <f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.unusedFiles.empty" />
+                    <f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.unusedFiles.empty" />
                 </p>
             </div>
         </f:else>

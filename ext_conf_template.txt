@@ -1,2 +1,2 @@
-# cat=Storage Size; type=string; label=LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:ext_conf.storageSizeWidget.combinedIdentiferConfiguration
+# cat=Storage Size; type=string; label=LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:ext_conf.storageSizeWidget.combinedIdentiferConfiguration
 storageSizeWidget_maxSize = 2GB

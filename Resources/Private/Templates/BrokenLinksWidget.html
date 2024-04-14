@@ -6,19 +6,19 @@
             <div class="widget-table-wrapper">
                 <table class="widget-table">
                     <tr>
-                        <th><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.tableHead.element" /></th>
-                        <th><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.tableHead.path" /></th>
-                        <th><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.tableHead.headlink" /></th>
-                        <th><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.tableHead.linktarget" /></th>
-                        <th><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.tableHead.linkmessage" /></th>
-                        <th><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.tableHead.lastCheck" /></th>
+                        <th><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.brokenLinks.tableHead.element" /></th>
+                        <th><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.brokenLinks.tableHead.path" /></th>
+                        <th><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.brokenLinks.tableHead.headlink" /></th>
+                        <th><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.brokenLinks.tableHead.linktarget" /></th>
+                        <th><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.brokenLinks.tableHead.linkmessage" /></th>
+                        <th><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.brokenLinks.tableHead.lastCheck" /></th>
                     </tr>
 
                     <f:for each="{brokenLinks}" as="brokenLink">
                         <f:render section="brokenLinkRecord" arguments="{brokenLink: brokenLink}"></f:render>
                     </f:for>
 
-                    <tr><td colspan="7"><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.suppressedRecords" /></td></tr>
+                    <tr><td colspan="7"><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.brokenLinks.suppressedRecords" /></td></tr>
                     <f:for each="{suppressedBrokenLinks}" as="brokenLink">
                         <f:render section="brokenLinkRecord" arguments="{brokenLink: brokenLink}"></f:render>
                     </f:for>
@@ -31,11 +31,11 @@
                     <f:if condition="{error}">
                         <f:then>
                             <core:icon identifier="actions-exclamation-circle" size="large" /><br />
-                            <f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.error" />
+                            <f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.brokenLinks.error" />
                         </f:then>
                         <f:else>
                             <core:icon identifier="actions-rocket" size="large" /><br />
-                            <f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.empty" />
+                            <f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.brokenLinks.empty" />
                         </f:else>
                     </f:if>
                 </p>
@@ -55,14 +55,14 @@
                 <core:iconForRecord table="{brokenLink.table_name}" row="{brokenLink}" />
             </span>
             <f:if condition="{brokenLink.isWorkspaceRecord}">
-                <span title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.isWorkspaceRecord')}">
+                <span title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.brokenLinks.isWorkspaceRecord')}">
                     <core:icon identifier="apps-toolbar-menu-workspace" size="small" />
                 </span>
             </f:if>
             <be:link.editRecord
                 uid="{brokenLink.record_uid}"
                 table="{brokenLink.table_name}"
-                title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.edit')}"
+                title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.brokenLinks.edit')}"
                 returnUrl="{f:be.uri(route: 'dashboard')}"
             >
                 {brokenLink.headline -> f:format.crop(maxCharacters: 80)}
@@ -74,7 +74,7 @@
             <a href="{brokenLink.linkTarget}"
                 target="_blank"
                 rel="noreferrer"
-                title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.open')}"
+                title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.brokenLinks.open')}"
             >
                 {brokenLink.linkTarget}
             </a>
@@ -86,7 +86,7 @@
                 </f:then>
                 <f:else>
                     <span class="text-success">
-                        <f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.success" />
+                        <f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.brokenLinks.success" />
                     </span>
                 </f:else>
             </f:if>
@@ -94,7 +94,7 @@
         <td>
             <span class="nowrap">{brokenLink.last_check -> f:format.date(format: dateFormat)}</span>
             <f:if condition="{brokenLink.needs_recheck}">
-                <br /><span class="error"> ({f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.needsRecheck')})</span>
+                <br /><span class="error"> ({f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.brokenLinks.needsRecheck')})</span>
             </f:if>
         </td>
         <td>
@@ -103,13 +103,13 @@
                     class="btn btn-default btn-sm"
                     uid="{brokenLink.record_uid}"
                     table="{brokenLink.table_name}"
-                    title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.edit')}"
+                    title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.brokenLinks.edit')}"
                     returnUrl="{f:be.uri(route: 'dashboard')}"
                 >
                     <core:icon identifier="actions-open" />
                 </be:link.editRecord>
-                <f:variable name="labelSuppress"><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.suppress" /></f:variable>
-                <f:variable name="labelRelease"><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.brokenLinks.release" /></f:variable>
+                <f:variable name="labelSuppress"><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.brokenLinks.suppress" /></f:variable>
+                <f:variable name="labelRelease"><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.brokenLinks.release" /></f:variable>
                 <button
                     type="button"
                     class="btn btn-default btn-sm t3js-record-hide"

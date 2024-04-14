@@ -26,6 +26,8 @@ Simply a list of the last 10 edited pages that are accessible by the current bac
 ### Latest redirects
 The last 10 updated redirects.
 
+**Please note:** For this widget the core extension typo3/cms-redirects must be installed.
+
 ![Preview of Latest redirects widget](Documentation/Images/latestRedirects.png)
 
 ### Broken links
@@ -55,10 +57,10 @@ The maximum storage size is configures in extension configuration. You can enter
 
 The **maximum storage size** is now configured in extension configuration instead of file storage record.
 
-
 ## Special thanks
 *The development and the public-releases of this package is generously sponsored
 by SPIEGEL-Verlag Rudolf Augstein GmbH & Co. KG*
+
 ## Authors & Sponsors
 * SPIEGEL-Verlag Rudolf Augstein GmbH & Co. KG
 * [Benjamin Tammling](https://github.com/Atomschinken)
