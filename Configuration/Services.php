@@ -5,6 +5,7 @@ namespace Sitegeist\EditorWidgets;
 
 use Sitegeist\EditorWidgets\Widgets\BrokenLinksWidget;
 use Sitegeist\EditorWidgets\Widgets\DuplicateFilesWidget;
+use Sitegeist\EditorWidgets\Widgets\IndexedSearchStatisticWidget;
 use Sitegeist\EditorWidgets\Widgets\LastChangedPagesWidget;
 use Sitegeist\EditorWidgets\Widgets\LatestRedirectsWidget;
 use Sitegeist\EditorWidgets\Widgets\StorageSizeWidget;
@@ -13,6 +14,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 use Symfony\Component\DependencyInjection\Reference;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
+use TYPO3\CMS\IndexedSearch\Controller\AdministrationController;
 use TYPO3\CMS\Linkvalidator\Repository\BrokenLinkRepository;
 use TYPO3\CMS\Redirects\Repository\RedirectRepository;
 
@@ -80,6 +82,14 @@ return function (ContainerConfigurator $configurator) {
             ->tag('dashboard.widget', array_merge($commonTags, [
                 'title' => $languageFilePath . ':widgets.latestRedirects.title',
                 'description' => $languageFilePath . ':widgets.latestRedirects.description',
+            ]));
+    }
+
+    if (class_exists(AdministrationController::class)) {
+        $services->set(null, IndexedSearchStatisticWidget::class)
+            ->tag('dashboard.widget', array_merge($commonTags, [
+                'title' => $languageFilePath . ':widgets.indexedSearchStatistics.title',
+                'description' => $languageFilePath . ':widgets.indexedSearchStatistics.description',
             ]));
     }
 };

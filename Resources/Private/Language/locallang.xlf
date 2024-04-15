@@ -164,6 +164,25 @@
 				<source>Last check</source>
 			</trans-unit>
 
+			<trans-unit id="widgets.indexedSearchStatistics.title">
+				<source>List of most searched words</source>
+			</trans-unit>
+			<trans-unit id="widgets.indexedSearchStatistics.description">
+				<source>Last 24 hours, last 30 days and all requests</source>
+			</trans-unit>
+			<trans-unit id="widgets.indexedSearchStatistics.last24hours">
+				<source>Last 24 hours</source>
+			</trans-unit>
+			<trans-unit id="widgets.indexedSearchStatistics.last30days">
+				<source>Last 30 days</source>
+			</trans-unit>
+			<trans-unit id="widgets.indexedSearchStatistics.all">
+				<source>All</source>
+			</trans-unit>
+			<trans-unit id="widgets.indexedSearchStatistics.wordCount">
+				<source>Word count</source>
+			</trans-unit>
+
 			<trans-unit id="ext_conf.storageSizeWidget.combinedIdentiferConfiguration">
 				<source>Maximum size as bytes or KB, MB, GB: only used to display chart, no validation is done.</source>
 			</trans-unit>

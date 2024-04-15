@@ -1,0 +1,33 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
+<f:layout name="Widget" />
+<f:section name="main">
+    <div class="widget-table-wrapper">
+        {f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.indexedSearchStatistics.wordCount') -> f:variable(name: 'wordCountLabel')}
+        <table class="widget-table">
+            <tr>
+                <th colspan="2">{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.indexedSearchStatistics.last24hours')}</th>
+                <th colspan="2">{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.indexedSearchStatistics.last30days')}</th>
+                <th colspan="2">{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.indexedSearchStatistics.all')}</th>
+            </tr>
+            <f:for each="{all}" as="" iteration="i">
+                <tr>
+                    <td title="{wordCountLabel}"><small style="color: dimgray;">{last24hours.{i.index}.c}</small></td>
+                    <td style="word-break: break-word;">{last24hours.{i.index}.word}</td>
+
+                    <td title="{wordCountLabel}"><small style="color: dimgray;">{last30days.{i.index}.c}</small></td>
+                    <td style="word-break: break-word;">{last30days.{i.index}.word}</td>
+
+                    <td title="{wordCountLabel}"><small style="color: dimgray;">{all.{i.index}.c}</small></td>
+                    <td style="word-break: break-word;">{all.{i.index}.word}</td>
+                </tr>
+            </f:for>
+        </table>
+    </div>
+</f:section>
+<f:section name="footer">
+
+</f:section>
+</html>
