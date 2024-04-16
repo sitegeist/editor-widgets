@@ -218,6 +218,31 @@
 				<target>Letzte Überprüfung</target>
 			</trans-unit>
 
+			<trans-unit id="widgets.indexedSearchStatistics.title">
+				<source>List of most searched words</source>
+				<target>Liste der meistgesuchten Worte</target>
+			</trans-unit>
+			<trans-unit id="widgets.indexedSearchStatistics.description">
+				<source>Last 24 hours, last 30 days and all requests</source>
+				<target>Letzte 24 Stunden, letzte 30 Tage und aller Anfragen</target>
+			</trans-unit>
+			<trans-unit id="widgets.indexedSearchStatistics.last24hours">
+				<source>Last 24 hours</source>
+				<target>Letzte 24 Stunden</target>
+			</trans-unit>
+			<trans-unit id="widgets.indexedSearchStatistics.last30days">
+				<source>Last 30 days</source>
+				<target>Letzte 30 Tage</target>
+			</trans-unit>
+			<trans-unit id="widgets.indexedSearchStatistics.all">
+				<source>All</source>
+				<target>Alle</target>
+			</trans-unit>
+			<trans-unit id="widgets.indexedSearchStatistics.wordCount">
+				<source>Word count</source>
+				<target>Anzahl</target>
+			</trans-unit>
+
 			<trans-unit id="ext_conf.storageSizeWidget.combinedIdentiferConfiguration">
 				<source>Maximum size as bytes or KB, MB, GB: only used to display chart, no validation is done.</source>
 				<target>Maximale Größe in bytes oder KB, MB, GB: Nur zur Anzeige der Grafik, es erfolgt keine Validierung.</target>
