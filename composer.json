@@ -1,52 +1,55 @@
 {
-    "name": "sitegeist/editor-widgets",
-    "type": "typo3-cms-extension",
-    "homepage": "https://github.com/sitegeist/editor-widgets",
-    "license": [
-        "GPL-2.0-or-later"
-    ],
-    "keywords": [
-        "typo3",
-        "typo3-extension",
-        "dashboard",
-        "widget"
-    ],
-    "description": "Collection of dashboard widgets designed for TYPO3 editors",
-    "authors": [
-        {
-            "name": "Benjamin Tammling",
-            "email": "benjamin.tammling@sitegeist.de",
-            "role": "Developer",
-            "homepage": "https://www.sitegeist.de"
-        },
-        {
-            "name": "Ulrich Mathes",
-            "email": "mathes@sitegeist.de",
-            "role": "Developer",
-            "homepage": "https://www.sitegeist.de"
-        }
-    ],
-    "require": {
-        "php": ">=8.1.0",
-        "typo3/cms-core": "^11.5",
-        "typo3/cms-dashboard": "^11.5"
-    },
-    "autoload": {
-        "psr-4": {
-            "Sitegeist\\EditorWidgets\\": "Classes"
-        }
-    },
-    "extra": {
-        "typo3/cms": {
-            "extension-key": "editor_widgets"
-        }
-    },
-    "scripts": {
-        "prepare-release": [
-            "rm -r .github .ecrc .editorconfig .gitattributes Build Tests"
-        ]
-    },
-    "suggest": {
-        "typo3/cms-linkvalidator": "Broken links widget shows links found by LinkValidator"
-    }
+	"name": "sitegeist/editor-widgets",
+	"description": "Collection of dashboard widgets designed for TYPO3 editors",
+	"license": [
+		"GPL-2.0-or-later"
+	],
+	"type": "typo3-cms-extension",
+	"keywords": [
+		"typo3",
+		"typo3-extension",
+		"dashboard",
+		"widget"
+	],
+	"authors": [
+		{
+			"name": "Ulrich Mathes",
+			"email": "mathes@sitegeist.de",
+			"homepage": "https://www.sitegeist.de",
+			"role": "Developer"
+		},
+		{
+			"name": "Benjamin Tammling",
+			"email": "benjamin.tammling@sitegeist.de",
+			"homepage": "https://www.sitegeist.de",
+			"role": "Developer"
+		}
+	],
+	"homepage": "https://github.com/sitegeist/editor-widgets",
+	"require": {
+		"php": ">=8.1",
+		"typo3/cms-dashboard": "^12.4 || ^13.0"
+	},
+	"suggest": {
+		"typo3/cms-linkvalidator": "Broken links widget shows links found by LinkValidator",
+		"typo3/cms-redirects": "Shows a list of latest redirects"
+	},
+	"autoload": {
+		"psr-4": {
+			"Sitegeist\\EditorWidgets\\": "Classes"
+		}
+	},
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "editor_widgets"
+		}
+	},
+	"scripts": {
+		"prepare-release": [
+			"sed -i '$i\\    \\x27version\\x27 => \\x27'$TAG_WITHOUT_V'\\x27,' ext_emconf.php",
+			"rm .editorconfig",
+			"rm .gitignore",
+			"rm .php-cs-fixer.dist.php"
+		]
+	}
 }

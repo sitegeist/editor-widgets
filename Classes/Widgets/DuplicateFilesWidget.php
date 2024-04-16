@@ -2,25 +2,31 @@
 
 namespace Sitegeist\EditorWidgets\Widgets;
 
+use Sitegeist\EditorWidgets\Traits\RequestAwareTrait;
+use Sitegeist\EditorWidgets\Traits\WidgetTrait;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Backend\View\BackendViewFactory;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Resource\ResourceFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Dashboard\Widgets\AdditionalCssInterface;
+use TYPO3\CMS\Dashboard\Widgets\RequestAwareWidgetInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
-use TYPO3\CMS\Fluid\View\StandaloneView;
 
-class DuplicateFilesWidget implements WidgetInterface, AdditionalCssInterface
+final class DuplicateFilesWidget implements WidgetInterface, RequestAwareWidgetInterface, AdditionalCssInterface
 {
+    use RequestAwareTrait;
+    use WidgetTrait;
+
     public function __construct(
-        private ConnectionPool $connectionPool,
-        private ResourceFactory $resourceFactory,
-        private StandaloneView $view,
-        private WidgetConfigurationInterface $configuration,
+        private readonly BackendViewFactory $backendViewFactory,
+        private readonly ConnectionPool $connectionPool,
+        private readonly ResourceFactory $resourceFactory,
+        private readonly WidgetConfigurationInterface $configuration,
         private readonly array $options = []
-    )
-    {}
+    ) {
+    }
 
     public function renderWidgetContent(): string
     {
@@ -39,7 +45,7 @@ class DuplicateFilesWidget implements WidgetInterface, AdditionalCssInterface
             ->groupBy('sha1')
             ->having('counting > 1')
             ->setMaxResults(200)
-            ->execute()
+            ->executeQuery()
             ->fetchAllAssociative();
 
         foreach ($duplicates as &$duplicate) {
@@ -63,24 +69,19 @@ class DuplicateFilesWidget implements WidgetInterface, AdditionalCssInterface
             );
         }
 
-        $this->view->setTemplate('Widget/DuplicateFilesWidget');
-        $this->view->assignMultiple([
+        $view = $this->backendViewFactory->create($this->request, ['sitegeist/editor-widgets']);
+        $view->assignMultiple([
             'duplicates' => $duplicates,
-            'configuration' => $this->configuration
+            'configuration' => $this->configuration,
         ]);
 
-        return $this->view->render();
-    }
-
-    public function getOptions(): array
-    {
-        return $this->options;
+        return $view->render('DuplicateFilesWidget');
     }
 
     public function getCssFiles(): array
     {
-       return [
-           'EXT:editor_widgets/Resources/Public/Css/backend.css',
-       ];
+        return [
+            'EXT:editor_widgets/Resources/Public/Css/backend.css',
+        ];
     }
 }

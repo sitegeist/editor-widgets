@@ -218,17 +218,9 @@
 				<target>Letzte Überprüfung</target>
 			</trans-unit>
 
-			<trans-unit id="sys_file_storage.editor_widgets">
-				<source>Editor widgets</source>
-				<target>Editor-Widgets</target>
-			</trans-unit>
-			<trans-unit id="sys_file_storage.editor_widgets.max_storage_size">
-				<source>Maximum size (only used for display, no validation is done!)</source>
-				<target>Maximale Größe (nur zur Anzeige, es erfolgt keine Validierung!)</target>
-			</trans-unit>
-			<trans-unit id="sys_file_storage.editor_widgets.max_storage_size.description">
-				<source>In bytes or simply KB, MB, GB</source>
-				<target>Angabe in Bytes KB, MB oder GB</target>
+			<trans-unit id="ext_conf.storageSizeWidget.combinedIdentiferConfiguration">
+				<source>Maximum size as bytes or KB, MB, GB: only used to display chart, no validation is done.</source>
+				<target>Maximale Größe in bytes oder KB, MB, GB: Nur zur Anzeige der Grafik, es erfolgt keine Validierung.</target>
 			</trans-unit>
 
 			<trans-unit id="openOriginalFile">

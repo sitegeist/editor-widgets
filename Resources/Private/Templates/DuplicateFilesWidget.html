@@ -3,7 +3,7 @@
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     data-namespace-typo3-fluid="true"
 >
-<f:layout name="Widget/Widget" />
+<f:layout name="Widget" />
 <f:section name="main">
     <f:if condition="{duplicates}">
         <f:then>
@@ -13,8 +13,8 @@
                         <tr>
                             <th width="2%"></th>
                             <th width="70%"></th>
-                            <th width="15%"><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.duplicateFiles.control" /></th>
-                            <th width="10%"><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.duplicateFiles.referenceCount" /></th>
+                            <th width="15%"><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.duplicateFiles.control" /></th>
+                            <th width="10%"><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.duplicateFiles.referenceCount" /></th>
                         </tr>
                     </thead>
                     <f:for each="{duplicates}" as="duplicate">
@@ -39,7 +39,7 @@
                                                             <f:link.file
                                                                 file="{duplicate.file}"
                                                                 target="_blank"
-                                                                title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.duplicateFiles.openOriginalFile')}"
+                                                                title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.duplicateFiles.openOriginalFile')}"
                                                                 class="btn btn-default btn-sm"
                                                             >
                                                                 <core:icon identifier="actions-eye" />
@@ -56,9 +56,9 @@
                                                             </a>
 
                                                             <f:be.link
-                                                                route="file_FilelistList"
+                                                                route="media_management"
                                                                 parameters="{id: duplicate.file.parentFolder.combinedIdentifier, searchTerm: duplicate.file.name}"
-                                                                title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.duplicateFiles.openFileList')}"
+                                                                title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.duplicateFiles.openFileList')}"
                                                                 class="btn btn-default btn-sm"
                                                             >
                                                                 <core:icon identifier="actions-search" />
@@ -66,8 +66,8 @@
                                                         </div>
                                                     </f:then>
                                                     <f:else>
-                                                        <span class="text-danger" title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:fileMissing.description')}">
-                                                            <f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:fileMissing" />
+                                                        <span class="text-danger" title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:fileMissing.description')}">
+                                                            <f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:fileMissing" />
                                                         </span>
                                                     </f:else>
                                                 </f:if>
@@ -88,7 +88,7 @@
             <div class="sitegeist-editor-widgets_info-wrapper">
                 <p class="sitegeist-editor-widgets_empty-widget">
                     <core:icon identifier="actions-rocket" size="large" /><br />
-                    <f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.duplicateFiles.empty" />
+                    <f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.duplicateFiles.empty" />
                 </p>
             </div>
         </f:else>

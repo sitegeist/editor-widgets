@@ -26,6 +26,8 @@ Simply a list of the last 10 edited pages that are accessible by the current bac
 ### Latest redirects
 The last 10 updated redirects.
 
+**Please note:** For this widget the core extension typo3/cms-redirects must be installed.
+
 ![Preview of Latest redirects widget](Documentation/Images/latestRedirects.png)
 
 ### Broken links
@@ -47,16 +49,18 @@ composer require "sitegeist/editor-widgets"
 ## Configuration
 ### Storage size
 
-This extension adds a field to the storage record to configure the desired maximum storage size.
-Go to `List => [ROOT] => File Storage` and edit the default storage (normally, this should be the fileadmin).
-There is a new tab called "Editor Widgets" with a new field where you can enter a value in bytes or simply KB, MB, GB.
+The maximum storage size is configures in extension configuration. You can enter a value in bytes or simply KB, MB, GB.
 
 **Please note:** This value is only used for displaying how much space is used. There is no real limit.
 
+## Migration from Version 1 to 2
+
+The **maximum storage size** is now configured in extension configuration instead of file storage record.
 
 ## Special thanks
 *The development and the public-releases of this package is generously sponsored
 by SPIEGEL-Verlag Rudolf Augstein GmbH & Co. KG*
+
 ## Authors & Sponsors
 * SPIEGEL-Verlag Rudolf Augstein GmbH & Co. KG
 * [Benjamin Tammling](https://github.com/Atomschinken)

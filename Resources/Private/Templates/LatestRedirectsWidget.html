@@ -3,20 +3,20 @@
     xmlns:rd="http://typo3.org/ns/TYPO3/CMS/Redirects/ViewHelpers"
     data-namespace-typo3-fluid="true">
 
-<f:layout name="Widget/Widget" />
+<f:layout name="Widget" />
 <f:section name="main">
     <f:if condition="{redirects}">
         <f:then>
             <div class="widget-table-wrapper">
                 <table class="widget-table">
                     <tr>
-                        <th>{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.latestRedirects.sourceDomain')}</th>
-                        <th>{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.latestRedirects.sourcePath')}</th>
-                        <th>{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.latestRedirects.sourceTarget')}</th>
-                        <th>{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.latestRedirects.statusCode')}</th>
-                        <th>{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.latestRedirects.hitCount')}</th>
-                        <th>{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.latestRedirects.lastHit')}</th>
-                        <th>{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.latestRedirects.updated')}</th>
+                        <th>{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.latestRedirects.sourceDomain')}</th>
+                        <th>{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.latestRedirects.sourcePath')}</th>
+                        <th>{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.latestRedirects.sourceTarget')}</th>
+                        <th>{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.latestRedirects.statusCode')}</th>
+                        <th>{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.latestRedirects.hitCount')}</th>
+                        <th>{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.latestRedirects.lastHit')}</th>
+                        <th>{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.latestRedirects.updated')}</th>
                         <th></th>
                     </tr>
                     <f:for each="{redirects}" as="redirect">
@@ -44,7 +44,7 @@
                                         class="btn btn-default btn-sm"
                                         table="sys_redirect"
                                         uid="{redirect.uid}"
-                                        title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.latestRedirects.edit')}"
+                                        title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.latestRedirects.edit')}"
                                     >
                                         <core:icon identifier="actions-open" />
                                     </be:link.editRecord>
@@ -59,7 +59,7 @@
             <div class="sitegeist-editor-widgets_info-wrapper">
                 <p class="sitegeist-editor-widgets_empty-widget">
                     <core:icon identifier="actions-rocket" size="large" /><br />
-                    <f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/backend.xlf:widgets.latestRedirects.empty" />
+                    <f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.latestRedirects.empty" />
                 </p>
             </div>
         </f:else>

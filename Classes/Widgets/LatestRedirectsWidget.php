@@ -2,21 +2,27 @@
 
 namespace Sitegeist\EditorWidgets\Widgets;
 
+use Sitegeist\EditorWidgets\Traits\RequestAwareTrait;
+use Sitegeist\EditorWidgets\Traits\WidgetTrait;
+use TYPO3\CMS\Backend\View\BackendViewFactory;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Dashboard\Widgets\AdditionalCssInterface;
+use TYPO3\CMS\Dashboard\Widgets\RequestAwareWidgetInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
-use TYPO3\CMS\Fluid\View\StandaloneView;
 
-class LatestRedirectsWidget implements WidgetInterface, AdditionalCssInterface
+final class LatestRedirectsWidget implements WidgetInterface, RequestAwareWidgetInterface, AdditionalCssInterface
 {
+    use RequestAwareTrait;
+    use WidgetTrait;
+
     public function __construct(
-        private WidgetConfigurationInterface $configuration,
-        private StandaloneView $view,
-        private ConnectionPool $connectionPool,
+        private readonly BackendViewFactory $backendViewFactory,
+        private readonly ConnectionPool $connectionPool,
+        private readonly WidgetConfigurationInterface $configuration,
         private readonly array $options = []
-    )
-    {}
+    ) {
+    }
 
     public function renderWidgetContent(): string
     {
@@ -27,28 +33,22 @@ class LatestRedirectsWidget implements WidgetInterface, AdditionalCssInterface
             ->from('sys_redirect')
             ->addOrderBy('updatedon', 'desc')
             ->setMaxResults(10)
-            ->execute()
+            ->executeQuery()
             ->fetchAllAssociative();
 
-
-        $this->view->setTemplate('Widget/LatestRedirectsWidget');
-        $this->view->assignMultiple([
+        $view = $this->backendViewFactory->create($this->request, ['sitegeist/editor-widgets']);
+        $view->assignMultiple([
             'redirects' => $redirects,
-            'configuration' => $this->configuration
+            'configuration' => $this->configuration,
         ]);
 
-        return $this->view->render();
-    }
-
-    public function getOptions(): array
-    {
-        return $this->options;
+        return $view->render('LatestRedirectsWidget');
     }
 
     public function getCssFiles(): array
     {
-       return [
-           'EXT:editor_widgets/Resources/Public/Css/backend.css',
-       ];
+        return [
+            'EXT:editor_widgets/Resources/Public/Css/backend.css',
+        ];
     }
 }
