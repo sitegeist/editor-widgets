@@ -8,11 +8,12 @@ $EM_CONF[$_EXTKEY] = [
     'author_email' => 'mathes@sitegeist.de, benjamin.tammling@sitegeist.de',
     'author_company' => 'sitegeist media solutions GmbH',
     'state' => 'stable',
+    'version' => '',
     'uploadfolder' => false,
     'clearCacheOnLoad' => true,
     'constraints' => [
         'depends' => [
-            'typo3/cms-dashboard' => '12.4.0-13.9.99',
+            'typo3' => '12.4.0-13.9.99',
             'php' => '8.1.0-8.3.99',
         ],
         'conflicts' => [
