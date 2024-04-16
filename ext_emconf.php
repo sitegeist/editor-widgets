@@ -8,6 +8,7 @@ $EM_CONF[$_EXTKEY] = [
     'author_email' => 'mathes@sitegeist.de, benjamin.tammling@sitegeist.de',
     'author_company' => 'sitegeist media solutions GmbH',
     'state' => 'stable',
+    'version' => '',
     'uploadfolder' => false,
     'clearCacheOnLoad' => true,
     'constraints' => [

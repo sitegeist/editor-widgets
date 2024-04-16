@@ -47,7 +47,7 @@
 	},
 	"scripts": {
 		"prepare-release": [
-			"sed -i '$i\\    \\x27version\\x27 => \\x27'$TAG_WITHOUT_V'\\x27,' ext_emconf.php",
+			"sed -i'' -e \"s/'version' => ''/'version' => '$(echo ${GITHUB_REF#refs/tags/} | sed 's/v//')'/\" ext_emconf.php",
 			"rm .editorconfig",
 			"rm .gitignore",
 			"rm .php-cs-fixer.dist.php"
