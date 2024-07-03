@@ -68,7 +68,7 @@ return function (ContainerConfigurator $configurator) {
         ]));
 
     if (class_exists(BrokenLinkRepository::class)) {
-        $services->set(null, BrokenLinksWidget::class)
+        $services->set(BrokenLinksWidget::class)
             ->tag('dashboard.widget', array_merge($commonTags, [
                 'title' => $languageFilePath . ':widgets.brokenLinks.title',
                 'description' => $languageFilePath . ':widgets.brokenLinks.description',
@@ -78,7 +78,7 @@ return function (ContainerConfigurator $configurator) {
     }
 
     if (class_exists(RedirectRepository::class)) {
-        $services->set(null, LatestRedirectsWidget::class)
+        $services->set(LatestRedirectsWidget::class)
             ->tag('dashboard.widget', array_merge($commonTags, [
                 'title' => $languageFilePath . ':widgets.latestRedirects.title',
                 'description' => $languageFilePath . ':widgets.latestRedirects.description',
@@ -86,7 +86,7 @@ return function (ContainerConfigurator $configurator) {
     }
 
     if (class_exists(AdministrationController::class)) {
-        $services->set(null, IndexedSearchStatisticWidget::class)
+        $services->set(IndexedSearchStatisticWidget::class)
             ->tag('dashboard.widget', array_merge($commonTags, [
                 'title' => $languageFilePath . ':widgets.indexedSearchStatistics.title',
                 'description' => $languageFilePath . ':widgets.indexedSearchStatistics.description',
