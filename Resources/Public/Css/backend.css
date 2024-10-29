@@ -19,3 +19,5 @@
         }
     }
 }
+
+.widget-table-group-striped>tbody>tr.group-even>*{--typo3-table-bg-type:color-mix(in srgb, var(--typo3-table-bg), var(--typo3-table-color) 3%)}

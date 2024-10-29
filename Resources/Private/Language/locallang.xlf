@@ -25,27 +25,25 @@
 				<source>No unused files found</source>
 			</trans-unit>
 
-			<trans-unit id="widgets.duplicateFiles.title">
+			<trans-unit id="widgets.duplicateFiles.title" resname="widgets.duplicateFiles.title" xml:space="preserve">
 				<source>Duplicate files</source>
 			</trans-unit>
-			<trans-unit id="widgets.duplicateFiles.description">
-				<source>Displays all files that are duplicates</source>
+			<trans-unit id="widgets.duplicateFiles.description" resname="widgets.duplicateFiles.description" xml:space="preserve">
+				<source>Displays files that exists multiple times</source>
 			</trans-unit>
-			<trans-unit id="widgets.duplicateFiles.openOriginalFile">
-				<source>Open original file in new window</source>
+			<trans-unit id="widgets.duplicateFiles.empty" resname="widgets.duplicateFiles.empty" xml:space="preserve">
+				<source>No duplicate files found</source>
 			</trans-unit>
-			<trans-unit id="widgets.duplicateFiles.control">
+			<trans-unit id="widgets.duplicateFiles.column.file" resname="widgets.duplicateFiles.column.file" xml:space="preserve">
+				<source>File</source>
+			</trans-unit>
+			<trans-unit id="widgets.duplicateFiles.column.control" resname="widgets.duplicateFiles.column.control" xml:space="preserve">
 				<source>Control</source>
 			</trans-unit>
-			<trans-unit id="widgets.duplicateFiles.referenceCount">
+			<trans-unit id="widgets.duplicateFiles.column.referenceCount" resname="widgets.duplicateFiles.column.referenceCount" xml:space="preserve">
 				<source>References</source>
 			</trans-unit>
-			<trans-unit id="widgets.duplicateFiles.openFileList">
-				<source>Search in folder</source>
-			</trans-unit>
-			<trans-unit id="widgets.duplicateFiles.empty">
-				<source>No duplicates found</source>
-			</trans-unit>
+
 
 			<trans-unit id="widgets.lastChangedPages.title">
 				<source>Last changed pages</source>

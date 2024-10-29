@@ -1,100 +1,79 @@
-<html
-    xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
-    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-    data-namespace-typo3-fluid="true"
->
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+    data-namespace-typo3-fluid="true">
 <f:layout name="Widget" />
 <f:section name="main">
     <f:if condition="{duplicates}">
         <f:then>
             <div class="widget-table-wrapper">
-                <table class="widget-table">
+                <table class="table table-hover widget-table-group-striped">
                     <thead>
                         <tr>
-                            <th width="2%"></th>
-                            <th width="70%"></th>
-                            <th width="15%"><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.duplicateFiles.control" /></th>
-                            <th width="10%"><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.duplicateFiles.referenceCount" /></th>
+                            <th class="col-title" colspan="2"><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.duplicateFiles.column.file" /></th>
+                            <th class="col-control nowrap"><span class="visually-hidden"><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.duplicateFiles.column.control" /></span></th>
                         </tr>
                     </thead>
-                    <f:for each="{duplicates}" as="duplicate">
-                        <tr>
-                            <td colspan="4">
-                                <table style="width: 100%; margin:0; padding:0;">
-                                    <f:for each="{duplicate.files}" as="duplicate">
-                                        <tr style="background-color: initial;">
-                                            <td width="2%" style="padding:0;">
-                                                <core:iconForResource resource="{duplicate.file}" />
-                                            </td>
-                                            <td width="70%" style="word-break: break-word;">
-                                                {duplicate.file.identifier}<br />
-                                                <f:if condition="{duplicate.isImage}">
-                                                    <f:media file="{duplicate.file}" width="150c" height="75c" />
-                                                </f:if>
-                                            </td>
-                                            <td width="15%">
-                                                <f:if condition="!{duplicate.file.missing}">
-                                                    <f:then>
-                                                        <div class="btn-group position-static">
-                                                            <f:link.file
-                                                                file="{duplicate.file}"
-                                                                target="_blank"
-                                                                title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.duplicateFiles.openOriginalFile')}"
-                                                                class="btn btn-default btn-sm"
-                                                            >
-                                                                <core:icon identifier="actions-eye" />
-                                                            </f:link.file>
-
-                                                            <a
-                                                                href="#"
-                                                                data-dispatch-action="TYPO3.InfoWindow.showItem"
-                                                                data-dispatch-args-list="_FILE,{duplicate.file.storage.storageRecord.uid}:{duplicate.file.identifier}"
-                                                                title="{f:translate(key: 'LLL:EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf:showInfo')}"
-                                                                class="btn btn-default btn-sm"
-                                                            >
-                                                                <core:icon identifier="actions-document-info" />
-                                                            </a>
-
-                                                            <f:be.link
-                                                                route="media_management"
-                                                                parameters="{id: duplicate.file.parentFolder.combinedIdentifier, searchTerm: duplicate.file.name}"
-                                                                title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.duplicateFiles.openFileList')}"
-                                                                class="btn btn-default btn-sm"
-                                                            >
-                                                                <core:icon identifier="actions-search" />
-                                                            </f:be.link>
-                                                        </div>
-                                                    </f:then>
-                                                    <f:else>
-                                                        <span class="text-danger" title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:fileMissing.description')}">
-                                                            <f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:fileMissing" />
-                                                        </span>
-                                                    </f:else>
-                                                </f:if>
-                                            </td>
-                                            <td width="10%" style="text-align: right; padding-right: 6px;">
-                                                {duplicate.referenceCount}
-                                            </td>
-                                        </tr>
-                                    </f:for>
-                                </table>
-                            </td>
-                        </tr>
+                    <f:for each="{duplicates}" as="duplicateGroup" iteration="groupIterator">
+                        <f:for each="{duplicateGroup}" as="duplicate">
+                            <tr class="{f:if(condition: groupIterator.isEven, then: 'group-odd', else: 'group-even')}">
+                                <td class="col-thumbnail">
+                                    <f:if condition="{options.showThumbnails} && {duplicate.file.image}">
+                                        <div><f:media file="{duplicate.file}" width="{options.thumbnailWidth}" height="{options.thumbnailHeight}" /></div>
+                                    </f:if>
+                                </td>
+                                <td class="col-title col-word-break">
+                                    {duplicate.file.storage.storageRecord.name}: {duplicate.file.identifier} <br>
+                                    <f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.duplicateFiles.column.referenceCount" />: {duplicate.referenceCount}
+                                </td>
+                                <td class="col-control nowrap">
+                                    <div class="btn-group position-static">
+                                        <f:link.file
+                                            file="{duplicate.file}"
+                                            target="_blank"
+                                            title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:openOriginalFile')}"
+                                            class="btn btn-default btn-sm"
+                                        >
+                                            <core:icon identifier="actions-eye" />
+                                        </f:link.file>
+                                        <a
+                                            href="#"
+                                            data-dispatch-action="TYPO3.InfoWindow.showItem"
+                                            data-dispatch-args-list="_FILE,{duplicate.file.storage.storageRecord.uid}:{duplicate.file.identifier}"
+                                            title="{f:translate(key: 'LLL:EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf:showInfo')}"
+                                            class="btn btn-default btn-sm"
+                                        >
+                                            <core:icon identifier="actions-document-info" />
+                                        </a>
+                                        <f:be.link
+                                            route="media_management"
+                                            parameters="{id: duplicate.file.parentFolder.combinedIdentifier, searchTerm: duplicate.file.name}"
+                                            title="{f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:openFileList')}"
+                                            class="btn btn-default btn-sm"
+                                        >
+                                            <core:icon identifier="actions-search" />
+                                        </f:be.link>
+                                    </div>
+                                </td>
+                            </tr>
+                        </f:for>
                     </f:for>
                 </table>
             </div>
         </f:then>
         <f:else>
-            <div class="sitegeist-editor-widgets_info-wrapper">
-                <p class="sitegeist-editor-widgets_empty-widget">
-                    <core:icon identifier="actions-rocket" size="large" /><br />
+            <div class="callout callout-info">
+                <div class="callout-icon">
+                    <span class="icon-emphasized">
+                        <core:icon identifier="actions-approve" />
+                    </span>
+                </div>
+                <div class="callout-content">
                     <f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.duplicateFiles.empty" />
-                </p>
+                </div>
             </div>
         </f:else>
     </f:if>
 </f:section>
 <f:section name="footer">
-
 </f:section>
 </html>
