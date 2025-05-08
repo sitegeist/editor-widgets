@@ -85,8 +85,7 @@ final class DuplicateFilesWidget implements WidgetInterface, RequestAwareWidgetI
             ->select('uid', 'sha1')
             ->from('sys_file')
             ->where(
-                $queryBuilder->expr()->in('sha1', $queryBuilder->createNamedParameter($duplicatedSha1, ArrayParameterType::STRING)),
-
+                $queryBuilder->expr()->in('sha1', $queryBuilder->createNamedParameter($duplicatedSha1, ArrayParameterType::STRING))
             )
             ->executeQuery()
             ->fetchAllKeyValue();
