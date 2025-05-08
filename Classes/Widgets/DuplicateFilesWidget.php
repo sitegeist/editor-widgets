@@ -14,6 +14,7 @@ declare(strict_types=1);
  */
 namespace Sitegeist\EditorWidgets\Widgets;
 
+use Doctrine\DBAL\ArrayParameterType;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Backend\View\BackendViewFactory;
@@ -65,6 +66,7 @@ final class DuplicateFilesWidget implements WidgetInterface, RequestAwareWidgetI
             ->select('sha1')
             ->from('sys_file')
             ->where(
+                $queryBuilder->expr()->neq('sha1', $queryBuilder->createNamedParameter('')),
                 $queryBuilder->expr()->eq('missing', $queryBuilder->createNamedParameter(0, Connection::PARAM_INT)),
                 $queryBuilder->expr()->gt('storage', $queryBuilder->createNamedParameter(0, Connection::PARAM_INT)),
                 $queryBuilder->expr()->neq('name', $queryBuilder->createNamedParameter('index.html')),
@@ -79,18 +81,22 @@ final class DuplicateFilesWidget implements WidgetInterface, RequestAwareWidgetI
     public function getFileUidsFromSha1(array $duplicatedSha1): array
     {
         $queryBuilder = $this->connectionPool->getConnectionForTable('sys_file')->createQueryBuilder();
-        $uids = [];
-        foreach ($duplicatedSha1 as $sha1) {
-            $uids[] = $queryBuilder
-            ->select('uid')
+        $uids = $queryBuilder
+            ->select('uid', 'sha1')
             ->from('sys_file')
             ->where(
-                $queryBuilder->expr()->eq('sha1', $queryBuilder->createNamedParameter($sha1, Connection::PARAM_STR))
+                $queryBuilder->expr()->in('sha1', $queryBuilder->createNamedParameter($duplicatedSha1, ArrayParameterType::STRING)),
+
             )
             ->executeQuery()
-            ->fetchFirstColumn();
+            ->fetchAllKeyValue();
+
+        $groupedBySha1 = [];
+        foreach ($uids as $uid => $sha1) {
+            $groupedBySha1[$sha1][] = $uid;
         }
-        return $uids;
+
+        return $groupedBySha1;
     }
     private function getDuplicates(array $fileUidGroups): array
     {
