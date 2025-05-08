@@ -23,6 +23,7 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Resource\Exception\FileDoesNotExistException;
 use TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException;
 use TYPO3\CMS\Core\Resource\ResourceFactory;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Dashboard\Widgets\AdditionalCssInterface;
 use TYPO3\CMS\Dashboard\Widgets\RequestAwareWidgetInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
@@ -46,6 +47,7 @@ final class DuplicateFilesWidget implements WidgetInterface, RequestAwareWidgetI
             'thumbnailWidth' => '200m',
             'thumbnailHeight' => '70m',
             'duplicateLimit' => 200,
+            'excludedPaths' => [],
         ], $options);
     }
     public function renderWidgetContent(): string
@@ -62,16 +64,29 @@ final class DuplicateFilesWidget implements WidgetInterface, RequestAwareWidgetI
     public function getDuplicatedSha1(): array
     {
         $queryBuilder = $this->connectionPool->getConnectionForTable('sys_file')->createQueryBuilder();
+
+        $constraints = [
+            $queryBuilder->expr()->neq('sha1', $queryBuilder->createNamedParameter('')),
+            $queryBuilder->expr()->eq('missing', $queryBuilder->createNamedParameter(0, Connection::PARAM_INT)),
+            $queryBuilder->expr()->gt('storage', $queryBuilder->createNamedParameter(0, Connection::PARAM_INT)),
+            $queryBuilder->expr()->neq('name', $queryBuilder->createNamedParameter('index.html')),
+            $queryBuilder->expr()->notLike('identifier', $queryBuilder->quote('%_recycler_%')),
+        ];
+
+        foreach ($this->options['excludedPaths'] as $path) {
+            $identifierParts = GeneralUtility::trimExplode(':', $path);
+            $identifier = str_starts_with($identifierParts[1], '/') ? $identifierParts[1] : '/' . $identifierParts[1];
+
+            $constraints[] = $queryBuilder->expr()->or(
+                $queryBuilder->expr()->notLike('identifier', $queryBuilder->createNamedParameter($identifier . '%')),
+                $queryBuilder->expr()->neq('storage', $queryBuilder->createNamedParameter($identifierParts[0], Connection::PARAM_INT)),
+            );
+        }
+
         return $queryBuilder
             ->select('sha1')
             ->from('sys_file')
-            ->where(
-                $queryBuilder->expr()->neq('sha1', $queryBuilder->createNamedParameter('')),
-                $queryBuilder->expr()->eq('missing', $queryBuilder->createNamedParameter(0, Connection::PARAM_INT)),
-                $queryBuilder->expr()->gt('storage', $queryBuilder->createNamedParameter(0, Connection::PARAM_INT)),
-                $queryBuilder->expr()->neq('name', $queryBuilder->createNamedParameter('index.html')),
-                $queryBuilder->expr()->notLike('identifier', $queryBuilder->quote('%_recycler_%')),
-            )
+            ->where(...$constraints)
             ->groupBy('sha1', 'size')
             ->having('COUNT(*) > 1')
             ->setMaxResults((int)$this->options['duplicateLimit'])
