@@ -181,8 +181,11 @@
 				<source>Word count</source>
 			</trans-unit>
 
-			<trans-unit id="ext_conf.storageSizeWidget.combinedIdentiferConfiguration">
+			<trans-unit id="ext_conf.storageSizeWidget.combinedIdentifierConfiguration">
 				<source>Maximum size as bytes or KB, MB, GB: only used to display chart, no validation is done.</source>
+			</trans-unit>
+			<trans-unit id="ext_conf.duplicateFilesWidget.excludePaths">
+				<source>Exclude paths (, seperated): combined identifiers like: 1:/firstPath, 1:/second/path</source>
 			</trans-unit>
 
 			<trans-unit id="openOriginalFile">

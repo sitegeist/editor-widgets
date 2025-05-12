@@ -243,9 +243,13 @@
 				<target>Anzahl</target>
 			</trans-unit>
 
-			<trans-unit id="ext_conf.storageSizeWidget.combinedIdentiferConfiguration">
+			<trans-unit id="ext_conf.storageSizeWidget.combinedIdentifierConfiguration">
 				<source>Maximum size as bytes or KB, MB, GB: only used to display chart, no validation is done.</source>
 				<target>Maximale Größe in bytes oder KB, MB, GB: Nur zur Anzeige der Grafik, es erfolgt keine Validierung.</target>
+			</trans-unit>
+			<trans-unit id="ext_conf.duplicateFilesWidget.excludePaths">
+				<source>Exclude paths (, seperated): combined identifiers like: 1:/firstPath, 1:/second/path</source>
+				<target>Ausgeschlossene Pfade (, getrennt): combined identifiers wie z.B.: 1:/ersterPfad, 1:/zweiter/Pfad</target>
 			</trans-unit>
 
 			<trans-unit id="openOriginalFile">
