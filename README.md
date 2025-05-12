@@ -15,6 +15,7 @@ Shows the top 10 biggest files that are not used.
 
 ### Duplicate files
 Shows a list of suspected, duplicated files based on the sha1-hash from sys_file.
+Extension configuration includes a field fo defining excluded paths.
 
 ![Preview of Duplicate files widget](Documentation/Images/duplicateFiles.png)
 
