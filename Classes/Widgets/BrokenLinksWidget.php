@@ -37,11 +37,11 @@ final class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInte
 
     public function __construct(
         private readonly BackendViewFactory $backendViewFactory,
-        private readonly ?BrokenLinkRepository $brokenLinkRepository = null,
         private readonly ConnectionPool $connectionPool,
+        private readonly WidgetConfigurationInterface $configuration,
+        private readonly ?BrokenLinkRepository $brokenLinkRepository = null,
         private readonly ?LinktypeRegistry $linktypeRegistry = null,
         private readonly ?PagesRepository $pagesRepository = null,
-        private readonly WidgetConfigurationInterface $configuration,
         private readonly array $options = []
     ) {
     }
