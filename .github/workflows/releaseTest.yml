@@ -1,0 +1,16 @@
+name: TYPO3 TER Upload
+
+on:
+  push:
+    branches:
+      - "terUploadTest"
+
+jobs:
+  TERUpload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: tomasnorre/typo3-upload-ter@v2
+        with:
+          api-token: ${{ secrets.TYPO3_API_TOKEN }}
+          php-version: 8.3
