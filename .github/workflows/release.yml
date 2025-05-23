@@ -10,9 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: composer --version
-      - run: composer prepare-release -vvv
-      - uses: tomasnorre/typo3-upload-ter@v2.2.1
+      - uses: tomasnorre/typo3-upload-ter@v2
         with:
           api-token: ${{ secrets.TYPO3_API_TOKEN }}
           php-version: 8.3

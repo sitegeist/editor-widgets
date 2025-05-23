@@ -47,9 +47,7 @@
 	},
 	"scripts": {
 		"prepare-release": [
-			"echo ${GITHUB_REF#refs/tags/}",
 			"sed -i'' -e \"s/'version' => ''/'version' => '$(echo ${GITHUB_REF#refs/tags/} | sed 's/v//')'/\" ext_emconf.php",
-			"grep version ext_emconf.php",
 			"rm .editorconfig",
 			"rm .gitignore",
 			"rm .php-cs-fixer.dist.php"
