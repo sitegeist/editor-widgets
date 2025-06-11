@@ -34,7 +34,6 @@ return function (ContainerConfigurator $configurator) {
 
     $languageFilePath = 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf';
     $commonTags = [
-        'additionalCssClasses' => 'sitegeist-editor-widgets',
         'groupNames' => 'systemInfo',
         'height' => 'medium',
         'iconIdentifier' => 'editor-widgets',
