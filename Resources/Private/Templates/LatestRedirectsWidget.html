@@ -27,9 +27,22 @@
                                 {redirect.source_path -> f:format.crop(maxCharacters:100)}
                             </td>
                             <td>
-                                <f:link.typolink parameter="{redirect.target}" target="_blank">
-                                    <f:uri.typolink parameter="{redirect.target}" /> [{rd:targetPageId(target:redirect.target)}]
+                                <f:variable name="targetUri" value="{f:uri.typolink(parameter:redirect.target)}" />
+                                <f:link.typolink
+                                    parameter="{redirect.target}"
+                                    target="_blank"
+                                    title="{f:translate(key: 'LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:visit_destination')} {f:if(condition: targetUri, then:targetUri, else:redirect.target)}"
+                                >
+                                    {f:if(condition: targetUri, then:targetUri, else:redirect.target)}
                                 </f:link.typolink>
+                                <f:variable name="pageRow" value="{rd:targetPageRecord(target:redirect.target)}" />
+                                <f:if condition="{pageRow}">(<f:translate key="LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:pageID"/>:
+                                    <be:link.editRecord
+                                        table="pages"
+                                        uid="{pageRow.uid}"
+                                        title="{f:translate(key: 'LLL:EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf:edit')}: {redirect.source_path}"
+                                    ><core:iconForRecord table="pages" row="{pageRow}" /> {pageRow.uid}</be:link.editRecord>)
+                                </f:if>
                             </td>
                             <td>{redirect.target_statuscode}</td>
                             <td>{redirect.hitcount}</td>
