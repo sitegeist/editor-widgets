@@ -3,6 +3,7 @@
 declare(strict_types=1);
 namespace Sitegeist\EditorWidgets;
 
+use Sitegeist\EditorWidgets\Updates\ReplaceLastChangedPagesWidgetWithCoreUpgradeWizard;
 use Sitegeist\EditorWidgets\Widgets\BrokenLinksWidget;
 use Sitegeist\EditorWidgets\Widgets\DuplicateFilesWidget;
 use Sitegeist\EditorWidgets\Widgets\IndexedSearchStatisticWidget;
@@ -24,6 +25,9 @@ return function (ContainerConfigurator $configurator) {
         ->autowire()
         ->autoconfigure()
         ->public(false);
+
+    $services->set(ReplaceLastChangedPagesWidgetWithCoreUpgradeWizard::class)
+        ->public(true);
 
     $services->set('cache.editor_widgets.storageSize')
         ->class(FrontendInterface::class)
