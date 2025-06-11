@@ -6,7 +6,6 @@ namespace Sitegeist\EditorWidgets;
 use Sitegeist\EditorWidgets\Widgets\BrokenLinksWidget;
 use Sitegeist\EditorWidgets\Widgets\DuplicateFilesWidget;
 use Sitegeist\EditorWidgets\Widgets\IndexedSearchStatisticWidget;
-use Sitegeist\EditorWidgets\Widgets\LastChangedPagesWidget;
 use Sitegeist\EditorWidgets\Widgets\LatestRedirectsWidget;
 use Sitegeist\EditorWidgets\Widgets\StorageSizeWidget;
 use Sitegeist\EditorWidgets\Widgets\UnusedFilesWidget;
@@ -58,12 +57,6 @@ return function (ContainerConfigurator $configurator) {
         ->tag('dashboard.widget', array_merge($commonTags, [
             'title' => $languageFilePath . ':widgets.duplicateFiles.title',
             'description' => $languageFilePath . ':widgets.duplicateFiles.description',
-        ]));
-
-    $services->set(LastChangedPagesWidget::class)
-        ->tag('dashboard.widget', array_merge($commonTags, [
-            'title' => $languageFilePath . ':widgets.lastChangedPages.title',
-            'description' => $languageFilePath . ':widgets.lastChangedPages.description',
         ]));
 
     if (class_exists(BrokenLinkRepository::class)) {

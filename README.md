@@ -22,7 +22,7 @@ Extension configuration includes a field fo defining excluded paths.
 ### Last changed pages
 Simply a list of the last 10 edited pages that are accessible by the current backend user.
 
-![Preview of Last changed pages widget](Documentation/Images/lastChangedPages.png)
+This widget has been integrated into the TYPO3 Core v13.
 
 ### Latest redirects
 The last 10 updated redirects.
