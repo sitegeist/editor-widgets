@@ -34,7 +34,7 @@ return function (ContainerConfigurator $configurator) {
 
     $languageFilePath = 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf';
     $commonTags = [
-        'groupNames' => 'systemInfo',
+        'groupNames' => 'content',
         'height' => 'medium',
         'iconIdentifier' => 'editor-widgets',
         'width' => 'medium',
