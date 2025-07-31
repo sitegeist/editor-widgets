@@ -188,6 +188,10 @@
 				<source>Last check</source>
 				<target>Letzte Überprüfung</target>
 			</trans-unit>
+			<trans-unit id="widgets.brokenLinks.tableHead.control">
+				<source>Control</source>
+				<target>Interaktion</target>
+			</trans-unit>
 
 			<trans-unit id="widgets.indexedSearchStatistics.title">
 				<source>List of most searched words</source>

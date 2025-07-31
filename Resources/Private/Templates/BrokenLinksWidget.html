@@ -12,6 +12,7 @@
                         <th><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.brokenLinks.tableHead.linktarget" /></th>
                         <th><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.brokenLinks.tableHead.linkmessage" /></th>
                         <th><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.brokenLinks.tableHead.lastCheck" /></th>
+                        <th class="col-control nowrap"><span class="visually-hidden"><f:translate key="LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.brokenLinks.tableHead.control" /></span></th>
                     </tr>
 
                     <f:for each="{brokenLinks}" as="brokenLink">
@@ -97,7 +98,7 @@
                 <br /><span class="error"> ({f:translate(key: 'LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.brokenLinks.needsRecheck')})</span>
             </f:if>
         </td>
-        <td>
+        <td class="col-control nowrap">
             <div class="btn-group position-static">
                 <be:link.editRecord
                     class="btn btn-default btn-sm"
