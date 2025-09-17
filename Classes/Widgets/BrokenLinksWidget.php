@@ -89,7 +89,7 @@ final class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInte
                     $brokenLink['persistentUid'] = $this->createNewPersistentBrokenLink($brokenLink['hash']);
                 } catch (\Doctrine\DBAL\Exception $e) {
                     $view->assign('error', true);
-                    return $view->render();
+                    return $view->render('BrokenLinksWidget');
                 }
                 $enabledBrokenLinks[$brokenLink['hash']] = $brokenLink;
                 continue;
