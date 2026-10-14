@@ -2,6 +2,7 @@
 
 namespace Sitegeist\EditorWidgets\Widgets;
 
+use Doctrine\DBAL\Exception;
 use Sitegeist\EditorWidgets\Traits\RequestAwareTrait;
 use Sitegeist\EditorWidgets\Traits\WidgetTrait;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
@@ -30,8 +31,8 @@ final class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInte
     use RequestAwareTrait;
     use WidgetTrait;
 
-    const PAGE_ID = 0;
-    const PERSISTENT_TABLE = 'tx_editor_widgets_broken_link';
+    public const PAGE_ID = 0;
+    public const PERSISTENT_TABLE = 'tx_editor_widgets_broken_link';
 
     private $clause;
 
@@ -50,7 +51,6 @@ final class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInte
     {
         $languageServiceFactory = GeneralUtility::makeInstance(LanguageServiceFactory::class);
         $GLOBALS['LANG'] = $languageServiceFactory->createFromUserPreferences($GLOBALS['BE_USER']);
-        $GLOBALS['LANG']->includeLLFile('EXT:linkvalidator/Resources/Private/Language/Module/locallang.xlf');
 
         $brokenLinks = $this->brokenLinkRepository->getAllBrokenLinksForPages(
             $this->getPageList(),
@@ -68,7 +68,8 @@ final class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInte
                 $recordWorkspaceId = $this->getRecordWorkspaceId($brokenLink['table_name'], $brokenLink['record_uid']);
                 $brokenLink['isWorkspaceRecord'] = $recordWorkspaceId > 0;
 
-                if ($brokenLink['isWorkspaceRecord']
+                if (
+                    $brokenLink['isWorkspaceRecord']
                     && $recordWorkspaceId != $this->getBackendUser()->workspace
                 ) {
                     continue;
@@ -87,7 +88,7 @@ final class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInte
                 $brokenLink['suppressed'] = 0;
                 try {
                     $brokenLink['persistentUid'] = $this->createNewPersistentBrokenLink($brokenLink['hash']);
-                } catch (\Doctrine\DBAL\Exception $e) {
+                } catch (Exception $e) {
                     $view->assign('error', true);
                     return $view->render('BrokenLinksWidget');
                 }
@@ -219,6 +220,10 @@ final class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInte
             ['linkvalidator_link' => $hash],
             [Connection::PARAM_STR]
         );
-        return $connection->lastInsertId(self::PERSISTENT_TABLE);
+        return $connection->lastInsertId();
+    }
+    public function getOptions(): array
+    {
+        return $this->options;
     }
 }

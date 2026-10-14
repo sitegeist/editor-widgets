@@ -27,8 +27,8 @@
 	],
 	"homepage": "https://github.com/sitegeist/editor-widgets",
 	"require": {
-		"php": ">=8.1",
-		"typo3/cms-dashboard": "^13.4.10"
+		"php": ">=8.2",
+		"typo3/cms-dashboard": "^14.3"
 	},
 	"suggest": {
 		"typo3/cms-indexed-search": "List of most searched words widget shows search words tracked by IndexedSearch",

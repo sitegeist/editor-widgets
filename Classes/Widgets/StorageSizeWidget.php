@@ -68,9 +68,9 @@ final class StorageSizeWidget implements WidgetInterface, EventDataInterface, Re
                 ],
                 'data' => [
                     'labels' => [
-                        $languageService->sL('LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.storageSize.chart.used')
+                        $languageService->sL('editor_widgets.messages:widgets.storageSize.chart.used')
                             . ' ' . GeneralUtility::formatSize($storageData['bytesUsed'], '| kB| MB| GB| TB| PB| EB| ZB| YB'),
-                        $languageService->sL('LLL:EXT:editor_widgets/Resources/Private/Language/locallang.xlf:widgets.storageSize.chart.free')
+                        $languageService->sL('editor_widgets.messages:widgets.storageSize.chart.free')
                             . ' ' . GeneralUtility::formatSize($storageData['bytesFree'], '| kB| MB| GB| TB| PB| EB| ZB| YB'),
                     ],
                     'datasets' => [
@@ -134,5 +134,9 @@ final class StorageSizeWidget implements WidgetInterface, EventDataInterface, Re
         pclose($fio);
         $size = preg_split('/\s/', $output)[0] ?? 0;
         return GeneralUtility::getBytesFromSizeMeasurement($size);
+    }
+    public function getOptions(): array
+    {
+        return $this->options;
     }
 }

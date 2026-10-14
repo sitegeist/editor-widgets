@@ -17,12 +17,11 @@ declare(strict_types=1);
 
 namespace Sitegeist\EditorWidgets\Updates;
 
+use TYPO3\CMS\Core\Attribute\UpgradeWizard;
+use TYPO3\CMS\Core\Upgrades\UpgradeWizardInterface;
 use TYPO3\CMS\Core\Database\Connection;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
-use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
 /**
  * @since 13.0
@@ -31,6 +30,9 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 class ReplaceLastChangedPagesWidgetWithCoreUpgradeWizard implements UpgradeWizardInterface
 {
     protected const TABLE_NAME = 'be_dashboards';
+    public function __construct(private readonly ConnectionPool $connectionPool)
+    {
+    }
 
     public function getTitle(): string
     {
@@ -57,7 +59,6 @@ class ReplaceLastChangedPagesWidgetWithCoreUpgradeWizard implements UpgradeWizar
         $connection = $this->getConnectionPool()->getConnectionForTable(self::TABLE_NAME);
 
         foreach ($this->getRecordsToUpdate() as $record) {
-
             $widgets = json_decode($record['widgets'], true);
             foreach ($widgets as &$widget) {
                 if ($widget['identifier'] == 'Sitegeist\EditorWidgets\Widgets\LastChangedPagesWidget') {
@@ -100,6 +101,6 @@ class ReplaceLastChangedPagesWidgetWithCoreUpgradeWizard implements UpgradeWizar
 
     protected function getConnectionPool(): ConnectionPool
     {
-        return GeneralUtility::makeInstance(ConnectionPool::class);
+        return $this->connectionPool;
     }
 }

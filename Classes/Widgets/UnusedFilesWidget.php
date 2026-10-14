@@ -72,4 +72,8 @@ final class UnusedFilesWidget implements WidgetInterface, RequestAwareWidgetInte
             'EXT:editor_widgets/Resources/Public/Css/backend.css',
         ];
     }
+    public function getOptions(): array
+    {
+        return $this->options;
+    }
 }

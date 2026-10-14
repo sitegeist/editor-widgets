@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace Sitegeist\EditorWidgets;
 
 use Sitegeist\EditorWidgets\Updates\ReplaceLastChangedPagesWidgetWithCoreUpgradeWizard;
