@@ -1,189 +1,182 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2018-11-09UTC10:44:160">
-		<body>
-			<trans-unit id="widgets.storageSize.title">
-				<source>Storage usage</source>
-			</trans-unit>
-			<trans-unit id="widgets.storageSize.description">
-				<source>Show usage in percent of default storage</source>
-			</trans-unit>
-			<trans-unit id="widgets.storageSize.chart.used">
-				<source>Used</source>
-			</trans-unit>
-			<trans-unit id="widgets.storageSize.chart.free">
-				<source>Free</source>
-			</trans-unit>
-
-			<trans-unit id="widgets.unusedFiles.title">
-				<source>Biggest unused files</source>
-			</trans-unit>
-			<trans-unit id="widgets.unusedFiles.description">
-				<source>Displays the 10 biggest files that are not referenced</source>
-			</trans-unit>
-			<trans-unit id="widgets.unusedFiles.empty">
-				<source>No unused files found</source>
-			</trans-unit>
-
-			<trans-unit id="widgets.duplicateFiles.title" resname="widgets.duplicateFiles.title" xml:space="preserve">
-				<source>Duplicate files</source>
-			</trans-unit>
-			<trans-unit id="widgets.duplicateFiles.description" resname="widgets.duplicateFiles.description" xml:space="preserve">
-				<source>Displays files that exists multiple times</source>
-			</trans-unit>
-			<trans-unit id="widgets.duplicateFiles.empty" resname="widgets.duplicateFiles.empty" xml:space="preserve">
-				<source>No duplicate files found</source>
-			</trans-unit>
-			<trans-unit id="widgets.duplicateFiles.column.file" resname="widgets.duplicateFiles.column.file" xml:space="preserve">
-				<source>File</source>
-			</trans-unit>
-			<trans-unit id="widgets.duplicateFiles.column.control" resname="widgets.duplicateFiles.column.control" xml:space="preserve">
-				<source>Control</source>
-			</trans-unit>
-			<trans-unit id="widgets.duplicateFiles.column.referenceCount" resname="widgets.duplicateFiles.column.referenceCount" xml:space="preserve">
-				<source>References</source>
-			</trans-unit>
-
-			<trans-unit id="widgets.latestRedirects.title">
-				<source>Latest redirects</source>
-			</trans-unit>
-			<trans-unit id="widgets.latestRedirects.description">
-				<source>Shows a list of latest redirects</source>
-			</trans-unit>
-			<trans-unit id="widgets.latestRedirects.empty">
-				<source>No redirects found</source>
-			</trans-unit>
-			<trans-unit id="widgets.latestRedirects.sourceDomain">
-				<source>Source Domain</source>
-			</trans-unit>
-			<trans-unit id="widgets.latestRedirects.sourcePath">
-				<source>Source Path</source>
-			</trans-unit>
-			<trans-unit id="widgets.latestRedirects.sourceTarget">
-				<source>Source Target</source>
-			</trans-unit>
-			<trans-unit id="widgets.latestRedirects.statusCode">
-				<source>Status Code</source>
-			</trans-unit>
-			<trans-unit id="widgets.latestRedirects.hitCount">
-				<source>Hit Count</source>
-			</trans-unit>
-			<trans-unit id="widgets.latestRedirects.lastHit">
-				<source>Last Hit</source>
-			</trans-unit>
-			<trans-unit id="widgets.latestRedirects.updated">
-				<source>Updated ▼</source>
-			</trans-unit>
-			<trans-unit id="widgets.latestRedirects.edit">
-				<source>Edit Redirect</source>
-			</trans-unit>
-
-			<trans-unit id="widgets.brokenLinks.title">
-				<source>Broken links</source>
-			</trans-unit>
-			<trans-unit id="widgets.brokenLinks.description">
-				<source>Shows a list of broken links (based on tx_linkvalidator)</source>
-			</trans-unit>
-			<trans-unit id="widgets.brokenLinks.text">
-				<source><![CDATA[Broken link is used in record <strong>%s</strong>
+    <file source-language="en" datatype="plaintext" original="messages" date="2018-11-09UTC10:44:160">
+        <body>
+            <trans-unit id="widgets.storageSize.title">
+                <source>Storage usage</source>
+            </trans-unit>
+            <trans-unit id="widgets.storageSize.description">
+                <source>Show usage in percent of default storage</source>
+            </trans-unit>
+            <trans-unit id="widgets.storageSize.chart.used">
+                <source>Used</source>
+            </trans-unit>
+            <trans-unit id="widgets.storageSize.chart.free">
+                <source>Free</source>
+            </trans-unit>
+            <trans-unit id="widgets.unusedFiles.title">
+                <source>Biggest unused files</source>
+            </trans-unit>
+            <trans-unit id="widgets.unusedFiles.description">
+                <source>Displays the 10 biggest files that are not referenced</source>
+            </trans-unit>
+            <trans-unit id="widgets.unusedFiles.empty">
+                <source>No unused files found</source>
+            </trans-unit>
+            <trans-unit id="widgets.duplicateFiles.title" resname="widgets.duplicateFiles.title" xml:space="preserve">
+                <source>Duplicate files</source>
+            </trans-unit>
+            <trans-unit id="widgets.duplicateFiles.description" resname="widgets.duplicateFiles.description" xml:space="preserve">
+                <source>Displays files that exists multiple times</source>
+            </trans-unit>
+            <trans-unit id="widgets.duplicateFiles.empty" resname="widgets.duplicateFiles.empty" xml:space="preserve">
+                <source>No duplicate files found</source>
+            </trans-unit>
+            <trans-unit id="widgets.duplicateFiles.column.file" resname="widgets.duplicateFiles.column.file" xml:space="preserve">
+                <source>File</source>
+            </trans-unit>
+            <trans-unit id="widgets.duplicateFiles.column.control" resname="widgets.duplicateFiles.column.control" xml:space="preserve">
+                <source>Control</source>
+            </trans-unit>
+            <trans-unit id="widgets.duplicateFiles.column.referenceCount" resname="widgets.duplicateFiles.column.referenceCount" xml:space="preserve">
+                <source>References</source>
+            </trans-unit>
+            <trans-unit id="widgets.latestRedirects.title">
+                <source>Latest redirects</source>
+            </trans-unit>
+            <trans-unit id="widgets.latestRedirects.description">
+                <source>Shows a list of latest redirects</source>
+            </trans-unit>
+            <trans-unit id="widgets.latestRedirects.empty">
+                <source>No redirects found</source>
+            </trans-unit>
+            <trans-unit id="widgets.latestRedirects.sourceDomain">
+                <source>Source Domain</source>
+            </trans-unit>
+            <trans-unit id="widgets.latestRedirects.sourcePath">
+                <source>Source Path</source>
+            </trans-unit>
+            <trans-unit id="widgets.latestRedirects.sourceTarget">
+                <source>Source Target</source>
+            </trans-unit>
+            <trans-unit id="widgets.latestRedirects.statusCode">
+                <source>Status Code</source>
+            </trans-unit>
+            <trans-unit id="widgets.latestRedirects.hitCount">
+                <source>Hit Count</source>
+            </trans-unit>
+            <trans-unit id="widgets.latestRedirects.lastHit">
+                <source>Last Hit</source>
+            </trans-unit>
+            <trans-unit id="widgets.latestRedirects.updated">
+                <source>Updated ▼</source>
+            </trans-unit>
+            <trans-unit id="widgets.latestRedirects.edit">
+                <source>Edit Redirect</source>
+            </trans-unit>
+            <trans-unit id="widgets.brokenLinks.title">
+                <source>Broken links</source>
+            </trans-unit>
+            <trans-unit id="widgets.brokenLinks.description">
+                <source>Shows a list of broken links (based on tx_linkvalidator)</source>
+            </trans-unit>
+            <trans-unit id="widgets.brokenLinks.text">
+                <source>
+                    <![CDATA[Broken link is used in record <strong>%s</strong>
 					(UID: <strong>%s</strong>) on page ID <strong>%s</strong>
 					in field <strong>%s</strong>.]]>
-				</source>
-			</trans-unit>
-			<trans-unit id="widgets.brokenLinks.empty">
-				<source>No broken links found</source>
-			</trans-unit>
-			<trans-unit id="widgets.brokenLinks.error">
-				<source>Error fetching broken links. Please try again.</source>
-			</trans-unit>
-			<trans-unit id="widgets.brokenLinks.suppressedRecords">
-				<source>Suppressed Errors</source>
-			</trans-unit>
-			<trans-unit id="widgets.brokenLinks.isWorkspaceRecord">
-				<source>This record is in current workspace</source>
-			</trans-unit>
-			<trans-unit id="widgets.brokenLinks.needsRecheck">
-				<source>Needs recheck</source>
-			</trans-unit>
-			<trans-unit id="widgets.brokenLinks.success">
-				<source>OK</source>
-			</trans-unit>
-			<trans-unit id="widgets.brokenLinks.open">
-				<source>Open in new tab</source>
-			</trans-unit>
-			<trans-unit id="widgets.brokenLinks.edit">
-				<source>Edit element containing this broken link</source>
-			</trans-unit>
-			<trans-unit id="widgets.brokenLinks.suppress">
-				<source>Suppress error</source>
-			</trans-unit>
-			<trans-unit id="widgets.brokenLinks.release">
-				<source>Release error</source>
-			</trans-unit>
-			<trans-unit id="widgets.brokenLinks.tableHead.path">
-				<source>Path</source>
-			</trans-unit>
-			<trans-unit id="widgets.brokenLinks.tableHead.element">
-				<source>Element</source>
-			</trans-unit>
-			<trans-unit id="widgets.brokenLinks.tableHead.headlink">
-				<source>Link</source>
-			</trans-unit>
-			<trans-unit id="widgets.brokenLinks.tableHead.linktarget">
-				<source>URL / Link Target</source>
-			</trans-unit>
-			<trans-unit id="widgets.brokenLinks.tableHead.linkmessage">
-				<source>Error message</source>
-			</trans-unit>
-			<trans-unit id="widgets.brokenLinks.tableHead.lastCheck">
-				<source>Last check</source>
-			</trans-unit>
-			<trans-unit id="widgets.brokenLinks.tableHead.control">
-				<source>Control</source>
-			</trans-unit>
-
-
-			<trans-unit id="widgets.indexedSearchStatistics.title">
-				<source>List of most searched words</source>
-			</trans-unit>
-			<trans-unit id="widgets.indexedSearchStatistics.description">
-				<source>Last 24 hours, last 30 days and all requests</source>
-			</trans-unit>
-			<trans-unit id="widgets.indexedSearchStatistics.last24hours">
-				<source>Last 24 hours</source>
-			</trans-unit>
-			<trans-unit id="widgets.indexedSearchStatistics.last30days">
-				<source>Last 30 days</source>
-			</trans-unit>
-			<trans-unit id="widgets.indexedSearchStatistics.all">
-				<source>All</source>
-			</trans-unit>
-			<trans-unit id="widgets.indexedSearchStatistics.wordCount">
-				<source>Word count</source>
-			</trans-unit>
-
-			<trans-unit id="ext_conf.storageSizeWidget.combinedIdentifierConfiguration">
-				<source>Maximum size as bytes or KB, MB, GB: only used to display chart, no validation is done.</source>
-			</trans-unit>
-			<trans-unit id="ext_conf.duplicateFilesWidget.excludePaths">
-				<source>Exclude paths (, seperated): combined identifiers like: 1:/firstPath, 1:/second/path</source>
-			</trans-unit>
-
-			<trans-unit id="openOriginalFile">
-				<source>Open file in new window</source>
-			</trans-unit>
-			<trans-unit id="showInfo">
-				<source>Display information</source>
-			</trans-unit>
-			<trans-unit id="openFileList">
-				<source>Search in folder</source>
-			</trans-unit>
-			<trans-unit id="fileMissing">
-				<source>File missing</source>
-			</trans-unit>
-			<trans-unit id="fileMissing.description">
-				<source>please inform your administrator to run FAL: update storage index</source>
-			</trans-unit>
-		</body>
-	</file>
+                </source>
+            </trans-unit>
+            <trans-unit id="widgets.brokenLinks.empty">
+                <source>No broken links found</source>
+            </trans-unit>
+            <trans-unit id="widgets.brokenLinks.error">
+                <source>Error fetching broken links. Please try again.</source>
+            </trans-unit>
+            <trans-unit id="widgets.brokenLinks.suppressedRecords">
+                <source>Suppressed Errors</source>
+            </trans-unit>
+            <trans-unit id="widgets.brokenLinks.isWorkspaceRecord">
+                <source>This record is in current workspace</source>
+            </trans-unit>
+            <trans-unit id="widgets.brokenLinks.needsRecheck">
+                <source>Needs recheck</source>
+            </trans-unit>
+            <trans-unit id="widgets.brokenLinks.success">
+                <source>OK</source>
+            </trans-unit>
+            <trans-unit id="widgets.brokenLinks.open">
+                <source>Open in new tab</source>
+            </trans-unit>
+            <trans-unit id="widgets.brokenLinks.edit">
+                <source>Edit element containing this broken link</source>
+            </trans-unit>
+            <trans-unit id="widgets.brokenLinks.suppress">
+                <source>Suppress error</source>
+            </trans-unit>
+            <trans-unit id="widgets.brokenLinks.release">
+                <source>Release error</source>
+            </trans-unit>
+            <trans-unit id="widgets.brokenLinks.tableHead.path">
+                <source>Path</source>
+            </trans-unit>
+            <trans-unit id="widgets.brokenLinks.tableHead.element">
+                <source>Element</source>
+            </trans-unit>
+            <trans-unit id="widgets.brokenLinks.tableHead.headlink">
+                <source>Link</source>
+            </trans-unit>
+            <trans-unit id="widgets.brokenLinks.tableHead.linktarget">
+                <source>URL / Link Target</source>
+            </trans-unit>
+            <trans-unit id="widgets.brokenLinks.tableHead.linkmessage">
+                <source>Error message</source>
+            </trans-unit>
+            <trans-unit id="widgets.brokenLinks.tableHead.lastCheck">
+                <source>Last check</source>
+            </trans-unit>
+            <trans-unit id="widgets.brokenLinks.tableHead.control">
+                <source>Control</source>
+            </trans-unit>
+            <trans-unit id="widgets.indexedSearchStatistics.title">
+                <source>List of most searched words</source>
+            </trans-unit>
+            <trans-unit id="widgets.indexedSearchStatistics.description">
+                <source>Last 24 hours, last 30 days and all requests</source>
+            </trans-unit>
+            <trans-unit id="widgets.indexedSearchStatistics.last24hours">
+                <source>Last 24 hours</source>
+            </trans-unit>
+            <trans-unit id="widgets.indexedSearchStatistics.last30days">
+                <source>Last 30 days</source>
+            </trans-unit>
+            <trans-unit id="widgets.indexedSearchStatistics.all">
+                <source>All</source>
+            </trans-unit>
+            <trans-unit id="widgets.indexedSearchStatistics.wordCount">
+                <source>Word count</source>
+            </trans-unit>
+            <trans-unit id="ext_conf.storageSizeWidget.combinedIdentifierConfiguration">
+                <source>Maximum size as bytes or KB, MB, GB: only used to display chart, no validation is done.</source>
+            </trans-unit>
+            <trans-unit id="ext_conf.duplicateFilesWidget.excludePaths">
+                <source>Exclude paths (, seperated): combined identifiers like: 1:/firstPath, 1:/second/path</source>
+            </trans-unit>
+            <trans-unit id="openOriginalFile">
+                <source>Open file in new window</source>
+            </trans-unit>
+            <trans-unit id="showInfo">
+                <source>Display information</source>
+            </trans-unit>
+            <trans-unit id="openFileList">
+                <source>Search in folder</source>
+            </trans-unit>
+            <trans-unit id="fileMissing">
+                <source>File missing</source>
+            </trans-unit>
+            <trans-unit id="fileMissing.description">
+                <source>please inform your administrator to run FAL: update storage index</source>
+            </trans-unit>
+        </body>
+    </file>
 </xliff>
