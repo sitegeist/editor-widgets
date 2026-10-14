@@ -51,7 +51,6 @@ final class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInte
     {
         $languageServiceFactory = GeneralUtility::makeInstance(LanguageServiceFactory::class);
         $GLOBALS['LANG'] = $languageServiceFactory->createFromUserPreferences($GLOBALS['BE_USER']);
-        $GLOBALS['LANG']->includeLLFile('EXT:linkvalidator/Resources/Private/Language/Module/locallang.xlf');
 
         $brokenLinks = $this->brokenLinkRepository->getAllBrokenLinksForPages(
             $this->getPageList(),
