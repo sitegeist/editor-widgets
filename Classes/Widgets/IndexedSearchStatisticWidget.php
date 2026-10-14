@@ -17,7 +17,7 @@ final class IndexedSearchStatisticWidget implements WidgetInterface, RequestAwar
     use RequestAwareTrait;
     use WidgetTrait;
 
-    const NUM_ROWS = 30;
+    public const NUM_ROWS = 30;
 
     public function __construct(
         private readonly BackendViewFactory $backendViewFactory,

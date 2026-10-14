@@ -31,8 +31,8 @@ final class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInte
     use RequestAwareTrait;
     use WidgetTrait;
 
-    const PAGE_ID = 0;
-    const PERSISTENT_TABLE = 'tx_editor_widgets_broken_link';
+    public const PAGE_ID = 0;
+    public const PERSISTENT_TABLE = 'tx_editor_widgets_broken_link';
 
     private $clause;
 

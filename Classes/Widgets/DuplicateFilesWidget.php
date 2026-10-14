@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /*
  * This file is part of the TYPO3 CMS project.
@@ -12,6 +13,7 @@ declare(strict_types=1);
  *
  * The TYPO3 project - inspiring people to share!
  */
+
 namespace Sitegeist\EditorWidgets\Widgets;
 
 use Doctrine\DBAL\ArrayParameterType;
@@ -158,7 +160,9 @@ final class DuplicateFilesWidget implements WidgetInterface, RequestAwareWidgetI
                 $fileUidList
             ));
         }
-        return array_filter($duplicates, static function ($files) { return count($files) >= 2; });
+        return array_filter($duplicates, static function ($files) {
+            return count($files) >= 2;
+        });
     }
 
     public function getOptions(): array
