@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -99,7 +100,7 @@ final class DuplicateFilesWidget implements WidgetInterface, RequestAwareWidgetI
     {
         try {
             $excludePaths = GeneralUtility::trimExplode(',', $this->extensionConfiguration->get('editor_widgets', 'duplicateFilesWidget_excludePaths'), true);
-        } catch (ExtensionConfigurationExtensionNotConfiguredException|ExtensionConfigurationPathDoesNotExistException) {
+        } catch (ExtensionConfigurationExtensionNotConfiguredException | ExtensionConfigurationPathDoesNotExistException) {
             $excludePaths = [];
         }
         $constraints = [];

@@ -59,7 +59,6 @@ class ReplaceLastChangedPagesWidgetWithCoreUpgradeWizard implements UpgradeWizar
         $connection = $this->getConnectionPool()->getConnectionForTable(self::TABLE_NAME);
 
         foreach ($this->getRecordsToUpdate() as $record) {
-
             $widgets = json_decode($record['widgets'], true);
             foreach ($widgets as &$widget) {
                 if ($widget['identifier'] == 'Sitegeist\EditorWidgets\Widgets\LastChangedPagesWidget') {

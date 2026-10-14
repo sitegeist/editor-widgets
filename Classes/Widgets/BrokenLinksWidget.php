@@ -69,7 +69,8 @@ final class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInte
                 $recordWorkspaceId = $this->getRecordWorkspaceId($brokenLink['table_name'], $brokenLink['record_uid']);
                 $brokenLink['isWorkspaceRecord'] = $recordWorkspaceId > 0;
 
-                if ($brokenLink['isWorkspaceRecord']
+                if (
+                    $brokenLink['isWorkspaceRecord']
                     && $recordWorkspaceId != $this->getBackendUser()->workspace
                 ) {
                     continue;
