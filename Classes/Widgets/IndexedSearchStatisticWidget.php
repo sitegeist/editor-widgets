@@ -65,4 +65,8 @@ final class IndexedSearchStatisticWidget implements WidgetInterface, RequestAwar
 
         return $queryBuilder->executeQuery()->fetchAllAssociative();
     }
+    public function getOptions(): array
+    {
+        return $this->options;
+    }
 }

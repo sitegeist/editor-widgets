@@ -51,4 +51,8 @@ final class LatestRedirectsWidget implements WidgetInterface, RequestAwareWidget
             'EXT:editor_widgets/Resources/Public/Css/backend.css',
         ];
     }
+    public function getOptions(): array
+    {
+        return $this->options;
+    }
 }

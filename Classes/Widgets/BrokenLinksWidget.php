@@ -2,6 +2,7 @@
 
 namespace Sitegeist\EditorWidgets\Widgets;
 
+use Doctrine\DBAL\Exception;
 use Sitegeist\EditorWidgets\Traits\RequestAwareTrait;
 use Sitegeist\EditorWidgets\Traits\WidgetTrait;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
@@ -87,7 +88,7 @@ final class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInte
                 $brokenLink['suppressed'] = 0;
                 try {
                     $brokenLink['persistentUid'] = $this->createNewPersistentBrokenLink($brokenLink['hash']);
-                } catch (\Doctrine\DBAL\Exception $e) {
+                } catch (Exception $e) {
                     $view->assign('error', true);
                     return $view->render('BrokenLinksWidget');
                 }
@@ -219,6 +220,10 @@ final class BrokenLinksWidget implements WidgetInterface, RequestAwareWidgetInte
             ['linkvalidator_link' => $hash],
             [Connection::PARAM_STR]
         );
-        return $connection->lastInsertId(self::PERSISTENT_TABLE);
+        return $connection->lastInsertId();
+    }
+    public function getOptions(): array
+    {
+        return $this->options;
     }
 }
